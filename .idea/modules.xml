@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/TP-APIs-Grupo01.iml" filepath="$PROJECT_DIR$/.idea/TP-APIs-Grupo01.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ar.edu.uade.api/ar.edu.uade.api.iml" filepath="$PROJECT_DIR$/ar.edu.uade.api/ar.edu.uade.api.iml" />
     </modules>
   </component>
 </project>
