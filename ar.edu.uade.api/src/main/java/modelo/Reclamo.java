@@ -1,6 +1,7 @@
 package modelo;
 
 import modelo.estadosreclamo.EstadoReclamo;
+import modelo.estrategiareclamo.ITipo;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class Reclamo {
     private List<Foto> fotos;
     private Usuario usuario;
     private EstadoReclamo estado;
-    private Estrategia_Reclamo estrategia;
+    private ITipo estrategia;
     public List<String> historial;
 
     public EstadoReclamo getEstado() {
