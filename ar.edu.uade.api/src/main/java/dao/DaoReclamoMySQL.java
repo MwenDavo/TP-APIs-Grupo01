@@ -27,6 +27,7 @@ public class DaoReclamoMySQL implements DaoReclamo {
     public List<Reclamo> getByEdificio(Edificio edificio) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
+        //TODO hacer la consulta
         return null;
     }
 
@@ -34,6 +35,7 @@ public class DaoReclamoMySQL implements DaoReclamo {
     public List<Reclamo> getByUsuario(Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
+        //TODO hacer la consulta
         return null;
     }
 
