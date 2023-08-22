@@ -3,6 +3,8 @@ package dao;
 import conexion.ConexionMySQL;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import pojo.Edificio;
 import pojo.Usuario;
 
 import java.util.List;
@@ -19,6 +21,14 @@ public class DaoUsuarioMySQL implements DaoUsuario {
             instance = new DaoUsuarioMySQL();
         }
         return instance;
+    }
+
+    @Override
+    public List<Usuario> getAll() {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Query<Usuario> query = session.createQuery("FROM Usuario", Usuario.class);
+        return query.list();
     }
 
     @Override
