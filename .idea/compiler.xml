@@ -9,9 +9,5 @@
         <module name="ar.edu.uade.api" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="app" target="1.5" />
-      <module name="src" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>
