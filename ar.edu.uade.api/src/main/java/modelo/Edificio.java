@@ -13,7 +13,7 @@ public class Edificio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "edificio")
     private List<Unidad> unidades = new ArrayList<>();
     private String direccion;
     private String administrador;

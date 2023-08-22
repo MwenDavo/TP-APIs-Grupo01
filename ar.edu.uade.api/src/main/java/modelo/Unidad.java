@@ -10,13 +10,12 @@ public class Unidad {
     private int id;
     private int piso;
     private int numero;
-
-    @OneToOne
     private EstadoUnidad estado;
+    private Edificio edificio;
     @ManyToMany(mappedBy = "unidades")
     private List<Usuario> duenios;
     @OneToMany(mappedBy = "unidades")
-    private List<Usuario> inquilinos;
+    private List<Usuario> inquilinos;s
     private List<String> habitantes;
 
     public Unidad(int id, int piso, int numero, EstadoUnidad estado, List<Usuario> duenios, List<Usuario> inquilinos, List<String> habitantes) {

@@ -1,5 +1,7 @@
 package controller;
 
+import modelo.Reclamo;
+
 import java.util.List;
 
 public class ControllerReclamo {
