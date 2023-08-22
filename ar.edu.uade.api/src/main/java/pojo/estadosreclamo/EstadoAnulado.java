@@ -1,6 +1,6 @@
-package modelo.estadosreclamo;
+package pojo.estadosreclamo;
 
-import modelo.Reclamo;
+import pojo.Reclamo;
 
 public class EstadoAnulado extends EstadoReclamo{
     public EstadoAnulado(Reclamo reclamo){

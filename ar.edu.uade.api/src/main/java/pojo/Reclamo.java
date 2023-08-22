@@ -1,7 +1,7 @@
-package modelo;
+package pojo;
 
-import modelo.estadosreclamo.EstadoReclamo;
-import modelo.estrategiareclamo.ITipo;
+import pojo.estadosreclamo.EstadoReclamo;
+import pojo.estrategiareclamo.ITipo;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

@@ -1,7 +1,7 @@
-package modelo;
+package pojo;
 
 import javax.persistence.*;
-import java.util.List;
+
 @Entity
 public class Foto {
     @Id

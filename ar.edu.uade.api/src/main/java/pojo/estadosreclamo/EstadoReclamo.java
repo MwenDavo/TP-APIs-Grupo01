@@ -1,6 +1,6 @@
-package modelo.estadosreclamo;
+package pojo.estadosreclamo;
 
-import modelo.Reclamo;
+import pojo.Reclamo;
 //TODO definir funcionamiento de cada estado para agregarselo
 public abstract class EstadoReclamo {
     protected Reclamo reclamo;

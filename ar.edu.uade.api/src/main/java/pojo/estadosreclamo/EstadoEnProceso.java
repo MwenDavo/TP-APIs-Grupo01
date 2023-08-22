@@ -1,6 +1,6 @@
-package modelo.estadosreclamo;
+package pojo.estadosreclamo;
 
-import modelo.Reclamo;
+import pojo.Reclamo;
 
 public class EstadoEnProceso extends EstadoReclamo{
     public EstadoEnProceso(Reclamo reclamo){

@@ -1,7 +1,10 @@
 package dao;
 
-import modelo.Edificio;
-import org.hibernate.cfg.Configuration;
+import conexion.ConexionMySQL;
+import org.hibernate.query.Query;
+import pojo.Edificio;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -21,21 +24,36 @@ public class DaoEdificioMySQL implements DaoEdificio {
 
     @Override
     public List<Edificio> getAll() {
-        return null;
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Query<Edificio> query = session.createQuery("FROM Edificio", Edificio.class);
+        return query.list();
     }
 
     @Override
     public void save(Edificio edificio) {
-
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(edificio);
+        transaction.commit();
     }
 
     @Override
     public void update(Edificio edificio) {
-
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(edificio);
+        transaction.commit();
     }
 
     @Override
     public void delete(Edificio edificio) {
-
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(edificio);
+        transaction.commit();
     }
 }

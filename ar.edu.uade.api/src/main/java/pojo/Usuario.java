@@ -1,4 +1,4 @@
-package modelo;
+package pojo;
 
 import javax.persistence.*;
 import java.util.List;

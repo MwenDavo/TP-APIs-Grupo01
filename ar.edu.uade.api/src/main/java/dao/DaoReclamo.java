@@ -1,11 +1,15 @@
 package dao;
 
-import modelo.Reclamo;
+import pojo.Edificio;
+import pojo.Reclamo;
+import pojo.Usuario;
 
 import java.util.List;
 
 public interface DaoReclamo {
-    List<Reclamo> getAll();
+    List<Reclamo> getByEdificio(Edificio edificio);
+
+    List<Reclamo> getByUsuario(Usuario usuario);
 
     void save(Reclamo reclamo);
 

@@ -1,6 +1,11 @@
 package dao;
 
-import modelo.Reclamo;
+import conexion.ConexionMySQL;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import pojo.Edificio;
+import pojo.Reclamo;
+import pojo.Usuario;
 
 import java.util.List;
 
@@ -19,22 +24,43 @@ public class DaoReclamoMySQL implements DaoReclamo {
     }
 
     @Override
-    public List<Reclamo> getAll() {
+    public List<Reclamo> getByEdificio(Edificio edificio) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        return null;
+    }
+
+    @Override
+    public List<Reclamo> getByUsuario(Usuario usuario) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
         return null;
     }
 
     @Override
     public void save(Reclamo reclamo) {
-
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(reclamo);
+        transaction.commit();
     }
 
     @Override
     public void update(Reclamo reclamo) {
-
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(reclamo);
+        transaction.commit();
     }
 
     @Override
     public void delete(Reclamo reclamo) {
-
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(reclamo);
+        transaction.commit();
     }
 }

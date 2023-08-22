@@ -1,6 +1,6 @@
 package controller;
 
-import modelo.Reclamo;
+import pojo.Reclamo;
 
 import java.util.List;
 

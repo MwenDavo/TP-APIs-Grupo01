@@ -1,9 +1,8 @@
 package conexion;
 
-import dao.DaoEdificioMySQL;
-import modelo.Edificio;
-import modelo.Reclamo;
-import modelo.Usuario;
+import pojo.Edificio;
+import pojo.Reclamo;
+import pojo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

@@ -1,6 +1,6 @@
 package controller;
 
-import modelo.Edificio;
+import pojo.Edificio;
 
 import java.util.List;
 
