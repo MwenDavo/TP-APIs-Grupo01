@@ -13,5 +13,6 @@
 
         <!-- Mapeo de las clases de entidad -->
         <!-- <mapping class="api_clase_2_hibernate.model.Estudiante" /> -->
+
     </session-factory>
 </hibernate-configuration>

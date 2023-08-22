@@ -1,13 +1,21 @@
 package modelo;
 
+import javax.persistence.*;
 import java.util.List;
 
 public class Unidad {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int piso;
     private int numero;
+
+    @OneToOne
     private EstadoUnidad estado;
+    @ManyToMany(mappedBy = "unidades")
     private List<Usuario> duenios;
+    @OneToMany(mappedBy = "unidades")
     private List<Usuario> inquilinos;
     private List<String> habitantes;
 
