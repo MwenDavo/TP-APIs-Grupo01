@@ -2,9 +2,14 @@ package modelo;
 
 import modelo.estadosreclamo.EstadoReclamo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 
 public class Reclamo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Edificio edificio;
     private String descripcion;

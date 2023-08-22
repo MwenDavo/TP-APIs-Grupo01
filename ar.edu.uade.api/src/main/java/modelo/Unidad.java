@@ -15,7 +15,7 @@ public class Unidad {
     @ManyToMany(mappedBy = "unidades")
     private List<Usuario> duenios;
     @OneToMany(mappedBy = "unidades")
-    private List<Usuario> inquilinos;s
+    private List<Usuario> inquilinos;
     private List<String> habitantes;
 
     public Unidad(int id, int piso, int numero, EstadoUnidad estado, List<Usuario> duenios, List<Usuario> inquilinos, List<String> habitantes) {
