@@ -4,6 +4,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import conexion.ConexionMySQL;
 import controller.ControllerCredencial;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import pojo.Reclamo;
 
@@ -32,7 +33,19 @@ public class DaoCredencialMySQL implements DaoCredencial {
         if (result != null) {
             return (int) result;
         }
-        return 0;
-        //TODO confirmar que auto increment no comienza en 0
+        return -1;
+    }
+
+    public void save(String user, String password) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        String sql = "INSERT INTO Credencial (id, user, password) VALUES (':id', ':user', ':password')";
+        Query query = session.createSQLQuery(sql);
+        query.setParameter("id", "id");
+        query.setParameter("user", "user");
+        query.setParameter("password", "password");
+        query.executeUpdate();
+        transaction.commit();
     }
 }
