@@ -1,8 +1,7 @@
 package controller;
 
-import dao.Dao;
-
 public class ControllerUsuario {
+    //TODO dar funcionalidad
     private static ControllerUsuario instance = null;
     private ControllerUsuario() {
 

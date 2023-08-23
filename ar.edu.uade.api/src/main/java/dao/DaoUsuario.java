@@ -6,6 +6,7 @@ import pojo.Usuario;
 import java.util.List;
 
 public interface DaoUsuario {
+    //TODO getLogin
     List<Usuario> getAll();
 
     void save(Usuario usuario);
