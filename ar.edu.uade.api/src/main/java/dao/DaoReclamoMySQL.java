@@ -24,6 +24,11 @@ public class DaoReclamoMySQL implements DaoReclamo {
         return instance;
     }
 
+    public List<Reclamo> getByState() {
+        //TODO filtrar por estados
+        return null;
+    }
+
     @Override
     public List<Reclamo> getByEdificio(Edificio edificio) {
         ConexionMySQL connection = ConexionMySQL.getInstance();

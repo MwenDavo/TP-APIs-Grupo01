@@ -12,7 +12,6 @@ public class Usuario {
     private int dni;
     private String telefono;
     private String usuario;
-    private String contra;
     @OneToMany(mappedBy = "usuario")
     private List<Reclamo> reclamos;
     @OneToMany(mappedBy = "usuario")

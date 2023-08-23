@@ -23,6 +23,12 @@ public class DaoUsuarioMySQL implements DaoUsuario {
         return instance;
     }
 
+    public Usuario get(int id) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        return session.get(Usuario.class, id);
+    }
+
     @Override
     public List<Usuario> getAll() {
         ConexionMySQL connection = ConexionMySQL.getInstance();
