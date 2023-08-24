@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import util.UsuarioUnidad;
+import util.estadounidad.EstadoUnidad;
 
 public class ConexionMySQL {
     private Session session;

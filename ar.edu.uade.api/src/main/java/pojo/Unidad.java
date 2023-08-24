@@ -1,12 +1,12 @@
 package pojo;
 
 import util.UsuarioUnidad;
+import util.estadounidad.EstadoUnidad;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "unidad")
 public class Unidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +19,20 @@ public class Unidad {
     private EstadoUnidad estado;
     @OneToMany(mappedBy = "unidad")
     private List<UsuarioUnidad> usuarios;
+    @OneToMany(mappedBy = "unidad")
+    private List<Localizado> reclamos;
 
     public Unidad() {
 
     }
 
-    public Unidad(Edificio edificio, int piso, int numero, EstadoUnidad estado, List<UsuarioUnidad> usuarios) {
+    public Unidad(Edificio edificio, int piso, int numero, EstadoUnidad estado, List<UsuarioUnidad> usuarios, List<Localizado> reclamos) {
         this.edificio = edificio;
         this.piso = piso;
         this.numero = numero;
         this.estado = estado;
         this.usuarios = usuarios;
+        this.reclamos = reclamos;
     }
 
     public int getId() {
@@ -78,5 +81,13 @@ public class Unidad {
 
     public void setUsuarios(List<UsuarioUnidad> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public List<Localizado> getReclamos() {
+        return reclamos;
+    }
+
+    public void setReclamos(List<Localizado> reclamos) {
+        this.reclamos = reclamos;
     }
 }

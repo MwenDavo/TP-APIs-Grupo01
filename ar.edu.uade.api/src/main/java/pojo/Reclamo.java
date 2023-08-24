@@ -1,30 +1,27 @@
 package pojo;
 
 import util.estadosreclamo.EstadoReclamo;
-import util.estrategiareclamo.ITipo;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipoReclamo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Reclamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne //TODO en la clase padre se vuelve redundante cuando se agrega la unidad que ya tiene el edificio
-    private Edificio edificio;
     private String descripcion;
-    @Embedded
+    @OneToMany(mappedBy = "id")
     private List<Foto> fotos;
     @ManyToOne
     private Usuario usuario;
     @Embedded
     private EstadoReclamo estado;
-    private ITipo estrategia;/*TODO propongo mejor hacer una herencia porque el comportamiento con el que se va a manejar un Reclamo
-     no va a cambiar en ejecución (Strategy) sino que será el mismo (herencia)*/
-    public List<String> historial;
 
     public Reclamo() {
 
     }
+
 }

@@ -12,13 +12,13 @@ public class Edificio {
     @OneToMany(mappedBy = "edificio")
     private List<Unidad> unidades = new ArrayList<>();
     @OneToMany(mappedBy = "edificio")
-    private List<Reclamo> reclamos = new ArrayList<>();
+    private List<General> reclamos = new ArrayList<>();
 
     public Edificio() {
 
     }
 
-    public Edificio(String direccion, List<Unidad> unidades, List<Reclamo> reclamos) {
+    public Edificio(String direccion, List<Unidad> unidades, List<General> reclamos) {
         this.direccion = direccion;
         this.unidades = unidades;
         this.reclamos = reclamos;
@@ -48,11 +48,11 @@ public class Edificio {
         this.unidades = unidades;
     }
 
-    public List<Reclamo> getReclamos() {
+    public List<General> getReclamos() {
         return reclamos;
     }
 
-    public void setReclamos(List<Reclamo> reclamos) {
+    public void setReclamos(List<General> reclamos) {
         this.reclamos = reclamos;
     }
 }

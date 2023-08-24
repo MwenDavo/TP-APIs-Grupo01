@@ -2,7 +2,7 @@ package pojo;
 
 import javax.persistence.*;
 
-@Embeddable
+@Entity
 public class Foto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

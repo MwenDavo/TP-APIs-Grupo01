@@ -3,12 +3,12 @@ package util.estadosreclamo;
 import pojo.Reclamo;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 //TODO definir funcionamiento de cada estado para agregarselo
 @Embeddable
 public abstract class EstadoReclamo {
     protected String tipo;
-
     protected Reclamo reclamo;
 
     public EstadoReclamo() {

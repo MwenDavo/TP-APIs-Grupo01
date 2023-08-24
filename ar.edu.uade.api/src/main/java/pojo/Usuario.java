@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +14,7 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
     private int dni;
     private String nombre;
-    private String telefono;
+    private int telefono;
     @OneToMany(mappedBy = "usuario")
     private List<UsuarioUnidad> unidades;
 
@@ -23,7 +22,7 @@ public class Usuario {
 
     }
 
-    public Usuario(TipoUsuario tipoUsuario, int dni, String nombre, String telefono, List<UsuarioUnidad> unidades) {
+    public Usuario(TipoUsuario tipoUsuario, int dni, String nombre, int telefono, List<UsuarioUnidad> unidades) {
         this.tipoUsuario = tipoUsuario;
         this.dni = dni;
         this.nombre = nombre;
@@ -63,11 +62,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
