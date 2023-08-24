@@ -1,10 +1,10 @@
-package pojo.estadosreclamo;
+package util.estadosreclamo;
 
 import pojo.Reclamo;
 
 public class EstadoNuevo extends EstadoReclamo{
     public EstadoNuevo(Reclamo reclamo){
-        super(reclamo);
+        super(reclamo, "nuevo");
     }
     public void Abierto(){
         reclamo.setEstado(new EstadoAbierto(reclamo));

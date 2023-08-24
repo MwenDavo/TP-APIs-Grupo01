@@ -1,10 +1,10 @@
-package pojo.estadosreclamo;
+package util.estadosreclamo;
 
 import pojo.Reclamo;
 
 public class EstadoTerminado extends EstadoReclamo{
     public EstadoTerminado(Reclamo reclamo){
-        super(reclamo);
+        super(reclamo, "terminado");
     }
     public void Abierto(){System.out.println("El reclamo esta Terminado");}
     public void Anulado(){

@@ -1,10 +1,10 @@
-package pojo.estadosreclamo;
+package util.estadosreclamo;
 
 import pojo.Reclamo;
 
 public class EstadoEnProceso extends EstadoReclamo{
     public EstadoEnProceso(Reclamo reclamo){
-        super(reclamo);
+        super(reclamo, "en proceso");
     }
     public void Abierto(){
         System.out.println("El reclamo esta en Proceso");

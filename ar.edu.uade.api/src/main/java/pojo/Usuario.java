@@ -1,21 +1,35 @@
 package pojo;
 
+import util.TipoUsuario;
+import util.UsuarioUnidad;
+
 import javax.persistence.*;
 import java.util.List;
 
-//TODO terminar herencias
+@Entity
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nombre;
+    private TipoUsuario tipoUsuario;
     private int dni;
+    private String nombre;
     private String telefono;
-    private String usuario;
     @OneToMany(mappedBy = "usuario")
-    private List<Reclamo> reclamos;
-    @OneToMany(mappedBy = "usuario")
-    private List<Unidad> unidades;
+    private List<UsuarioUnidad> unidades;
+
+    public Usuario() {
+
+    }
+
+    public Usuario(TipoUsuario tipoUsuario, int dni, String nombre, String telefono, List<UsuarioUnidad> unidades) {
+        this.tipoUsuario = tipoUsuario;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.unidades = unidades;
+    }
 
     public int getId() {
         return id;
@@ -25,12 +39,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public int getDni() {
@@ -41,6 +55,14 @@ public class Usuario {
         this.dni = dni;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -49,35 +71,11 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getContra() {
-        return contra;
-    }
-
-    public void setContra(String contra) {
-        this.contra = contra;
-    }
-
-    public List<Reclamo> getReclamos() {
-        return reclamos;
-    }
-
-    public void setReclamos(List<Reclamo> reclamos) {
-        this.reclamos = reclamos;
-    }
-
-    public List<Unidad> getUnidades() {
+    public List<UsuarioUnidad> getUnidades() {
         return unidades;
     }
 
-    public void setUnidades(List<Unidad> unidades) {
+    public void setUnidades(List<UsuarioUnidad> unidades) {
         this.unidades = unidades;
     }
 }

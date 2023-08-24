@@ -1,36 +1,27 @@
 package pojo;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class Edificio {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    private String direccion;
     @OneToMany(mappedBy = "edificio")
     private List<Unidad> unidades = new ArrayList<>();
-    private String direccion;
-    private String administrador;
-
-    @OneToMany
-    private List<Reclamo> reclamo = new ArrayList<>();
+    @OneToMany(mappedBy = "edificio")
+    private List<Reclamo> reclamos = new ArrayList<>();
 
     public Edificio() {
-        super();
+
     }
 
-    public Edificio(int id, List<Unidad> unidades, String direccion, String administrador, List<Reclamo> reclamo) {
-        this.id = id;
-        this.unidades = unidades;
+    public Edificio(String direccion, List<Unidad> unidades, List<Reclamo> reclamos) {
         this.direccion = direccion;
-        this.administrador = administrador;
-        this.reclamo = reclamo;
+        this.unidades = unidades;
+        this.reclamos = reclamos;
     }
 
     public int getId() {
@@ -41,14 +32,6 @@ public class Edificio {
         this.id = id;
     }
 
-    public List<Unidad> getUnidades() {
-        return unidades;
-    }
-
-    public void setUnidades(List<Unidad> unidades) {
-        this.unidades = unidades;
-    }
-
     public String getDireccion() {
         return direccion;
     }
@@ -57,19 +40,19 @@ public class Edificio {
         this.direccion = direccion;
     }
 
-    public String getAdministrador() {
-        return administrador;
+    public List<Unidad> getUnidades() {
+        return unidades;
     }
 
-    public void setAdministrador(String administrador) {
-        this.administrador = administrador;
+    public void setUnidades(List<Unidad> unidades) {
+        this.unidades = unidades;
     }
 
-    public List<Reclamo> getReclamo() {
-        return reclamo;
+    public List<Reclamo> getReclamos() {
+        return reclamos;
     }
 
-    public void setReclamo(List<Reclamo> reclamo) {
-        this.reclamo = reclamo;
+    public void setReclamos(List<Reclamo> reclamos) {
+        this.reclamos = reclamos;
     }
 }

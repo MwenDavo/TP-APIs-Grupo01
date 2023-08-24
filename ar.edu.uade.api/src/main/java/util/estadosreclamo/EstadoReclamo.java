@@ -1,13 +1,23 @@
-package pojo.estadosreclamo;
+package util.estadosreclamo;
 
 import pojo.Reclamo;
 
+import javax.persistence.Embeddable;
+
 //TODO definir funcionamiento de cada estado para agregarselo
+@Embeddable
 public abstract class EstadoReclamo {
+    protected String tipo;
+
     protected Reclamo reclamo;
 
-    public EstadoReclamo(Reclamo reclamo) {
+    public EstadoReclamo() {
+
+    }
+
+    public EstadoReclamo(Reclamo reclamo, String tipo) {
         this.reclamo = reclamo;
+        this.tipo = tipo;
     }
 
     public abstract void Abierto();

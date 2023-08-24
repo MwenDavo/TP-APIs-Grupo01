@@ -7,7 +7,8 @@ import pojo.Usuario;
 import java.util.List;
 
 public interface DaoReclamo {
-    //TODO getByEstado
+    List<Reclamo> getByState(String tipo);
+
     List<Reclamo> getByEdificio(Edificio edificio);
 
     List<Reclamo> getByUsuario(Usuario usuario);

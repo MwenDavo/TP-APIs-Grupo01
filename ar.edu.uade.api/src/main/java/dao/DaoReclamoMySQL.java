@@ -24,9 +24,12 @@ public class DaoReclamoMySQL implements DaoReclamo {
         return instance;
     }
 
-    public List<Reclamo> getByState() {
-        //TODO filtrar por estados
-        return null;
+    public List<Reclamo> getByState(String tipo) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE tipo = ':tipo'", Reclamo.class);
+        query.setParameter("tipo", tipo);
+        return query.list();
     }
 
     @Override

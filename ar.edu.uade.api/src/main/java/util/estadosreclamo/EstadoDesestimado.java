@@ -1,10 +1,10 @@
-package pojo.estadosreclamo;
+package util.estadosreclamo;
 
 import pojo.Reclamo;
 
 public class EstadoDesestimado extends EstadoReclamo{
     public EstadoDesestimado(Reclamo reclamo){
-        super(reclamo);
+        super(reclamo, "desestimado");
     }
     public void Abierto(){
         System.out.println("El reclamo fue Desestimado");

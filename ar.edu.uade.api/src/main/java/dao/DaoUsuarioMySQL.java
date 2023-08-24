@@ -4,6 +4,7 @@ import conexion.ConexionMySQL;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import pojo.Credencial;
 import pojo.Edificio;
 import pojo.Usuario;
 
@@ -23,10 +24,18 @@ public class DaoUsuarioMySQL implements DaoUsuario {
         return instance;
     }
 
-    public Usuario get(int id) {
+    @Override
+    public Usuario get(Credencial credencial) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        return session.get(Usuario.class, id);
+        Query<Integer> query = session.createQuery("SELECT id FROM Credencial WHERE user = ':user' AND password = ':password'");
+        query.setParameter("user", credencial.getUser());
+        query.setParameter("password", credencial.getPassword());
+        Integer result = query.uniqueResult();
+        if (result != null) {
+            return session.get(Usuario.class, (int) result);
+        }
+        return null;
     }
 
     @Override
@@ -38,10 +47,11 @@ public class DaoUsuarioMySQL implements DaoUsuario {
     }
 
     @Override
-    public void save(Usuario usuario) {
+    public void save(Credencial credencial, Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Transaction transaction = session.beginTransaction();
+        session.save(credencial);
         session.save(usuario);
         transaction.commit();
     }
@@ -59,7 +69,9 @@ public class DaoUsuarioMySQL implements DaoUsuario {
     public void delete(Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
+        Credencial credencial = session.get(Credencial.class, usuario.getId());
         Transaction transaction = session.beginTransaction();
+        session.delete(credencial);
         session.delete(usuario);
         transaction.commit();
     }

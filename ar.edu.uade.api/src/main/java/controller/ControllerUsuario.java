@@ -19,8 +19,4 @@ public class ControllerUsuario {
         return instance;
     }
 
-    public Usuario get(int id) {
-        DaoUsuario dao = DaoUsuarioMySQL.getInstance();
-        return dao.get(id);
-    }
 }
