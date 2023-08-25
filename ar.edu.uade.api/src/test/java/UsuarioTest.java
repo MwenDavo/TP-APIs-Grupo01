@@ -7,5 +7,5 @@ class UsuarioTest {
     void test() {
         /* registrar usuario */
         /* verificar usuario */
-    };
+    }
 }
