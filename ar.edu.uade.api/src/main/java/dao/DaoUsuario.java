@@ -7,6 +7,7 @@ import pojo.Usuario;
 import java.util.List;
 
 public interface DaoUsuario {
+
     Usuario get(Credencial credencial);
 
     List<Usuario> getAll();

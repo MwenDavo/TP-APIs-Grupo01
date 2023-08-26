@@ -9,19 +9,18 @@ public class Edificio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String direccion;
-    @OneToMany(mappedBy = "edificio")
+    @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
     private List<Unidad> unidades = new ArrayList<>();
-    @OneToMany(mappedBy = "edificio")
+    @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
     private List<General> reclamos = new ArrayList<>();
 
     public Edificio() {
 
     }
 
-    public Edificio(String direccion, List<Unidad> unidades, List<General> reclamos) {
+    public Edificio(String direccion, List<Unidad> unidades) {
         this.direccion = direccion;
         this.unidades = unidades;
-        this.reclamos = reclamos;
     }
 
     public int getId() {

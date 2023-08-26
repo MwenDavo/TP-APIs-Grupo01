@@ -7,11 +7,16 @@ import pojo.Usuario;
 import java.util.List;
 
 public interface DaoReclamo {
-    List<Reclamo> getByState(String tipo);
 
+    List<Reclamo> getByState(String estado);
+
+    @Deprecated
     List<Reclamo> getByEdificio(Edificio edificio);
 
+    @Deprecated
     List<Reclamo> getByUsuario(Usuario usuario);
+
+    List<Reclamo> getAll();
 
     void save(Reclamo reclamo);
 

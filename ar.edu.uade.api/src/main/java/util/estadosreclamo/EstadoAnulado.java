@@ -2,26 +2,33 @@ package util.estadosreclamo;
 
 import pojo.Reclamo;
 
-public class EstadoAnulado extends EstadoReclamo{
-    public EstadoAnulado(Reclamo reclamo){
-        super(reclamo);
+public class EstadoAnulado extends EstadoReclamo {
+
+    public EstadoAnulado(Reclamo reclamo, String estado) {
+        super(reclamo, estado);
     }
-    public void Abierto(){
+
+    public void Abierto() {
 
     }
-    public void Anulado(){
+
+    public void Anulado() {
 
     }
-    public void Desestimado(){
+
+    public void Desestimado() {
 
     }
-    public void EnProceso(){
+
+    public void EnProceso() {
 
     }
-    public void Nuevo(){
+
+    public void Nuevo() {
 
     }
-    public void Terminado(){
+
+    public void Terminado() {
 
     }
 }

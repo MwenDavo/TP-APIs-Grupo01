@@ -5,6 +5,7 @@ import org.hibernate.query.Query;
 import pojo.Edificio;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pojo.Unidad;
 
 import java.util.List;
 
@@ -45,6 +46,15 @@ public class DaoEdificioMySQL implements DaoEdificio {
         Session session = connection.getSession();
         Transaction transaction = session.beginTransaction();
         session.update(edificio);
+        transaction.commit();
+    }
+
+    @Override
+    public void updateDpto(Unidad unidad) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(unidad);
         transaction.commit();
     }
 
