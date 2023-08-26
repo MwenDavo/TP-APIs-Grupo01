@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import util.UsuarioUnidad;
-import util.estadounidad.EstadoUnidad;
 
 public class ConexionMySQL {
     private Session session;
@@ -20,7 +19,6 @@ public class ConexionMySQL {
         configuration.addAnnotatedClass(Foto.class);
         configuration.addAnnotatedClass(Unidad.class);
         configuration.addAnnotatedClass(UsuarioUnidad.class);
-        configuration.addAnnotatedClass(EstadoUnidad.class);
         configuration.addAnnotatedClass(Credencial.class);
         //TODO agregar las AnnotatedClass faltantes
         SessionFactory sessionFactory = configuration.buildSessionFactory();

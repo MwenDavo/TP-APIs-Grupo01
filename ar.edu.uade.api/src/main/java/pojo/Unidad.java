@@ -1,7 +1,7 @@
 package pojo;
 
 import util.UsuarioUnidad;
-import util.estadounidad.EstadoUnidad;
+import util.estadosunidad.EstadoUnidad;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +15,7 @@ public class Unidad {
     private Edificio edificio;
     private int piso;
     private int numero;
-    @Embedded //TODO borrar anotacion si no se hacen States
+    @Embedded
     private EstadoUnidad estado;
     @OneToMany(mappedBy = "unidad")
     private List<UsuarioUnidad> usuarios;
