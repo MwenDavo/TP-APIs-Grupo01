@@ -12,5 +12,11 @@ public class General extends Reclamo {
         super();
     }
 
+    public Edificio getEdificio() {
+        return edificio;
+    }
 
+    public void setEdificio(Edificio edificio) {
+        this.edificio = edificio;
+    }
 }

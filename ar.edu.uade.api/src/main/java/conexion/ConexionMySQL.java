@@ -13,14 +13,13 @@ public class ConexionMySQL {
 
     private ConexionMySQL() {
         Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(Edificio.class);
-        configuration.addAnnotatedClass(Reclamo.class);
-        configuration.addAnnotatedClass(Usuario.class);
-        configuration.addAnnotatedClass(Foto.class);
-        configuration.addAnnotatedClass(Unidad.class);
-        configuration.addAnnotatedClass(UsuarioUnidad.class);
         configuration.addAnnotatedClass(Credencial.class);
-        //TODO agregar las AnnotatedClass faltantes
+        configuration.addAnnotatedClass(Edificio.class);
+        configuration.addAnnotatedClass(Foto.class);
+        configuration.addAnnotatedClass(Reclamo.class);
+        configuration.addAnnotatedClass(Unidad.class);
+        configuration.addAnnotatedClass(Usuario.class);
+        configuration.addAnnotatedClass(UsuarioUnidad.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         session = sessionFactory.openSession();
     }

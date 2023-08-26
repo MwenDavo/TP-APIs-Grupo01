@@ -15,5 +15,11 @@ public class Localizado extends Reclamo {
         super();
     }
 
+    public Unidad getUnidad() {
+        return unidad;
+    }
 
+    public void setUnidad(Unidad unidad) {
+        this.unidad = unidad;
+    }
 }

@@ -1,8 +1,6 @@
 package pojo;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
-import util.estadosreclamo.EstadoReclamo;
-
+import util.EstadoReclamo;
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,11 +12,10 @@ public abstract class Reclamo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String descripcion;
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Foto> fotos;
     @ManyToOne
     private Usuario usuario;
-    @Embedded
     private EstadoReclamo estado;
 
     public Reclamo() {
