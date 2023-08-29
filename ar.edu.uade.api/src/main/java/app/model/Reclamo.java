@@ -1,4 +1,4 @@
-package pojo;
+package app.model;
 
 import util.EstadoReclamo;
 import javax.persistence.*;

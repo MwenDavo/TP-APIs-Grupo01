@@ -4,9 +4,9 @@ import conexion.ConexionMySQL;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import pojo.Edificio;
-import pojo.Reclamo;
-import pojo.Usuario;
+import app.model.Edificio;
+import app.model.Reclamo;
+import app.model.Usuario;
 
 import java.util.List;
 

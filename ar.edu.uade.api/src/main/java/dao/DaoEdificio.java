@@ -1,7 +1,7 @@
 package dao;
 
-import pojo.Edificio;
-import pojo.Unidad;
+import app.model.Edificio;
+import app.model.Unidad;
 
 import java.util.List;
 

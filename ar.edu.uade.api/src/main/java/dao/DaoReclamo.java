@@ -1,8 +1,8 @@
 package dao;
 
-import pojo.Edificio;
-import pojo.Reclamo;
-import pojo.Usuario;
+import app.model.Edificio;
+import app.model.Reclamo;
+import app.model.Usuario;
 
 import java.util.List;
 

@@ -2,10 +2,10 @@ package dao;
 
 import conexion.ConexionMySQL;
 import org.hibernate.query.Query;
-import pojo.Edificio;
+import app.model.Edificio;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pojo.Unidad;
+import app.model.Unidad;
 
 import java.util.List;
 

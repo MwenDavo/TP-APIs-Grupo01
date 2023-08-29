@@ -1,7 +1,7 @@
 package util;
 
-import pojo.Unidad;
-import pojo.Usuario;
+import app.model.Unidad;
+import app.model.Usuario;
 
 import javax.persistence.*;
 
@@ -11,6 +11,7 @@ public class UsuarioUnidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    //tipo_relacion
     private TipoRelacion tipoRelacion;
     @ManyToOne
     private Usuario usuario;

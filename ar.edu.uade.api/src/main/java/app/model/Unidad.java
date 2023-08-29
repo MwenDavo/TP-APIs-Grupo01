@@ -1,4 +1,4 @@
-package pojo;
+package app.model;
 
 import util.EstadoUnidad;
 import util.UsuarioUnidad;

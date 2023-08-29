@@ -1,7 +1,6 @@
-package pojo;
+package app.model;
 
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 

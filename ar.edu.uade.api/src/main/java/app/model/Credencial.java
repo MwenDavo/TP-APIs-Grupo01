@@ -1,8 +1,9 @@
-package pojo;
+package app.model;
 
 import javax.persistence.*;
 
 @Entity
+//credenciales
 public class Credencial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

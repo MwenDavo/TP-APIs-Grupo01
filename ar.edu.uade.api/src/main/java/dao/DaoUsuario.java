@@ -1,8 +1,7 @@
 package dao;
 
-import pojo.Credencial;
-import pojo.Edificio;
-import pojo.Usuario;
+import app.model.Credencial;
+import app.model.Usuario;
 
 import java.util.List;
 

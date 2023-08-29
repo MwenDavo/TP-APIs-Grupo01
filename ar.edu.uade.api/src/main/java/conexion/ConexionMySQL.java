@@ -1,5 +1,6 @@
 package conexion;
 
+import app.model.*;
 import pojo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
