@@ -1,4 +1,4 @@
-package util;
+package app.util;
 
 public enum EstadoReclamo {
     NUEVO,

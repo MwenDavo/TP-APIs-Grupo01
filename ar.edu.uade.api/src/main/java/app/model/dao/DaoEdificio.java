@@ -1,7 +1,7 @@
-package dao;
+package app.model.dao;
 
-import app.model.Edificio;
-import app.model.Unidad;
+import app.model.entity.Edificio;
+import app.model.entity.Unidad;
 
 import java.util.List;
 

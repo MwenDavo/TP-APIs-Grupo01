@@ -1,9 +1,10 @@
-package app.model;
+package app.model.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
+@Table(name = "edificios")
 public class Edificio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

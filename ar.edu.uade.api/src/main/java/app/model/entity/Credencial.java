@@ -1,9 +1,9 @@
-package app.model;
+package app.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.*; //Reemplazar por Jakarta
 
 @Entity
-//credenciales
+@Table(name = "credenciales")
 public class Credencial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

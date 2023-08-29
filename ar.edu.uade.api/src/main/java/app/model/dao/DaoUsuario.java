@@ -1,7 +1,7 @@
-package dao;
+package app.model.dao;
 
-import app.model.Credencial;
-import app.model.Usuario;
+import app.model.entity.Credencial;
+import app.model.entity.Usuario;
 
 import java.util.List;
 

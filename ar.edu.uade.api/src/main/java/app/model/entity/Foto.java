@@ -1,8 +1,9 @@
-package app.model;
+package app.model.entity;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "fotos")
 public class Foto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

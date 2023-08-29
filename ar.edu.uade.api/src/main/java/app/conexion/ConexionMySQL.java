@@ -1,11 +1,9 @@
-package conexion;
+package app.conexion;
 
-import app.model.*;
-import pojo.*;
+import app.model.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import util.UsuarioUnidad;
 
 public class ConexionMySQL {
     private Session session;

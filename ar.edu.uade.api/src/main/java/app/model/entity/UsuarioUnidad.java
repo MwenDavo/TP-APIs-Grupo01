@@ -1,18 +1,16 @@
-package util;
+package app.model.entity;
 
-import app.model.Unidad;
-import app.model.Usuario;
+import app.util.TipoRelacion;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuario_unidad")
+@Table(name = "usuarios_unidades")
 public class UsuarioUnidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //tipo_relacion
-    private TipoRelacion tipoRelacion;
+    private TipoRelacion relacion;
     @ManyToOne
     private Usuario usuario;
     @ManyToOne
@@ -23,7 +21,7 @@ public class UsuarioUnidad {
     }
 
     public UsuarioUnidad(TipoRelacion tipoRelacion, Usuario usuario, Unidad unidad) {
-        this.tipoRelacion = tipoRelacion;
+        this.relacion = tipoRelacion;
         this.usuario = usuario;
         this.unidad = unidad;
     }
@@ -37,11 +35,11 @@ public class UsuarioUnidad {
     }
 
     public TipoRelacion getRelacion() {
-        return tipoRelacion;
+        return relacion;
     }
 
     public void setRelacion(TipoRelacion relacion) {
-        this.tipoRelacion = relacion;
+        this.relacion = relacion;
     }
 
     public Usuario getUsuario() {

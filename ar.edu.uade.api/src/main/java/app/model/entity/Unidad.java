@@ -1,11 +1,12 @@
-package app.model;
+package app.model.entity;
 
-import util.EstadoUnidad;
-import util.UsuarioUnidad;
+import app.util.EstadoUnidad;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "unidades")
 public class Unidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

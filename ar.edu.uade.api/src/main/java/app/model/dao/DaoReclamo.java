@@ -1,8 +1,8 @@
-package dao;
+package app.model.dao;
 
-import app.model.Edificio;
-import app.model.Reclamo;
-import app.model.Usuario;
+import app.model.entity.Edificio;
+import app.model.entity.Reclamo;
+import app.model.entity.Usuario;
 
 import java.util.List;
 

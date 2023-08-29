@@ -1,12 +1,12 @@
-package app.model;
+package app.model.entity;
 
-import util.TipoUsuario;
-import util.UsuarioUnidad;
+import app.util.TipoUsuario;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

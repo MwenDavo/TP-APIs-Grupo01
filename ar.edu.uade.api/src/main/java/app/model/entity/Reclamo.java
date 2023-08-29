@@ -1,10 +1,12 @@
-package app.model;
+package app.model.entity;
 
-import util.EstadoReclamo;
+import app.util.EstadoReclamo;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "reclamos")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipoReclamo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Reclamo {

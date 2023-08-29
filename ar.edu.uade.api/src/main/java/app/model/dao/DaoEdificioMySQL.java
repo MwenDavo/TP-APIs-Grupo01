@@ -1,11 +1,11 @@
-package dao;
+package app.model.dao;
 
-import conexion.ConexionMySQL;
+import app.conexion.ConexionMySQL;
 import org.hibernate.query.Query;
-import app.model.Edificio;
+import app.model.entity.Edificio;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import app.model.Unidad;
+import app.model.entity.Unidad;
 
 import java.util.List;
 
