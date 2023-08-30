@@ -78,9 +78,9 @@ public class Test {
 
         usuario1.setTelefono(1126676874);
 
-        //TODO al eliminar un Usuario de una Unidad no se actualiza en la tabla intermedia
+        daoUsuario.delete(usuario1);
 
-        //TODO no se puede eliminar un Usuario
+        //TODO al eliminar un Usuario de una Unidad no se actualiza en la tabla intermedia
 
         //TODO aún no se comprueba si el Usuario es parte del Edificio o de la Unidad y si es PROPIETARIO o INQUILINO antes de cargar un Reclamo
 

@@ -12,8 +12,10 @@ public class UsuarioUnidad {
     private int id;
     private TipoRelacion relacion;
     @ManyToOne
+    @JoinColumn(name = "unidades")
     private Usuario usuario;
     @ManyToOne
+    @JoinColumn(name = "usuarios")
     private Unidad unidad;
 
     public UsuarioUnidad() {
