@@ -16,9 +16,9 @@ public class Unidad {
     private int piso;
     private int numero;
     private EstadoUnidad estado;
-    @OneToMany(mappedBy = "unidad")
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
     private List<UsuarioUnidad> usuarios;
-    @OneToMany(mappedBy = "unidad")
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
     private List<Localizado> reclamos;
 
     public Unidad() {
@@ -88,5 +88,18 @@ public class Unidad {
 
     public void setReclamos(List<Localizado> reclamos) {
         this.reclamos = reclamos;
+    }
+
+    @Override
+    public String toString() {
+        return "Unidad{" +
+                "id=" + id +
+                ", edificio=" + edificio +
+                ", piso=" + piso +
+                ", numero=" + numero +
+                ", estado=" + estado +
+                ", usuarios=" + usuarios +
+                ", reclamos=" + reclamos +
+                '}';
     }
 }

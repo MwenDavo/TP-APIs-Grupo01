@@ -1,10 +1,12 @@
 package app.model.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import app.util.EstadoReclamo;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "generales")
 @DiscriminatorValue("general")
 public class General extends Reclamo {
     @ManyToOne
@@ -12,6 +14,11 @@ public class General extends Reclamo {
 
     public General() {
         super();
+    }
+
+    public General(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estado, Edificio edificio) {
+        super(descripcion, fotos, usuario, estado);
+        this.edificio = edificio;
     }
 
     public Edificio getEdificio() {

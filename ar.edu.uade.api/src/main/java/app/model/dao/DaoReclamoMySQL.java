@@ -1,6 +1,7 @@
 package app.model.dao;
 
 import app.conexion.ConexionMySQL;
+import app.util.EstadoReclamo;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -24,10 +25,10 @@ public class DaoReclamoMySQL implements DaoReclamo {
         return instance;
     }
 
-    public List<Reclamo> getByState(String estado) {
+    public List<Reclamo> getByState(EstadoReclamo estado) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE estado = ':estado'", Reclamo.class);
+        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE estado = :estado", Reclamo.class);
         query.setParameter("estado", estado);
         return query.list();
     }
@@ -44,7 +45,7 @@ public class DaoReclamoMySQL implements DaoReclamo {
     public List<Reclamo> getByEdificio(Edificio edificio) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Reclamo> query = session.createQuery("SELECT e.Reclamo FROM Edificio e JOIN e.Reclamo WHERE id = ':id'", Reclamo.class);
+        Query<Reclamo> query = session.createQuery("SELECT e.Reclamo FROM Edificio e JOIN e.Reclamo WHERE id = :id", Reclamo.class);
         query.setParameter("id", edificio.getId());
         return query.list();
     }
@@ -53,7 +54,7 @@ public class DaoReclamoMySQL implements DaoReclamo {
     public List<Reclamo> getByUsuario(Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Reclamo> query = session.createQuery("SELECT u.Reclamo FROM Usuario u JOIN u.Reclamo WHERE id = ':id'", Reclamo.class);
+        Query<Reclamo> query = session.createQuery("SELECT u.Reclamo FROM Usuario u JOIN u.Reclamo WHERE id = :id", Reclamo.class);
         query.setParameter("id", usuario.getId());
         return query.list();
     }
@@ -76,12 +77,4 @@ public class DaoReclamoMySQL implements DaoReclamo {
         transaction.commit();
     }
 
-    @Override
-    public void delete(Reclamo reclamo) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(reclamo);
-        transaction.commit();
-    }
 }

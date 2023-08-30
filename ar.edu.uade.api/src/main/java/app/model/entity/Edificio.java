@@ -19,9 +19,10 @@ public class Edificio {
 
     }
 
-    public Edificio(String direccion, List<Unidad> unidades) {
+    public Edificio(String direccion, List<Unidad> unidades, List<General> reclamos) {
         this.direccion = direccion;
         this.unidades = unidades;
+        this.reclamos = reclamos;
     }
 
     public int getId() {
@@ -54,5 +55,15 @@ public class Edificio {
 
     public void setReclamos(List<General> reclamos) {
         this.reclamos = reclamos;
+    }
+
+    @Override
+    public String toString() {
+        return "Edificio{" +
+                "id=" + id +
+                ", direccion='" + direccion + '\'' +
+                ", unidades=" + unidades +
+                ", reclamos=" + reclamos +
+                '}';
     }
 }

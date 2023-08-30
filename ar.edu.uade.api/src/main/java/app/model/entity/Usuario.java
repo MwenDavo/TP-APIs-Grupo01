@@ -11,23 +11,31 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private TipoUsuario tipoUsuario;
+    @Column(unique = true, nullable = false)
     private int dni;
+    @Column(nullable = false)
     private String nombre;
+    @Column(nullable = false)
     private int telefono;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<UsuarioUnidad> unidades;
+
+    @OneToMany
+    private List<Reclamo> reclamos;
 
     public Usuario() {
 
     }
 
-    public Usuario(TipoUsuario tipoUsuario, int dni, String nombre, int telefono, List<UsuarioUnidad> unidades) {
+    public Usuario(TipoUsuario tipoUsuario, int dni, String nombre, int telefono, List<UsuarioUnidad> unidades, List<Reclamo> reclamos) {
         this.tipoUsuario = tipoUsuario;
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
         this.unidades = unidades;
+        this.reclamos = reclamos;
     }
 
     public int getId() {
@@ -76,5 +84,13 @@ public class Usuario {
 
     public void setUnidades(List<UsuarioUnidad> unidades) {
         this.unidades = unidades;
+    }
+
+    public List<Reclamo> getReclamos() {
+        return reclamos;
+    }
+
+    public void setReclamos(List<Reclamo> reclamos) {
+        this.reclamos = reclamos;
     }
 }

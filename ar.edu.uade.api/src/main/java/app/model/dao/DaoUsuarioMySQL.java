@@ -27,7 +27,7 @@ public class DaoUsuarioMySQL implements DaoUsuario {
     public Usuario get(Credencial credencial) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Integer> query = session.createQuery("SELECT id FROM Credencial WHERE user = ':user' AND password = ':password'");
+        Query<Integer> query = session.createQuery("SELECT id FROM Credencial WHERE user = :user AND password = :password");
         query.setParameter("user", credencial.getUser());
         query.setParameter("password", credencial.getPassword());
         Integer result = query.uniqueResult();

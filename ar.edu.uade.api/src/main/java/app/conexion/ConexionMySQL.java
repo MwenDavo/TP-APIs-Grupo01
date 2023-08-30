@@ -16,6 +16,8 @@ public class ConexionMySQL {
         configuration.addAnnotatedClass(Edificio.class);
         configuration.addAnnotatedClass(Foto.class);
         configuration.addAnnotatedClass(Reclamo.class);
+        configuration.addAnnotatedClass(General.class);
+        configuration.addAnnotatedClass(Localizado.class);
         configuration.addAnnotatedClass(Unidad.class);
         configuration.addAnnotatedClass(Usuario.class);
         configuration.addAnnotatedClass(UsuarioUnidad.class);

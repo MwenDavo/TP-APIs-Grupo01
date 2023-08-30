@@ -8,21 +8,18 @@ public class Credencial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(length = 12, unique = true, nullable = false)
     private String user;
+    @Column(nullable = false)
     private String password;
-    @Transient
-    private static Credencial instance = null;
 
-    private Credencial(String user, String password) {
-        this.user = user;
-        this.password = password;
+    public Credencial() {
+
     }
 
-    public static Credencial getInstance(String user, String password) {
-        if (instance == null) {
-            instance = new Credencial(user, password);
-        }
-        return instance;
+    public Credencial(String user, String password) {
+        this.user = user;
+        this.password = password;
     }
 
     public int getId() {

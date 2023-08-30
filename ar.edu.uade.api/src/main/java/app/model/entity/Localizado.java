@@ -1,10 +1,12 @@
 package app.model.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import app.util.EstadoReclamo;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "localizados")
 @DiscriminatorValue("localizado")
 public class Localizado extends Reclamo {
     @ManyToOne
@@ -12,6 +14,11 @@ public class Localizado extends Reclamo {
 
     public Localizado() {
         super();
+    }
+
+    public Localizado(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estado, Unidad unidad) {
+        super(descripcion, fotos, usuario, estado);
+        this.unidad = unidad;
     }
 
     public Unidad getUnidad() {
