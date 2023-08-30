@@ -4,14 +4,14 @@ import app.util.EstadoReclamo;
 import app.util.EstadoUnidad;
 import app.util.TipoRelacion;
 import app.util.TipoUsuario;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ReclamoTest {
-    @Test
+public class Test {
+    @org.junit.jupiter.api.Test
     void test(){
         DaoEdificio daoEdificio = DaoEdificioMySQL.getInstance();
         DaoUsuario daoUsuario = DaoUsuarioMySQL.getInstance();
@@ -63,6 +63,8 @@ public class ReclamoTest {
         unidad1.getUsuarios().add(usuario1Unidad1);
         unidad3.getUsuarios().add(usuario2Unidad3);
         unidad3.getUsuarios().add(usuario3Unidad3);
+
+        //TODO eliminar EstadoUnidad de la aplicacion
 
         unidad1.setEstado(EstadoUnidad.HABITADA);
         unidad3.setEstado(EstadoUnidad.ALQUILADA);
