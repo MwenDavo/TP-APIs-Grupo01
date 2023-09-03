@@ -6,7 +6,7 @@ import java.net.InetSocketAddress;
 
 public class ConexionCassandra {
     private CqlSession session;
-    private ConexionCassandra instance = null;
+    private static ConexionCassandra instance = null;
 
     private ConexionCassandra(){
         session = CqlSession.builder()
@@ -15,7 +15,7 @@ public class ConexionCassandra {
                 .build();
     }
 
-    public ConexionCassandra getInstance() {
+    public static ConexionCassandra getInstance() {
         if(instance==null){
             instance = new ConexionCassandra();
         }
