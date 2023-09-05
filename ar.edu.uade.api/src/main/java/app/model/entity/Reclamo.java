@@ -19,6 +19,8 @@ public abstract class Reclamo {
     @ManyToOne
     private Usuario usuario;
     private EstadoReclamo estado;
+    @OneToMany(mappedBy = "reclamo", cascade = CascadeType.ALL)
+    private List<LogEstadoReclamo> historial;
 
     public Reclamo() {
 

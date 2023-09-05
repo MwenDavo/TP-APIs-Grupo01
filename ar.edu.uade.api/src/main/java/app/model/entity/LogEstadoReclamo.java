@@ -1,12 +1,17 @@
 package app.model.entity;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
-
+@Entity
 public class LogEstadoReclamo {
-    private int idReclamo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private long fechaHora; //En vez de guardar la fecha hora en si, se guarda un long de numeros que representan el tiempo entre el 1ro de enero del 70 y el momento actual (mas facil que guardar una clase de timestamp)
     private String estado;
     private String descripcion;
+    @ManyToOne
+    private Reclamo reclamo;
 
     public LogEstadoReclamo(int idReclamo, long fechaHora, String estado, String descripcion) {
         this.idReclamo = idReclamo;

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Test {
     @org.junit.jupiter.api.Test
-    void test(){
+    void test() {
         DaoEdificio daoEdificio = DaoEdificioMySQL.getInstance();
         DaoUsuario daoUsuario = DaoUsuarioMySQL.getInstance();
         DaoReclamo daoReclamo = DaoReclamoMySQL.getInstance();
@@ -49,10 +49,10 @@ public class Test {
 
         assertEquals(usuario1.getNombre(), daoUsuario.get(credencialUsuario1).getNombre());
 
-        String[] nombres = new String[] {usuario1.getNombre(), usuario2.getNombre(), usuario3.getNombre()};
+        String[] nombres = new String[]{usuario1.getNombre(), usuario2.getNombre(), usuario3.getNombre()};
         List<Usuario> usuarios = daoUsuario.getAll();
 
-        for (int i = 0 ; i < usuarios.size() ; i++) {
+        for (int i = 0; i < usuarios.size(); i++) {
             assertEquals(nombres[i], usuarios.get(i).getNombre());
         }
 
@@ -64,23 +64,43 @@ public class Test {
         unidad3.getUsuarios().add(usuario2Unidad3);
         unidad3.getUsuarios().add(usuario3Unidad3);
 
-        //TODO eliminar EstadoUnidad de la aplicacion
 
-        unidad1.setEstado(EstadoUnidad.HABITADA);
-        unidad3.setEstado(EstadoUnidad.ALQUILADA);
+
 
         usuario1.getUnidades().add(usuario1Unidad1);
         usuario2.getUnidades().add(usuario2Unidad3);
         usuario3.getUnidades().add(usuario3Unidad3);
 
+        daoUsuario.update(usuario1);
+        daoUsuario.update(usuario2);
+        daoUsuario.update(usuario3);
+
+        /*
+
+        unidad1.getUsuarios().add(usuario1);
+        unidad3.getUsuarios().add(usuario2);
+        unidad3.getUsuarios().add(usuario3);
+
+         */
+
         daoEdificio.updateDpto(unidad1);
         daoEdificio.updateDpto(unidad3);
+
+
 
         usuario1.setTelefono(1126676874);
 
         daoUsuario.delete(usuario1);
+        /*
+        unidad3.getUsuarios().remove(usuario3);
 
-        //TODO al eliminar un Usuario de una Unidad no se actualiza en la tabla intermedia
+        usuario3.getUnidades().remove(unidad3);
+
+        daoEdificio.updateDpto(unidad3);
+
+        daoUsuario.update(usuario3);
+
+         */
 
         //TODO aún no se comprueba si el Usuario es parte del Edificio o de la Unidad y si es PROPIETARIO o INQUILINO antes de cargar un Reclamo
 
@@ -106,18 +126,32 @@ public class Test {
 
         daoReclamo.update(general);
 
-        EstadoReclamo[] estados = new EstadoReclamo[] {general.getEstado(), localizado.getEstado()};
+        EstadoReclamo[] estados = new EstadoReclamo[]{general.getEstado(), localizado.getEstado()};
         List<Reclamo> reclamos = daoReclamo.getAll();
 
-        for (int i = 0 ; i < reclamos.size() ; i++) {
+        for (int i = 0; i < reclamos.size(); i++) {
             assertEquals(estados[i], reclamos.get(i).getEstado());
         }
 
-        for (Reclamo reclamo:
-             daoReclamo.getByState(EstadoReclamo.NUEVO)) {
+        for (Reclamo reclamo :
+                daoReclamo.getByState(EstadoReclamo.NUEVO)) {
             assertEquals(EstadoReclamo.NUEVO, reclamo.getEstado());
         }
 
         //TODO probar update y delete de DaoEdificio y DaoUsuario
+
+        List<Edificio> edificioList = daoEdificio.getAll();
+
+        for (Edificio e:
+             edificioList) {
+            List<Unidad> unidadList = e.getUnidades();
+
+            for (Unidad u:
+                 unidadList) {
+                System.out.println(u.getUsuarios());
+            }
+        }
+
     }
+
 }

@@ -15,8 +15,12 @@ public class Unidad {
     private Edificio edificio;
     private int piso;
     private int numero;
-    private EstadoUnidad estado;
-    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "usuarios_unidades",
+            joinColumns = @JoinColumn(name = "unidad_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
     private List<UsuarioUnidad> usuarios;
     @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
     private List<Localizado> reclamos;
@@ -29,7 +33,6 @@ public class Unidad {
         this.edificio = edificio;
         this.piso = piso;
         this.numero = numero;
-        this.estado = estado;
         this.usuarios = usuarios;
         this.reclamos = reclamos;
     }
@@ -66,14 +69,6 @@ public class Unidad {
         this.numero = numero;
     }
 
-    public EstadoUnidad getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoUnidad estado) {
-        this.estado = estado;
-    }
-
     public List<UsuarioUnidad> getUsuarios() {
         return usuarios;
     }
@@ -90,16 +85,4 @@ public class Unidad {
         this.reclamos = reclamos;
     }
 
-    @Override
-    public String toString() {
-        return "Unidad{" +
-                "id=" + id +
-                ", edificio=" + edificio +
-                ", piso=" + piso +
-                ", numero=" + numero +
-                ", estado=" + estado +
-                ", usuarios=" + usuarios +
-                ", reclamos=" + reclamos +
-                '}';
-    }
 }

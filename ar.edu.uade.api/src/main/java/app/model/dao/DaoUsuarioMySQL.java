@@ -72,7 +72,9 @@ public class DaoUsuarioMySQL implements DaoUsuario {
         Credencial credencial = session.get(Credencial.class, usuario.getId());
         Transaction transaction = session.beginTransaction();
         session.delete(credencial);
+        Usuario u = session.get(Usuario.class, usuario.getId());
         List<UsuarioUnidad> lista = usuario.getUnidades();
+    /*
         for (UsuarioUnidad u:
              lista) {
             //u.getUsuario().getUnidades().remove(u);
@@ -80,7 +82,9 @@ public class DaoUsuarioMySQL implements DaoUsuario {
             u.getUnidad().getUsuarios().remove(u);
             u.setUnidad(null);
         }
-        session.delete(usuario);
+
+     */
+        session.delete(u);
         transaction.commit();
     }
 
