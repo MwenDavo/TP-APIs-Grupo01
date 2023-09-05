@@ -19,9 +19,8 @@ public class Usuario {
     private String nombre;
     @Column(nullable = false)
     private int telefono;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<UsuarioUnidad> unidades;
-
     @OneToMany
     private List<Reclamo> reclamos;
 

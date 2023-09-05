@@ -7,16 +7,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "usuarios_unidades")
 public class UsuarioUnidad {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private TipoRelacion relacion;
+    @EmbeddedId
+    private UsuarioUnidadId id;
+
     @ManyToOne
-    @JoinColumn(name = "unidades")
     private Usuario usuario;
     @ManyToOne
-    @JoinColumn(name = "usuarios")
     private Unidad unidad;
+
+    private TipoRelacion relacion;
 
     public UsuarioUnidad() {
 
