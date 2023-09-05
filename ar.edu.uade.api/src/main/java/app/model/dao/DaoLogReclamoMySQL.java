@@ -35,8 +35,8 @@ public class DaoLogReclamoMySQL implements DaoLogReclamo{
     public List<Reclamo> getByReclamo(Reclamo reclamo) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<LogEstadoReclamo> query = session.createQuery("FROM LogEstadoReclamo WHERE id = :reclamo", LogEstadoReclamo.class);
-        query.setParameter("id", LogEstadoReclamo.getId());
+        Query<LogEstadoReclamo> query = session.createQuery("FROM LogEstadoReclamo WHERE reclamo = :reclamo", LogEstadoReclamo.class);
+        query.setParameter("reclamo", reclamo);
         return query.list();
     }
 }

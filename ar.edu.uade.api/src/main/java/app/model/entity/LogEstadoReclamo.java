@@ -13,19 +13,19 @@ public class LogEstadoReclamo {
     @ManyToOne
     private Reclamo reclamo;
 
-    public LogEstadoReclamo(int idReclamo, long fechaHora, String estado, String descripcion) {
-        this.idReclamo = idReclamo;
+    public LogEstadoReclamo(Reclamo reclamo, long fechaHora, String estado, String descripcion) {
+        this.reclamo = reclamo;
         this.fechaHora = fechaHora;
         this.estado = estado;
         this.descripcion = descripcion;
     }
 
-    public int getIdReclamo() {
-        return idReclamo;
+    public Reclamo getReclamo() {
+        return reclamo;
     }
 
-    public void setIdReclamo(int idReclamo) {
-        this.idReclamo = idReclamo;
+    public void setReclamo(Reclamo reclamo) {
+        this.reclamo = reclamo;
     }
 
     public long getFechaHora() {
