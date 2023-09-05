@@ -1,12 +1,15 @@
 package app.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class UsuarioUnidadId implements Serializable {
+    @Column(name = "usuario_id")
     private int usuarioId;
+    @Column(name = "unidad_id")
     private int unidadId;
 
     public UsuarioUnidadId() {

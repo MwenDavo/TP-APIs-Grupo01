@@ -19,7 +19,7 @@ public class Usuario {
     private String nombre;
     @Column(nullable = false)
     private int telefono;
-    @ManyToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsuarioUnidad> unidades;
     @OneToMany
     private List<Reclamo> reclamos;
@@ -91,5 +91,15 @@ public class Usuario {
 
     public void setReclamos(List<Reclamo> reclamos) {
         this.reclamos = reclamos;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

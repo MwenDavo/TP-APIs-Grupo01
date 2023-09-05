@@ -32,11 +32,11 @@ public class DaoLogReclamoMySQL implements DaoLogReclamo{
         transaction.commit();
     }
 
-    public List<Reclamo> getByReclamo(Reclamo reclamo) {
+    public List<LogEstadoReclamo> getByReclamo(Reclamo reclamo) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<LogEstadoReclamo> query = session.createQuery("FROM LogEstadoReclamo WHERE reclamo = :reclamo", LogEstadoReclamo.class);
-        query.setParameter("reclamo", reclamo);
+        Query<LogEstadoReclamo> query = session.createQuery("SELECT r.LogEstadoReclamo FROM Reclamo r JOIN r.LogEstadoReclamo WHERE id = :id", LogEstadoReclamo.class);
+        query.setParameter("id", reclamo.getId());
         return query.list();
     }
 }
