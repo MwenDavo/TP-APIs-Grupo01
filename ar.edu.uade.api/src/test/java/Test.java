@@ -4,6 +4,7 @@ import app.util.EstadoReclamo;
 import app.util.EstadoUnidad;
 import app.util.TipoRelacion;
 import app.util.TipoUsuario;
+import jdk.vm.ci.meta.Local;
 
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
@@ -88,7 +89,9 @@ public class Test {
 
         daoEdificio.update(edificio);
  */
-        daoReclamo.save(general);
+        if (cargarEnGeneral(general) == true){
+            daoReclamo.save(general);
+        }
 
         Localizado localizado = new Localizado("Pierde la canilla de la cocina.", null, usuario3, EstadoReclamo.NUEVO, unidad3);
 /*
@@ -96,13 +99,16 @@ public class Test {
 
         daoEdificio.updateDpto(unidad3);
  */
-        daoReclamo.save(localizado);
+        if (cargarEnLocalizado(localizado) == true){
+            daoReclamo.save(localizado);
+        }
         //TODO hay que arreglar las operaciones a la base de datos con LogReclamo y Reclamo (inconsistencias)
         LogEstadoReclamo logEstado = new LogEstadoReclamo(general,123123,"ABIERTO"," ");
         general.setEstado(EstadoReclamo.ABIERTO);
 
 
         daoReclamo.update(general,logEstado);
+
 
         EstadoReclamo[] estados = new EstadoReclamo[]{general.getEstado(), localizado.getEstado()};
         List<Reclamo> reclamos = daoReclamo.getAll();
@@ -130,6 +136,45 @@ public class Test {
             }
         }
 
+    }
+
+    public static boolean cargarEnGeneral(General reclamo){
+        Edificio e = reclamo.getEdificio();
+        for (Unidad u: e.getUnidades()) {
+            for (UsuarioUnidad un: u.getUsuarios())
+                {
+                    if (reclamo.getUsuario().getId() == (un.getUsuario().getId())) {
+                        return true;
+                    }
+                }
+            }
+        return false;
+        }
+
+    public static boolean cargarEnLocalizado(Localizado reclamo){
+        boolean inquilinos = false;
+        boolean propietarios = false;
+        Unidad u = reclamo.getUnidad();
+        for (UsuarioUnidad un: u.getUsuarios())
+            {if (reclamo.getUsuario().getId() == (un.getUsuario().getId())){
+                if (un.getRelacion() == TipoRelacion.INQUILINO){
+                    return true;
+            }
+            } else if (un.getRelacion() == TipoRelacion.INQUILINO) {
+                inquilinos = true;
+            }
+            /*{
+                if (reclamo.getUsuario().getId() == (un.getUsuario().getId())) && (un.getRelacion() == TipoRelacion.INQUILINO){
+                    posibilidadCarga =  true;
+                }
+                else if (reclamo.getUsuario().getId() == (un.getUsuario().getId())) && (un.getRelacion() == TipoRelacion.PROPIETARIO){
+                    propietarios = true;
+            }*/
+        }if (inquilinos){
+            return false;
+        }else {
+            return true;
+        }
     }
 
 }
