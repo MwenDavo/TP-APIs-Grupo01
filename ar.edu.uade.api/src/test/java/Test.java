@@ -16,7 +16,6 @@ public class Test {
         DaoEdificio daoEdificio = DaoEdificioMySQL.getInstance();
         DaoUsuario daoUsuario = DaoUsuarioMySQL.getInstance();
         DaoReclamo daoReclamo = DaoReclamoMySQL.getInstance();
-        DaoLogReclamoMySQL daoLog = DaoLogReclamoMySQL.getInstance();
 
         Edificio edificio = new Edificio("Gral. José de San Martín 1622", new ArrayList<Unidad>(), new ArrayList<General>());
 
@@ -102,10 +101,8 @@ public class Test {
         LogEstadoReclamo logEstado = new LogEstadoReclamo(general,123123,"ABIERTO"," ");
         general.setEstado(EstadoReclamo.ABIERTO);
 
-        daoLog.saveLogEstadoReclamo(logEstado);
-        daoReclamo.update(general);
 
-
+        daoReclamo.update(general,logEstado);
 
         EstadoReclamo[] estados = new EstadoReclamo[]{general.getEstado(), localizado.getEstado()};
         List<Reclamo> reclamos = daoReclamo.getAll();

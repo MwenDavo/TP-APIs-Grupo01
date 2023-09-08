@@ -1,6 +1,7 @@
 package app.model.dao;
 
 import app.conexion.ConexionMySQL;
+import app.model.entity.LogEstadoReclamo;
 import app.util.EstadoReclamo;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -69,12 +70,22 @@ public class DaoReclamoMySQL implements DaoReclamo {
     }
 
     @Override
-    public void update(Reclamo reclamo) {
+    public void update(Reclamo reclamo, LogEstadoReclamo log) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Transaction transaction = session.beginTransaction();
+        session.save(log);
         session.update(reclamo);
         transaction.commit();
     }
 
+
+    @Override
+    public List<LogEstadoReclamo> getByReclamo(Reclamo reclamo){
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Query<LogEstadoReclamo> query = session.createQuery("SELECT r.LogEstadoReclamo FROM Reclamo r JOIN r.LogEstadoReclamo WHERE id = :id", LogEstadoReclamo.class);
+        query.setParameter("id", reclamo.getId());
+        return query.list();
+    }
 }
