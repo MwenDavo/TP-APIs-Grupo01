@@ -19,9 +19,9 @@ public class Test {
 
         Edificio edificio = new Edificio("Gral. José de San Martín 1622", new ArrayList<Unidad>(), new ArrayList<General>());
 
-        Unidad unidad1 = new Unidad(edificio, 0, 1, EstadoUnidad.DESHABITADA, new ArrayList<UsuarioUnidad>(), new ArrayList<Localizado>());
-        Unidad unidad2 = new Unidad(edificio, 1, 1, EstadoUnidad.DESHABITADA, new ArrayList<UsuarioUnidad>(), new ArrayList<Localizado>());
-        Unidad unidad3 = new Unidad(edificio, 1, 2, EstadoUnidad.DESHABITADA, new ArrayList<UsuarioUnidad>(), new ArrayList<Localizado>());
+        Unidad unidad1 = new Unidad(edificio, 0, 1, new ArrayList<UsuarioUnidad>(), new ArrayList<Localizado>());
+        Unidad unidad2 = new Unidad(edificio, 1, 1, new ArrayList<UsuarioUnidad>(), new ArrayList<Localizado>());
+        Unidad unidad3 = new Unidad(edificio, 1, 2, new ArrayList<UsuarioUnidad>(), new ArrayList<Localizado>());
 
         List<Unidad> unidadesEdificio = edificio.getUnidades();
 
@@ -56,53 +56,32 @@ public class Test {
             assertEquals(nombres[i], usuarios.get(i).getNombre());
         }
 
-        UsuarioUnidad usuario1Unidad1 = new UsuarioUnidad(TipoRelacion.PROPIETARIO, usuario1, unidad1);
-        UsuarioUnidad usuario2Unidad3 = new UsuarioUnidad(TipoRelacion.PROPIETARIO, usuario2, unidad3);
-        UsuarioUnidad usuario3Unidad3 = new UsuarioUnidad(TipoRelacion.INQUILINO, usuario3, unidad3);
-
-        unidad1.getUsuarios().add(usuario1Unidad1);
-        unidad3.getUsuarios().add(usuario2Unidad3);
-        unidad3.getUsuarios().add(usuario3Unidad3);
-
-
-
+        UsuarioUnidad usuario1Unidad1 = new UsuarioUnidad(usuario1, unidad1, TipoRelacion.PROPIETARIO);
+        UsuarioUnidad usuario2Unidad3 = new UsuarioUnidad(usuario2, unidad3, TipoRelacion.PROPIETARIO);
+        UsuarioUnidad usuario3Unidad3 = new UsuarioUnidad(usuario3, unidad3, TipoRelacion.INQUILINO);
 
         usuario1.getUnidades().add(usuario1Unidad1);
-        usuario2.getUnidades().add(usuario2Unidad3);
-        usuario3.getUnidades().add(usuario3Unidad3);
-
+        unidad1.getUsuarios().add(usuario1Unidad1);
         daoUsuario.update(usuario1);
-        daoUsuario.update(usuario2);
-        daoUsuario.update(usuario3);
-
-        /*
-
-        unidad1.getUsuarios().add(usuario1);
-        unidad3.getUsuarios().add(usuario2);
-        unidad3.getUsuarios().add(usuario3);
-
-         */
-
         daoEdificio.updateDpto(unidad1);
+
+        usuario2.getUnidades().add(usuario2Unidad3);
+        unidad3.getUsuarios().add(usuario2Unidad3);
+        daoUsuario.update(usuario2);
         daoEdificio.updateDpto(unidad3);
 
-
-
-        usuario1.setTelefono(1126676874);
+        usuario3.getUnidades().add(usuario3Unidad3);
+        unidad3.getUsuarios().add(usuario3Unidad3);
+        daoUsuario.update(usuario3);
+        daoEdificio.updateDpto(unidad3);
 
         daoUsuario.delete(usuario1);
-        /*
-        unidad3.getUsuarios().remove(usuario3);
 
-        usuario3.getUnidades().remove(unidad3);
-
-        daoEdificio.updateDpto(unidad3);
-
-        daoUsuario.update(usuario3);
-
-         */
+        daoUsuario.sacarUnidad(usuario3, unidad3);
 
         //TODO aún no se comprueba si el Usuario es parte del Edificio o de la Unidad y si es PROPIETARIO o INQUILINO antes de cargar un Reclamo
+
+        //TODO logear el cambio de EstadoReclamo
 
         General general = new General("No hay luz en las escaleras.", null, usuario3, EstadoReclamo.NUEVO, edificio);
 /*
@@ -120,8 +99,6 @@ public class Test {
  */
         daoReclamo.save(localizado);
 
-        //TODO logear el cambio de Estado en Cassandra
-
         general.setEstado(EstadoReclamo.ABIERTO);
 
         daoReclamo.update(general);
@@ -138,8 +115,6 @@ public class Test {
             assertEquals(EstadoReclamo.NUEVO, reclamo.getEstado());
         }
 
-        //TODO probar update y delete de DaoEdificio y DaoUsuario
-
         List<Edificio> edificioList = daoEdificio.getAll();
 
         for (Edificio e:
@@ -148,7 +123,9 @@ public class Test {
 
             for (Unidad u:
                  unidadList) {
-                System.out.println(u.getUsuarios());
+                List<UsuarioUnidad> j = u.getUsuarios();
+                System.out.println("hola");
+
             }
         }
 

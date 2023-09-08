@@ -2,6 +2,7 @@ package app.model.dao;
 
 import app.model.entity.Edificio;
 import app.model.entity.Unidad;
+import app.model.entity.Usuario;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface DaoEdificio {
 
     void updateDpto(Unidad unidad);
 
-    void delete(Edificio edificio);
+    void sacarUsuarioDpto(Unidad unidad, Usuario usuario);
 }

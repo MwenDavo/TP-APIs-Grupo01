@@ -1,6 +1,7 @@
 package app.model.dao;
 
 import app.conexion.ConexionMySQL;
+import app.model.entity.Unidad;
 import app.model.entity.UsuarioUnidad;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -60,7 +61,25 @@ public class DaoUsuarioMySQL implements DaoUsuario {
     public void update(Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
+        usuario = session.find(Usuario.class, usuario.getId());
         Transaction transaction = session.beginTransaction();
+        session.update(usuario);
+        transaction.commit();
+    }
+
+    @Override
+    public void sacarUnidad(Usuario usuario, Unidad unidad) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        usuario = session.find(Usuario.class, usuario.getId());
+        Transaction transaction = session.beginTransaction();
+        for (UsuarioUnidad u : usuario.getUnidades()) {
+            if (u.getUnidad() == unidad) {
+                session.remove(u);
+                usuario.getUnidades().remove(u);
+                break;
+            }
+        }
         session.update(usuario);
         transaction.commit();
     }
@@ -69,23 +88,15 @@ public class DaoUsuarioMySQL implements DaoUsuario {
     public void delete(Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Credencial credencial = session.get(Credencial.class, usuario.getId());
+        Credencial credencial = session.find(Credencial.class, usuario.getId());
+        usuario = session.find(Usuario.class, usuario.getId());
         Transaction transaction = session.beginTransaction();
-        session.delete(credencial);
-        Usuario u = session.get(Usuario.class, usuario.getId());
-        List<UsuarioUnidad> lista = usuario.getUnidades();
-    /*
-        for (UsuarioUnidad u:
-             lista) {
-            //u.getUsuario().getUnidades().remove(u);
-            u.setUsuario(null);
-            u.getUnidad().getUsuarios().remove(u);
-            u.setUnidad(null);
+        session.remove(credencial);
+        for (UsuarioUnidad u: usuario.getUnidades()) {
+            session.remove(u);
         }
-
-     */
-        session.delete(u);
+        usuario.getUnidades().clear();
+        session.remove(usuario);
         transaction.commit();
     }
-
 }

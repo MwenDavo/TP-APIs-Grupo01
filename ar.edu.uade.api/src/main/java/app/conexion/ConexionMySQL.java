@@ -21,6 +21,7 @@ public class ConexionMySQL {
         configuration.addAnnotatedClass(Unidad.class);
         configuration.addAnnotatedClass(Usuario.class);
         configuration.addAnnotatedClass(UsuarioUnidad.class);
+        configuration.addAnnotatedClass(LogEstadoReclamo.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         session = sessionFactory.openSession();
     }

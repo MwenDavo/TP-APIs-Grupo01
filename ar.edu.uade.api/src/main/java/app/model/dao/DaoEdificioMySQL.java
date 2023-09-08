@@ -1,6 +1,8 @@
 package app.model.dao;
 
 import app.conexion.ConexionMySQL;
+import app.model.entity.Usuario;
+import app.model.entity.UsuarioUnidad;
 import org.hibernate.query.Query;
 import app.model.entity.Edificio;
 import org.hibernate.Session;
@@ -59,11 +61,19 @@ public class DaoEdificioMySQL implements DaoEdificio {
     }
 
     @Override
-    public void delete(Edificio edificio) {
+    public void sacarUsuarioDpto(Unidad unidad, Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
+        unidad = session.find(Unidad.class, unidad.getId());
         Transaction transaction = session.beginTransaction();
-        session.delete(edificio);
+        for (UsuarioUnidad u: unidad.getUsuarios()) {
+            if (u.getUsuario() == usuario) {
+                session.remove(u);
+                unidad.getUsuarios().remove(u);
+                break;
+            }
+        }
+        session.update(unidad);
         transaction.commit();
     }
 }

@@ -4,6 +4,7 @@ import app.util.TipoUsuario;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "usuarios")
@@ -19,7 +20,7 @@ public class Usuario {
     private String nombre;
     @Column(nullable = false)
     private int telefono;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<UsuarioUnidad> unidades;
     @OneToMany
     private List<Reclamo> reclamos;
@@ -91,15 +92,5 @@ public class Usuario {
 
     public void setReclamos(List<Reclamo> reclamos) {
         this.reclamos = reclamos;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
     }
 }

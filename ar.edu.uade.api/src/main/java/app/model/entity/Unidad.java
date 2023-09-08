@@ -1,7 +1,5 @@
 package app.model.entity;
 
-import app.util.EstadoUnidad;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,12 +13,7 @@ public class Unidad {
     private Edificio edificio;
     private int piso;
     private int numero;
-    @ManyToMany
-    @JoinTable(
-            name = "usuarios_unidades",
-            joinColumns = @JoinColumn(name = "unidad_id"),
-            inverseJoinColumns = @JoinColumn(name = "usuario_id")
-    )
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.PERSIST)
     private List<UsuarioUnidad> usuarios;
     @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
     private List<Localizado> reclamos;
@@ -29,7 +22,7 @@ public class Unidad {
 
     }
 
-    public Unidad(Edificio edificio, int piso, int numero, EstadoUnidad estado, List<UsuarioUnidad> usuarios, List<Localizado> reclamos) {
+    public Unidad(Edificio edificio, int piso, int numero, List<UsuarioUnidad> usuarios, List<Localizado> reclamos) {
         this.edificio = edificio;
         this.piso = piso;
         this.numero = numero;
@@ -84,5 +77,4 @@ public class Unidad {
     public void setReclamos(List<Localizado> reclamos) {
         this.reclamos = reclamos;
     }
-
 }
