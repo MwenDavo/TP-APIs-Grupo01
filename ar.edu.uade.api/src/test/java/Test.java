@@ -16,6 +16,7 @@ public class Test {
         DaoEdificio daoEdificio = DaoEdificioMySQL.getInstance();
         DaoUsuario daoUsuario = DaoUsuarioMySQL.getInstance();
         DaoReclamo daoReclamo = DaoReclamoMySQL.getInstance();
+        DaoLogReclamoMySQL daoLog = DaoLogReclamoMySQL.getInstance();
 
         Edificio edificio = new Edificio("Gral. José de San Martín 1622", new ArrayList<Unidad>(), new ArrayList<General>());
 
@@ -81,7 +82,6 @@ public class Test {
 
         //TODO aún no se comprueba si el Usuario es parte del Edificio o de la Unidad y si es PROPIETARIO o INQUILINO antes de cargar un Reclamo
 
-        //TODO logear el cambio de EstadoReclamo
 
         General general = new General("No hay luz en las escaleras.", null, usuario3, EstadoReclamo.NUEVO, edificio);
 /*
@@ -98,10 +98,14 @@ public class Test {
         daoEdificio.updateDpto(unidad3);
  */
         daoReclamo.save(localizado);
-
+        //TODO hay que arreglar las operaciones a la base de datos con LogReclamo y Reclamo (inconsistencias)
+        LogEstadoReclamo logEstado = new LogEstadoReclamo(general,123123,"ABIERTO"," ");
         general.setEstado(EstadoReclamo.ABIERTO);
 
+        daoLog.saveLogEstadoReclamo(logEstado);
         daoReclamo.update(general);
+
+
 
         EstadoReclamo[] estados = new EstadoReclamo[]{general.getEstado(), localizado.getEstado()};
         List<Reclamo> reclamos = daoReclamo.getAll();
