@@ -62,7 +62,7 @@ public class DaoReclamoMySQL implements DaoReclamo {
 
     @Override
     public void save(Reclamo reclamo) {
-        if
+
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Transaction transaction = session.beginTransaction();

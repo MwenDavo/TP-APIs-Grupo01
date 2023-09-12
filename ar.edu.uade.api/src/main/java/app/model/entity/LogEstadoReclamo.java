@@ -3,6 +3,7 @@ package app.model.entity;
 import javax.persistence.*;
 import java.sql.Timestamp;
 @Entity
+@Table(name = "log_estado_reclamo")
 public class LogEstadoReclamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
