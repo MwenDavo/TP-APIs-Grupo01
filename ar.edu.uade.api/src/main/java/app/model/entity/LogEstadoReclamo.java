@@ -8,8 +8,11 @@ public class LogEstadoReclamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private long fechaHora; //En vez de guardar la fecha hora en si, se guarda un long de numeros que representan el tiempo entre el 1ro de enero del 70 y el momento actual (mas facil que guardar una clase de timestamp)
+    @Column(nullable = false)
     private String estado;
+    @Column(nullable = false)
     private String descripcion;
     @ManyToOne
     private Reclamo reclamo;

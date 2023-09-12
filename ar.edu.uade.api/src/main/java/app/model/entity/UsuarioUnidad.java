@@ -15,6 +15,7 @@ public class UsuarioUnidad {
     private Usuario usuario;
     @ManyToOne
     private Unidad unidad;
+    @Column(nullable = false)
     private TipoRelacion relacion;
 
     public UsuarioUnidad() {

@@ -11,7 +11,9 @@ public class Unidad {
     private int id;
     @ManyToOne
     private Edificio edificio;
+    @Column(nullable = false)
     private int piso;
+    @Column(nullable = false)
     private int numero;
     @OneToMany(mappedBy = "unidad", cascade = CascadeType.PERSIST)
     private List<UsuarioUnidad> usuarios;

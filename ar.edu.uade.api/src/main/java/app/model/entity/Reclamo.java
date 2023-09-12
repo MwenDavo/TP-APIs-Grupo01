@@ -13,11 +13,13 @@ public abstract class Reclamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private String descripcion;
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Foto> fotos;
     @ManyToOne
     private Usuario usuario;
+    @Column(nullable = false)
     private EstadoReclamo estado;
     @OneToMany(mappedBy = "reclamo", cascade = CascadeType.ALL)
     private List<LogEstadoReclamo> historial;

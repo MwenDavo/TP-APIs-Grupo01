@@ -9,6 +9,7 @@ public class Foto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Lob
+    @Column(nullable = false)
     private Byte[] bits;
 
     public Foto() {

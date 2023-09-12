@@ -9,6 +9,7 @@ public class Edificio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false, unique = true)
     private String direccion;
     @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
     private List<Unidad> unidades = new ArrayList<>();
