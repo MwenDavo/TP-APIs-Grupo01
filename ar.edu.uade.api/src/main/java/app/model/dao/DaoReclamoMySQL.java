@@ -1,15 +1,11 @@
 package app.model.dao;
 
 import app.conexion.ConexionMySQL;
-import app.model.entity.LogEstadoReclamo;
+import app.model.entity.*;
 import app.util.EstadoReclamo;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import app.model.entity.Edificio;
-import app.model.entity.Reclamo;
-import app.model.entity.Usuario;
-
 import java.util.List;
 
 public class DaoReclamoMySQL implements DaoReclamo {
@@ -26,16 +22,34 @@ public class DaoReclamoMySQL implements DaoReclamo {
         return instance;
     }
 
-    public List<Reclamo> getByState(EstadoReclamo estado) {
+    @Override
+    public boolean create(Reclamo reclamo) {
+
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE estado = :estado", Reclamo.class);
-        query.setParameter("estado", estado);
-        return query.list();
-    }
 
+        try {
+
+            Transaction transaction = session.beginTransaction();
+            session.save(reclamo);
+            transaction.commit();
+        } catch (Exception exception) {
+
+            return false;
+        }
+
+        return true;
+    }
     @Override
-    public List<Reclamo> getAll() {
+    public Reclamo read(int id) {
+
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+
+        return session.find(Reclamo.class, id);
+    }
+    @Override
+    public List<Reclamo> readAll() {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Query<Reclamo> query = session.createQuery("FROM Reclamo", Reclamo.class);
@@ -43,50 +57,60 @@ public class DaoReclamoMySQL implements DaoReclamo {
     }
 
     @Override
-    public List<Reclamo> getByEdificio(Edificio edificio) {
+    public List<Reclamo> readByEstadoReclamo(EstadoReclamo estado) {
+
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Reclamo> query = session.createQuery("SELECT e.Reclamo FROM Edificio e JOIN e.Reclamo WHERE id = :id", Reclamo.class);
+
+        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE estado = :estado", Reclamo.class);
+        query.setParameter("estado", estado);
+
+        return query.list();
+    }
+
+    @Override
+    public List<General> readByEdificio(Edificio edificio) {
+
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+
+        Query<General> query = session.createQuery("SELECT g FROM General g JOIN g.edificio e WHERE e.id = :id", General.class);
         query.setParameter("id", edificio.getId());
+
         return query.list();
     }
 
     @Override
-    public List<Reclamo> getByUsuario(Usuario usuario) {
+    public boolean update(Reclamo reclamo, Log log) {
+
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Reclamo> query = session.createQuery("SELECT u.Reclamo FROM Usuario u JOIN u.Reclamo WHERE id = :id", Reclamo.class);
-        query.setParameter("id", usuario.getId());
-        return query.list();
+
+        try {
+
+            Transaction transaction = session.beginTransaction();
+            session.save(log);
+            session.update(reclamo);
+            transaction.commit();
+        } catch (Exception exception) {
+
+            return false;
+        }
+
+        return true;
     }
 
     @Override
-    public void save(Reclamo reclamo) {
+    public List<Log> readByReclamo(Reclamo reclamo) {
 
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(reclamo);
-        transaction.commit();
-    }
 
-    @Override
-    public void update(Reclamo reclamo, LogEstadoReclamo log) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(log);
-        session.update(reclamo);
-        transaction.commit();
-    }
-
-
-    @Override
-    public List<LogEstadoReclamo> getByReclamo(Reclamo reclamo){
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Query<LogEstadoReclamo> query = session.createQuery("SELECT r.LogEstadoReclamo FROM Reclamo r JOIN r.LogEstadoReclamo WHERE id = :id", LogEstadoReclamo.class);
+        Query<Log> query = session.createQuery("SELECT l FROM Log l JOIN l.reclamo r WHERE r.id = :id", Log.class);
         query.setParameter("id", reclamo.getId());
+
         return query.list();
     }
 }
+
+

@@ -1,7 +1,12 @@
 package app.model.entity;
 
+import app.util.TipoRelacion;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "unidades")
@@ -15,21 +20,19 @@ public class Unidad {
     private int piso;
     @Column(nullable = false)
     private int numero;
-    @OneToMany(mappedBy = "unidad", cascade = CascadeType.PERSIST)
-    private List<UsuarioUnidad> usuarios;
-    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
-    private List<Localizado> reclamos;
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<UsuarioUnidad> usuarios = new ArrayList<>();
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Localizado> reclamos = new ArrayList<>();
 
     public Unidad() {
 
     }
 
-    public Unidad(Edificio edificio, int piso, int numero, List<UsuarioUnidad> usuarios, List<Localizado> reclamos) {
+    public Unidad(Edificio edificio, int piso, int numero) {
         this.edificio = edificio;
         this.piso = piso;
         this.numero = numero;
-        this.usuarios = usuarios;
-        this.reclamos = reclamos;
     }
 
     public int getId() {

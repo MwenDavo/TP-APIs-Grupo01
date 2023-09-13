@@ -7,33 +7,38 @@ import org.hibernate.cfg.Configuration;
 
 public class ConexionMySQL {
     private Session session;
-
     private static ConexionMySQL instance = null;
 
     private ConexionMySQL() {
+
         Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(Credencial.class);
+
         configuration.addAnnotatedClass(Edificio.class);
         configuration.addAnnotatedClass(Foto.class);
-        configuration.addAnnotatedClass(Reclamo.class);
         configuration.addAnnotatedClass(General.class);
         configuration.addAnnotatedClass(Localizado.class);
+        configuration.addAnnotatedClass(Log.class);
+        configuration.addAnnotatedClass(Reclamo.class);
         configuration.addAnnotatedClass(Unidad.class);
         configuration.addAnnotatedClass(Usuario.class);
         configuration.addAnnotatedClass(UsuarioUnidad.class);
-        configuration.addAnnotatedClass(LogEstadoReclamo.class);
+
         SessionFactory sessionFactory = configuration.buildSessionFactory();
+
         session = sessionFactory.openSession();
     }
 
     public static ConexionMySQL getInstance() {
+
         if (instance == null) {
             instance = new ConexionMySQL();
         }
+
         return instance;
     }
 
     public Session getSession() {
+
         return session;
     }
 }

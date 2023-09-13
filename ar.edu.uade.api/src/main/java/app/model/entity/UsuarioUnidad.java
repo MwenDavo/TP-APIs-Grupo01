@@ -16,16 +16,16 @@ public class UsuarioUnidad {
     @ManyToOne
     private Unidad unidad;
     @Column(nullable = false)
-    private TipoRelacion relacion;
+    private TipoRelacion tipoRelacion;
 
     public UsuarioUnidad() {
 
     }
 
-    public UsuarioUnidad(Usuario usuario, Unidad unidad, TipoRelacion relacion) {
+    public UsuarioUnidad(Usuario usuario, Unidad unidad, TipoRelacion tipoRelacion) {
         this.usuario = usuario;
         this.unidad = unidad;
-        this.relacion = relacion;
+        this.tipoRelacion = tipoRelacion;
     }
 
     public int getId() {
@@ -52,11 +52,11 @@ public class UsuarioUnidad {
         this.unidad = unidad;
     }
 
-    public TipoRelacion getRelacion() {
-        return relacion;
+    public TipoRelacion getTipoRelacion() {
+        return tipoRelacion;
     }
 
-    public void setRelacion(TipoRelacion relacion) {
-        this.relacion = relacion;
+    public void setTipoRelacion(TipoRelacion tipoRelacion) {
+        this.tipoRelacion = tipoRelacion;
     }
 }

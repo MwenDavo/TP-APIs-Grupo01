@@ -9,21 +9,19 @@ public class Edificio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)//, unique = true)
     private String direccion;
-    @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Unidad> unidades = new ArrayList<>();
-    @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "edificio", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<General> reclamos = new ArrayList<>();
 
     public Edificio() {
 
     }
 
-    public Edificio(String direccion, List<Unidad> unidades, List<General> reclamos) {
+    public Edificio(String direccion) {
         this.direccion = direccion;
-        this.unidades = unidades;
-        this.reclamos = reclamos;
     }
 
     public int getId() {
@@ -56,15 +54,5 @@ public class Edificio {
 
     public void setReclamos(List<General> reclamos) {
         this.reclamos = reclamos;
-    }
-
-    @Override
-    public String toString() {
-        return "Edificio{" +
-                "id=" + id +
-                ", direccion='" + direccion + '\'' +
-                ", unidades=" + unidades +
-                ", reclamos=" + reclamos +
-                '}';
     }
 }

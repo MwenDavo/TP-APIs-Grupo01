@@ -6,7 +6,6 @@ import app.model.entity.UsuarioUnidad;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import app.model.entity.Credencial;
 import app.model.entity.Usuario;
 
 import java.util.List;
@@ -26,35 +25,30 @@ public class DaoUsuarioMySQL implements DaoUsuario {
     }
 
     @Override
-    public Usuario get(Credencial credencial) {
+    public void create(Usuario usuario) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
-        Query<Integer> query = session.createQuery("SELECT id FROM Credencial WHERE user = :user AND password = :password");
-        query.setParameter("user", credencial.getUser());
-        query.setParameter("password", credencial.getPassword());
-        Integer result = query.uniqueResult();
-        if (result != null) {
-            return session.get(Usuario.class, (int) result);
-        }
-        return null;
+        Transaction transaction = session.beginTransaction();
+        session.save(usuario);
+        transaction.commit();
     }
 
     @Override
-    public List<Usuario> getAll() {
+    public Usuario read(Usuario usuario) {
+        ConexionMySQL connection = ConexionMySQL.getInstance();
+        Session session = connection.getSession();
+        Query<Usuario> query = session.createQuery("FROM Usuario WHERE user = :user AND password = :password");
+        query.setParameter("user", usuario.getUser());
+        query.setParameter("password", usuario.getPassword());
+        return query.uniqueResult();
+    }
+
+    @Override
+    public List<Usuario> readAll() {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Query<Usuario> query = session.createQuery("FROM Usuario", Usuario.class);
         return query.list();
-    }
-
-    @Override
-    public void save(Credencial credencial, Usuario usuario) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(credencial);
-        session.save(usuario);
-        transaction.commit();
     }
 
     @Override
@@ -68,35 +62,20 @@ public class DaoUsuarioMySQL implements DaoUsuario {
     }
 
     @Override
-    public void sacarUnidad(Usuario usuario, Unidad unidad) {
+    public void updateUnidades(Usuario usuario, Unidad unidad) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         usuario = session.find(Usuario.class, usuario.getId());
         Transaction transaction = session.beginTransaction();
         for (UsuarioUnidad u : usuario.getUnidades()) {
             if (u.getUnidad() == unidad) {
-                session.remove(u);
                 usuario.getUnidades().remove(u);
+                unidad.getUsuarios().remove(u);
+                session.remove(u);
                 break;
             }
         }
         session.update(usuario);
-        transaction.commit();
-    }
-
-    @Override
-    public void delete(Usuario usuario) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Credencial credencial = session.find(Credencial.class, usuario.getId());
-        usuario = session.find(Usuario.class, usuario.getId());
-        Transaction transaction = session.beginTransaction();
-        session.remove(credencial);
-        for (UsuarioUnidad u: usuario.getUnidades()) {
-            session.remove(u);
-        }
-        usuario.getUnidades().clear();
-        session.remove(usuario);
         transaction.commit();
     }
 }

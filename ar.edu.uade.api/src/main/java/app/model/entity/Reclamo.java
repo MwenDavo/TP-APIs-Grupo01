@@ -15,24 +15,23 @@ public abstract class Reclamo {
     private int id;
     @Column(nullable = false)
     private String descripcion;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Foto> fotos;
     @ManyToOne
     private Usuario usuario;
     @Column(nullable = false)
-    private EstadoReclamo estado;
-    @OneToMany(mappedBy = "reclamo", cascade = CascadeType.ALL)
-    private List<LogEstadoReclamo> historial;
+    private EstadoReclamo estado = EstadoReclamo.NUEVO;
+    @OneToMany(mappedBy = "reclamo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Log> historial;
 
     public Reclamo() {
 
     }
 
-    public Reclamo(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estado) {
+    public Reclamo(String descripcion, List<Foto> fotos, Usuario usuario) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.usuario = usuario;
-        this.estado = estado;
     }
 
     public int getId() {
@@ -73,5 +72,13 @@ public abstract class Reclamo {
 
     public void setEstado(EstadoReclamo estado) {
         this.estado = estado;
+    }
+
+    public List<Log> getHistorial() {
+        return historial;
+    }
+
+    public void setHistorial(List<Log> historial) {
+        this.historial = historial;
     }
 }

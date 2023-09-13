@@ -26,7 +26,7 @@ public class DaoEdificioMySQL implements DaoEdificio {
     }
 
     @Override
-    public List<Edificio> getAll() {
+    public List<Edificio> readAll() {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Query<Edificio> query = session.createQuery("FROM Edificio", Edificio.class);
@@ -34,12 +34,17 @@ public class DaoEdificioMySQL implements DaoEdificio {
     }
 
     @Override
-    public void save(Edificio edificio) {
+    public void create(Edificio edificio) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Transaction transaction = session.beginTransaction();
         session.save(edificio);
         transaction.commit();
+    }
+
+    @Override
+    public Edificio read() {
+        return null;
     }
 
     @Override
@@ -52,27 +57,10 @@ public class DaoEdificioMySQL implements DaoEdificio {
     }
 
     @Override
-    public void updateDpto(Unidad unidad) {
+    public void updateUnidad(Unidad unidad) {
         ConexionMySQL connection = ConexionMySQL.getInstance();
         Session session = connection.getSession();
         Transaction transaction = session.beginTransaction();
-        session.update(unidad);
-        transaction.commit();
-    }
-
-    @Override
-    public void sacarUsuarioDpto(Unidad unidad, Usuario usuario) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        unidad = session.find(Unidad.class, unidad.getId());
-        Transaction transaction = session.beginTransaction();
-        for (UsuarioUnidad u: unidad.getUsuarios()) {
-            if (u.getUsuario() == usuario) {
-                session.remove(u);
-                unidad.getUsuarios().remove(u);
-                break;
-            }
-        }
         session.update(unidad);
         transaction.commit();
     }

@@ -1,31 +1,22 @@
 package app.model.dao;
 
-import app.conexion.ConexionMySQL;
-import app.model.entity.Edificio;
-import app.model.entity.LogEstadoReclamo;
-import app.model.entity.Reclamo;
-import app.model.entity.Usuario;
+import app.model.entity.*;
 import app.util.EstadoReclamo;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-
 import java.util.List;
 
 public interface DaoReclamo {
 
-    List<Reclamo> getByState(EstadoReclamo estado);
+    boolean create(Reclamo reclamo);
 
-    @Deprecated
-    List<Reclamo> getByEdificio(Edificio edificio);
+    Reclamo read(int id);
 
-    @Deprecated
-    List<Reclamo> getByUsuario(Usuario usuario);
+    List<Reclamo> readAll();
 
-    List<Reclamo> getAll();
+    List<Reclamo> readByEstadoReclamo(EstadoReclamo estadoReclamo);
 
-    void save(Reclamo reclamo);
+    List<General> readByEdificio(Edificio edificio);
 
-    void update(Reclamo reclamo, LogEstadoReclamo log);
+    boolean update(Reclamo reclamo, Log log);
 
-    List<LogEstadoReclamo> getByReclamo(Reclamo reclamo);
+    List<Log> readByReclamo(Reclamo reclamo);
 }

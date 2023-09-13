@@ -10,14 +10,14 @@ public class Foto {
     private int id;
     @Lob
     @Column(nullable = false)
-    private Byte[] bits;
+    private Byte[] data;
 
     public Foto() {
 
     }
 
-    public Foto(Byte[] bits) {
-        this.bits = bits;
+    public Foto(Byte[] data) {
+        this.data = data;
     }
 
     public int getId() {
@@ -28,11 +28,11 @@ public class Foto {
         this.id = id;
     }
 
-    public Byte[] getBits() {
-        return bits;
+    public Byte[] getData() {
+        return data;
     }
 
-    public void setBits(Byte[] bits) {
-        this.bits = bits;
+    public void setData(Byte[] data) {
+        this.data = data;
     }
 }

@@ -1,6 +1,5 @@
 package app.model.dao;
 
-import app.model.entity.Credencial;
 import app.model.entity.Unidad;
 import app.model.entity.Usuario;
 
@@ -8,15 +7,14 @@ import java.util.List;
 
 public interface DaoUsuario {
 
-    Usuario get(Credencial credencial);
+    void create(Usuario usuario);
 
-    List<Usuario> getAll();
+    Usuario read(Usuario usuario);
 
-    void save(Credencial credencial, Usuario usuario);
+    List<Usuario> readAll();
 
     void update(Usuario usuario);
 
-    void sacarUnidad(Usuario usuario, Unidad unidad);
+    void updateUnidades(Usuario usuario, Unidad unidad);
 
-    void delete(Usuario usuario);
 }

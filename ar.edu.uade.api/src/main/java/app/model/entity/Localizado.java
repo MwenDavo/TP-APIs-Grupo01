@@ -16,8 +16,8 @@ public class Localizado extends Reclamo {
         super();
     }
 
-    public Localizado(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estado, Unidad unidad) {
-        super(descripcion, fotos, usuario, estado);
+    public Localizado(String descripcion, List<Foto> fotos, Usuario usuario, Unidad unidad) {
+        super(descripcion, fotos, usuario);
         this.unidad = unidad;
     }
 
@@ -27,5 +27,31 @@ public class Localizado extends Reclamo {
 
     public void setUnidad(Unidad unidad) {
         this.unidad = unidad;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+
+        if (object == null) {
+            return false;
+        }
+
+        if (object == this) {
+            return true;
+        }
+
+        if (object.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Localizado that = (Localizado) object;
+
+        return that.getId() == this.getId() &&
+                that.getDescripcion() == this.getDescripcion() &&
+                that.getFotos() == this.getFotos() &&
+                that.getUsuario() == this.getUsuario() &&
+                that.getEstado() == this.getEstado() &&
+                that.getHistorial() == getHistorial() &&
+                that.getUnidad() == this.getUnidad();
     }
 }

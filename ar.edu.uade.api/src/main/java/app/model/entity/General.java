@@ -16,8 +16,8 @@ public class General extends Reclamo {
         super();
     }
 
-    public General(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estado, Edificio edificio) {
-        super(descripcion, fotos, usuario, estado);
+    public General(String descripcion, List<Foto> fotos, Usuario usuario, Edificio edificio) {
+        super(descripcion, fotos, usuario);
         this.edificio = edificio;
     }
 
@@ -27,5 +27,31 @@ public class General extends Reclamo {
 
     public void setEdificio(Edificio edificio) {
         this.edificio = edificio;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+
+        if (object == null) {
+            return false;
+        }
+
+        if (object == this) {
+            return true;
+        }
+
+        if (object.getClass() != this.getClass()) {
+            return false;
+        }
+
+        General that = (General) object;
+
+        return that.getId() == this.getId() &&
+                that.getDescripcion() == this.getDescripcion() &&
+                that.getFotos() == this.getFotos() &&
+                that.getUsuario() == this.getUsuario() &&
+                that.getEstado() == this.getEstado() &&
+                that.getHistorial() == getHistorial() &&
+                that.getEdificio() == this.getEdificio();
     }
 }

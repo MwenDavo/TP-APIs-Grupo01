@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface DaoEdificio {
 
-    List<Edificio> getAll();
+    void create(Edificio edificio);
 
-    void save(Edificio edificio);
+    Edificio read();
+
+    List<Edificio> readAll();
 
     void update(Edificio edificio);
 
-    void updateDpto(Unidad unidad);
-
-    void sacarUsuarioDpto(Unidad unidad, Usuario usuario);
+    void updateUnidad(Unidad unidad);
 }

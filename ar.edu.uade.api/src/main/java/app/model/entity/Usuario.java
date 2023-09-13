@@ -1,10 +1,11 @@
 package app.model.entity;
 
+import app.util.EstadoUsuario;
 import app.util.TipoUsuario;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -14,28 +15,33 @@ public class Usuario {
     private int id;
     @Column(nullable = false)
     private TipoUsuario tipoUsuario;
+    @Column(length = 12, unique = true)
+    private String user;
+    private String password;
     @Column(unique = true, nullable = false)
     private int dni;
     @Column(nullable = false)
     private String nombre;
     @Column(nullable = false)
     private int telefono;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<UsuarioUnidad> unidades;
-    @OneToMany
-    private List<Reclamo> reclamos;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UsuarioUnidad> unidades = new ArrayList<>();
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Reclamo> reclamos = new ArrayList<>();
+    @Column(nullable = false)
+    private EstadoUsuario estadoUsuario = EstadoUsuario.DISPONIBLE;
 
     public Usuario() {
 
     }
 
-    public Usuario(TipoUsuario tipoUsuario, int dni, String nombre, int telefono, List<UsuarioUnidad> unidades, List<Reclamo> reclamos) {
+    public Usuario(TipoUsuario tipoUsuario, String user, String password, int dni, String nombre, int telefono) {
         this.tipoUsuario = tipoUsuario;
+        this.user = user;
+        this.password = password;
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
-        this.unidades = unidades;
-        this.reclamos = reclamos;
     }
 
     public int getId() {
@@ -52,6 +58,22 @@ public class Usuario {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getDni() {
@@ -92,5 +114,13 @@ public class Usuario {
 
     public void setReclamos(List<Reclamo> reclamos) {
         this.reclamos = reclamos;
+    }
+
+    public EstadoUsuario getEstadoUsuario() {
+        return estadoUsuario;
+    }
+
+    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
+        this.estadoUsuario = estadoUsuario;
     }
 }
