@@ -2,6 +2,7 @@ package app.model.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.spi.PersistenceProvider;
 import org.hibernate.query.Query;
 import app.model.entity.Edificio;
 import org.hibernate.Session;
