@@ -1,67 +1,61 @@
 package app.model.dao;
 
-import app.conexion.ConexionMySQL;
-import app.model.entity.Usuario;
-import app.model.entity.UsuarioUnidad;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.query.Query;
 import app.model.entity.Edificio;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import app.model.entity.Unidad;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Repository
 public class DaoEdificioMySQL implements DaoEdificio {
-    private static DaoEdificioMySQL instance = null;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    private DaoEdificioMySQL() {
+    public DaoEdificioMySQL() {
 
-    }
-
-    public static DaoEdificioMySQL getInstance() {
-        if (instance == null) {
-            instance = new DaoEdificioMySQL();
-        }
-        return instance;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Edificio> readAll() {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+
+        Session session = entityManager.unwrap(Session.class);
+
         Query<Edificio> query = session.createQuery("FROM Edificio", Edificio.class);
-        return query.list();
+
+        return query.getResultList();
     }
 
     @Override
+    @Transactional
     public void create(Edificio edificio) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(edificio);
-        transaction.commit();
+
+        Session session = entityManager.unwrap(Session.class);
+
+        session.persist(edificio);
     }
 
     @Override
-    public Edificio read() {
-        return null;
-    }
-
-    @Override
+    @Transactional
     public void update(Edificio edificio) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Transaction transaction = session.beginTransaction();
+
+        Session session = entityManager.unwrap(Session.class);
+
         session.update(edificio);
-        transaction.commit();
     }
 
     @Override
+    @Transactional
     public void updateUnidad(Unidad unidad) {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
-        Transaction transaction = session.beginTransaction();
+
+        Session session = entityManager.unwrap(Session.class);
+
         session.update(unidad);
-        transaction.commit();
     }
 }

@@ -2,10 +2,9 @@ package app.model.entity;
 
 import app.util.EstadoUsuario;
 import app.util.TipoUsuario;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")

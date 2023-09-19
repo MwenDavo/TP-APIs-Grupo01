@@ -10,11 +10,11 @@ public interface DaoEdificio {
 
     void create(Edificio edificio);
 
-    Edificio read();
-
     List<Edificio> readAll();
 
+    @Deprecated
     void update(Edificio edificio);
 
+    @Deprecated
     void updateUnidad(Unidad unidad);
 }

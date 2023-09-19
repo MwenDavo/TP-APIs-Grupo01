@@ -1,115 +1,105 @@
 package app.model.dao;
 
-import app.conexion.ConexionMySQL;
 import app.model.entity.*;
 import app.util.EstadoReclamo;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
+@Repository
 public class DaoReclamoMySQL implements DaoReclamo {
-    private static DaoReclamoMySQL instance = null;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    private DaoReclamoMySQL() {
+    public DaoReclamoMySQL() {
 
-    }
-
-    public static DaoReclamoMySQL getInstance() {
-        if (instance == null) {
-            instance = new DaoReclamoMySQL();
-        }
-        return instance;
     }
 
     @Override
-    public boolean create(Reclamo reclamo) {
+    @Transactional
+    public void create(Reclamo reclamo) {
 
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+        Session session = entityManager.unwrap(Session.class);
 
-        try {
+        Transaction transaction = session.beginTransaction();
 
-            Transaction transaction = session.beginTransaction();
-            session.save(reclamo);
-            transaction.commit();
-        } catch (Exception exception) {
+        session.persist(reclamo);
 
-            return false;
-        }
-
-        return true;
+        transaction.commit();
     }
     @Override
+    @Transactional(readOnly = true)
     public Reclamo read(int id) {
 
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+        Session session = entityManager.unwrap(Session.class);
 
-        return session.find(Reclamo.class, id);
+        return session.get(Reclamo.class, id);
     }
     @Override
+    @Transactional(readOnly = true)
     public List<Reclamo> readAll() {
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+
+        Session session = entityManager.unwrap(Session.class);
+
         Query<Reclamo> query = session.createQuery("FROM Reclamo", Reclamo.class);
-        return query.list();
+
+        return query.getResultList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Reclamo> readByEstadoReclamo(EstadoReclamo estado) {
 
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+        Session session = entityManager.unwrap(Session.class);
 
         Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE estado = :estado", Reclamo.class);
         query.setParameter("estado", estado);
 
-        return query.list();
+        return query.getResultList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<General> readByEdificio(Edificio edificio) {
 
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+        Session session = entityManager.unwrap(Session.class);
 
         Query<General> query = session.createQuery("SELECT g FROM General g JOIN g.edificio e WHERE e.id = :id", General.class);
         query.setParameter("id", edificio.getId());
 
-        return query.list();
+        return query.getResultList();
     }
 
     @Override
-    public boolean update(Reclamo reclamo, Log log) {
+    @Transactional
+    public void update(Reclamo reclamo, Log log) {
 
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+        Session session = entityManager.unwrap(Session.class);
 
-        try {
+        Transaction transaction = session.beginTransaction();
 
-            Transaction transaction = session.beginTransaction();
-            session.save(log);
-            session.update(reclamo);
-            transaction.commit();
-        } catch (Exception exception) {
+        session.save(log);
+        session.update(reclamo);
 
-            return false;
-        }
-
-        return true;
+        transaction.commit();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Log> readByReclamo(Reclamo reclamo) {
 
-        ConexionMySQL connection = ConexionMySQL.getInstance();
-        Session session = connection.getSession();
+        Session session = entityManager.unwrap(Session.class);
 
         Query<Log> query = session.createQuery("SELECT l FROM Log l JOIN l.reclamo r WHERE r.id = :id", Log.class);
         query.setParameter("id", reclamo.getId());
 
-        return query.list();
+        return query.getResultList();
     }
 }
 

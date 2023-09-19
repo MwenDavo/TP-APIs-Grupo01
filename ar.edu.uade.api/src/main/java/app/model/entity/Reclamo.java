@@ -1,8 +1,7 @@
 package app.model.entity;
 
 import app.util.EstadoReclamo;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity

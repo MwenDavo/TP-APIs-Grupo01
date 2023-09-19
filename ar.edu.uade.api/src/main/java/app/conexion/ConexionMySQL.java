@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+@Deprecated
 public class ConexionMySQL {
     private Session session;
     private static ConexionMySQL instance = null;

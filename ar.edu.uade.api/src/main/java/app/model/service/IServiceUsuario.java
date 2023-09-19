@@ -1,11 +1,11 @@
-package app.model.dao;
+package app.model.service;
 
 import app.model.entity.Unidad;
 import app.model.entity.Usuario;
 
 import java.util.List;
 
-public interface DaoUsuario {
+public interface IServiceUsuario {
 
     void create(Usuario usuario);
 
