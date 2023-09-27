@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.entity.Edificio;
+import application.model.entity.Usuario;
 import application.model.entity.dto.EdificioDTO;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.IEdificioService;
@@ -20,26 +21,21 @@ public class EdificioController {
 
     @PostMapping("/edificio")
     public ResponseEntity<EdificioDTO> create(@RequestBody EdificioDTO edificioDTO) {
-        Edificio edificio = convertToEntity(edificioDTO);
+        Edificio edificio = new Edificio(
+                edificioDTO.getDireccion(),
+                edificioDTO.getUnidades()
+        );
         edificioService.create(edificio);
         edificioDTO = convertToDTO(edificio);
         return new ResponseEntity<>(edificioDTO, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/edificio/{id}")
-    public ResponseEntity<?> read(@PathVariable long id) {
-        Edificio edificio = edificioService.read(id);
-        if (edificio == null) {
-            String mensaje = "Edificio no encontrado.";
-            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        }
-        EdificioDTO edificioDTO = convertToDTO(edificio);
-        return new ResponseEntity<>(edificioDTO, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/edificio/edificioParameters")
-    public ResponseEntity<?> readParameterized(@RequestParam("id") long id) {
-        Edificio edificio = edificioService.read(id);
+    public ResponseEntity<?> read(@RequestBody EdificioDTO edificioDTO) {
+        Edificio edificio = new Edificio(
+                edificioDTO.getDireccion()
+        );
+        Edificio edificio = edificioService.readByDireccion(edificio);
         if (edificio == null) {
             String mensaje = "Edificio no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
@@ -50,7 +46,11 @@ public class EdificioController {
 
     @GetMapping(value = "/edificios")
     public List<EdificioDTO> readAll(UsuarioDTO usuarioDTO) {
-        List<Edificio> edificios = edificioService.readAll();
+        Usuario usuario = new Usuario(
+                usuarioDTO.getTipoUsuario(),
+                usuarioDTO.getUnidades()
+        );
+        List<Edificio> edificios = edificioService.readAll(usuario);
         List<EdificioDTO> response = new ArrayList<>();
         for (Edificio edificio : edificios) {
             EdificioDTO edificioDTO = convertToDTO(edificio);
@@ -58,71 +58,4 @@ public class EdificioController {
         }
         return response;
     }
-
-    @PutMapping("/edificios/{id}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody EdificioDTO edificioDTO) {
-        if (edificioService.read(id) == null) {
-            String mensaje = "Edificio no encontrado.";
-            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        }
-        Edificio edificio = convertToEntity(edificioDTO);
-        edificioService.update(id, edificio);
-        edificioDTO = convertToDTO(edificio);
-        return new ResponseEntity<>(edificioDTO, HttpStatus.OK);
-    }
-
-    @PutMapping("/edificios/edificioParameters")
-    public ResponseEntity<?> updateParameterized(@RequestParam("id") long id, @RequestBody EdificioDTO edificioDTO) {
-        if (edificioService.read(id) == null) {
-            String mensaje = "Edificio no encontrado.";
-            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        }
-        Edificio edificio = convertToEntity(edificioDTO);
-        edificioService.update(id, edificio);
-        edificioDTO = convertToDTO(edificio);
-        return new ResponseEntity<>(edificioDTO, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/edificios/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id) {
-        Edificio edificio = edificioService.read(id);
-        if (edificio == null) {
-            String mensaje = "Edificio no encontrado.";
-            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        }
-        edificioService.delete(edificio);
-        String mensaje = "Edificio eliminado.";
-        return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
-    }
-
-    @DeleteMapping("/edificios/edificioParameters")
-    public ResponseEntity<?> deleteParameterized(@RequestParam("id") long id) {
-        Edificio edificio = edificioService.read(id);
-        if (edificio == null) {
-            String mensaje = "Edificio no encontrado.";
-            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        }
-        edificioService.delete(edificio);
-        String mensaje = "Edificio eliminado.";
-        return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
-    }
-
-    private EdificioDTO convertToDTO(Edificio edificio) {
-        return new EdificioDTO(
-                edificio.getId(),
-                edificio.getDireccion(),
-                edificio.getUnidades(),
-                edificio.getReclamos()
-        );
-    }
-
-
-    private Edificio convertToEntity(EdificioDTO edificioDTO) {
-        return new Edificio(
-                edificioDTO.getDireccion(),
-                edificioDTO.getUnidades()
-                );
-    }
-
-
 }

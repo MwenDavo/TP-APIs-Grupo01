@@ -29,11 +29,6 @@ public class ReclamoService implements IReclamoService {
     }
 
     @Override
-    public List<General> readByEdificio(General general) {
-        return reclamoDAO.readByEdificio(general.getEdificio());
-    }
-
-    @Override
     public List<Reclamo> readAll() {
         return reclamoDAO.readAll();
     }

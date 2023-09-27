@@ -9,7 +9,6 @@ public interface IReclamoService {
     void create(Reclamo reclamo);
     Reclamo read(Reclamo reclamo);
     List<Reclamo> readByEstadoReclamo(Reclamo reclamo);
-    List<General> readByEdificio(General general);
     List<Reclamo> readAll();
     void update(Reclamo reclamo);
 }
