@@ -2,6 +2,7 @@ package application.controller;
 
 import application.model.entity.Edificio;
 import application.model.entity.dto.EdificioDTO;
+import application.model.entity.dto.UsuarioDTO;
 import application.service.IEdificioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -108,6 +109,7 @@ public class EdificioController {
 
     private EdificioDTO convertToDTO(Edificio edificio) {
         return new EdificioDTO(
+                edificio.getId(),
                 edificio.getDireccion(),
                 edificio.getUnidades(),
                 edificio.getReclamos()
@@ -118,8 +120,7 @@ public class EdificioController {
     private Edificio convertToEntity(EdificioDTO edificioDTO) {
         return new Edificio(
                 edificioDTO.getDireccion(),
-                edificioDTO.getUnidades(),
-                edificioDTO.getReclamos()
+                edificioDTO.getUnidades()
                 );
     }
 
