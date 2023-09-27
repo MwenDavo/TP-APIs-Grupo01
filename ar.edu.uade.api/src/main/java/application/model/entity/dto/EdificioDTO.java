@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EdificioDTO {
-
     private long id;
-
     private String direccion;
-
     private List<Unidad> unidades = new ArrayList<>();
-
     private List<General> reclamos = new ArrayList<>();
+
+    public EdificioDTO() {
+    }
 
     public EdificioDTO(long id, String direccion, List<Unidad> unidades, List<General> reclamos) {
         this.id = id;

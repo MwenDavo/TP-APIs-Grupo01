@@ -30,6 +30,14 @@ public class EdificioDAO implements IEdificioDAO {
     }
 
     @Override
+    public Edificio readByDireccion(String direccion) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Edificio> query = session.createQuery("FROM Edificio WHERE direccion = :direccion", Edificio.class);
+        query.setParameter("direccion", direccion);
+        return query.uniqueResult();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Edificio> readAll() {
         Session session = entityManager.unwrap(Session.class);

@@ -109,18 +109,19 @@ public class ReclamoController {
 
     private ReclamoDTO convertToDTO(Reclamo reclamo) {
         return new ReclamoDTO(
-                edificio.getDireccion(),
-                edificio.getUnidades(),
-                edificio.getReclamos()
+                reclamo.getId(),
+                reclamo.getDescripcion(),
+                reclamo.getFotos(),
+                reclamo.getEstadoReclamo()
         );
     }
 
-
-    private Edificio convertToEntity(ReclamoDTO reclamoDTO) {
+    private Reclamo convertToEntity(ReclamoDTO reclamoDTO) {
         return new Reclamo(
-                edificioDTO.getDireccion(),
-                edificioDTO.getUnidades(),
-                edificioDTO.getReclamos()
+                reclamoDTO.getDescripcion(),
+                reclamoDTO.getFotos(),
+                reclamoDTO.getUsuario(),
+                reclamoDTO.getEstadoReclamo()
         );
     }
 

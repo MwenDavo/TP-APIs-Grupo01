@@ -2,7 +2,7 @@ package application.service;
 
 import application.model.dao.IEdificioDAO;
 import application.model.entity.Edificio;
-import application.model.entity.dto.UsuarioDTO;
+import application.model.entity.Usuario;
 import application.model.util.TipoUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,21 +12,28 @@ import java.util.List;
 @Service
 public class EdificioService implements IEdificioService {
     @Autowired
-    private IEdificioDAO dao;
+    private IEdificioDAO edificioDAO;
 
     @Override
     public void create(Edificio edificio) {
-        dao.create(edificio);
+        edificioDAO.create(edificio);
     }
 
     @Override
-    public Edificio read(long id) {
-        return dao.read(id);
+    public Edificio read(Edificio edificio) {
+        return edificioDAO.read(edificio.getId());
     }
 
     @Override
-    public List<Edificio> readAll() {
+    public Edificio readByDireccion(Edificio edificio) {
+        return edificioDAO.readByDireccion(edificio.getDireccion());
+    }
 
-        return dao.readAll();
+    @Override
+    public List<Edificio> readAll(Usuario usuario) {
+        if (usuario.getTipoUsuario() == TipoUsuario.COMMON) {
+            return edificioDAO.readByUsuario();
+        }
+        return edificioDAO.readAll();
     }
 }

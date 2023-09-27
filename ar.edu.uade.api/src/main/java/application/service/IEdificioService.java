@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface IEdificioService {
     void create(Edificio edificio);
-    Edificio read(long id);
+    Edificio read(Edificio edificio);
+    Edificio readByDireccion(Edificio edificio);
     List<Edificio> readAll();
-    void delete(Edificio edificio);
-
-    void update(long id, Edificio edificio);
 }
