@@ -61,7 +61,7 @@ public class UsuarioController {
         return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
     }
 
-    private Usuario convertToEntity(UsuarioDTO usuarioDTO) {
+    public static Usuario convertToEntity(UsuarioDTO usuarioDTO) {
         return new Usuario(
                 usuarioDTO.getUsername(),
                 usuarioDTO.getPassword(),
@@ -71,7 +71,7 @@ public class UsuarioController {
         );
     }
 
-    private UsuarioDTO convertToDTO(Usuario usuario) {
+    public static UsuarioDTO convertToDTO(Usuario usuario) {
         return new UsuarioDTO(usuario.getUsername(),usuario.getPassword(),usuario.getDni(),usuario.getNombre(),usuario.getTelefono());
     }
 }

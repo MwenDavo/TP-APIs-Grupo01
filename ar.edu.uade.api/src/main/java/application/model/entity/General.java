@@ -9,7 +9,14 @@ public class General extends Reclamo {
     @ManyToOne
     private Edificio edificio;
 
-    public General() {
+    public General(Reclamo r) {
+        super(
+                r.getDescripcion(),
+                r.getFotos(),
+                r.getUsuario(),
+                r.getEstadoReclamo(),
+                r.getHistorial()
+        );
     }
 
     public General(Edificio edificio) {

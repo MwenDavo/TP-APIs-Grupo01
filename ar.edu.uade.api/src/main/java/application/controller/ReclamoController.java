@@ -27,8 +27,8 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/reclamo")
-    public ResponseEntity<?> read(@RequestBody ReclamoDTO reclamoDTO) {
-        Reclamo reclamo = reclamoService.read(reclamoDTO);
+    public ResponseEntity<?> read(@RequestBody ReclamoDTO rDTO) {
+        Reclamo reclamo = reclamoService.read(convertToEntity(rDTO));
         if (reclamo == null) {
             String mensaje = "Edificio no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
@@ -42,25 +42,25 @@ public class ReclamoController {
         List<Reclamo> reclamos = reclamoService.readAll();
         List<ReclamoDTO> response = new ArrayList<>();
         for (Reclamo reclamo : reclamos) {
-            ReclamoDTO edificioDTO = convertToDTO(reclamo);
-            response.add(reclamoDTO);
+            ReclamoDTO reclamoDto = convertToDTO(reclamo);
+            response.add(reclamoDto);
         }
         return response;
     }
 
     @PutMapping("/reclamo")
-    public ResponseEntity<?> update(@RequestBody ReclamoDTO reclamoDTO) {
-        if (reclamoService.read(id) == null) {
-            String mensaje = "Edificio no encontrado.";
+    public ResponseEntity<?> update(@RequestBody ReclamoDTO rDTO) {
+        Reclamo reclamo = convertToEntity(rDTO);
+        if (reclamoService.read(reclamo) == null) {
+            String mensaje = "Reclamo no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-        Edificio edificio = convertToEntity(reclamoDTO);
-        reclamoService.update(id, reclamo);
-        reclamoDTO = convertToDTO(reclamo);
+        reclamoService.update(reclamo);
+        ReclamoDTO reclamoDTO = convertToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.OK);
     }
 
-    private ReclamoDTO convertToDTO(Reclamo reclamo) {
+    public static ReclamoDTO convertToDTO(Reclamo reclamo) {
         return new ReclamoDTO(
                 reclamo.getId(),
                 reclamo.getDescripcion(),
@@ -69,12 +69,13 @@ public class ReclamoController {
         );
     }
 
-    private Reclamo convertToEntity(ReclamoDTO reclamoDTO) {
+    public static Reclamo convertToEntity(ReclamoDTO reclamoDTO) {
         return new Reclamo(
                 reclamoDTO.getDescripcion(),
                 reclamoDTO.getFotos(),
                 reclamoDTO.getUsuario(),
-                reclamoDTO.getEstadoReclamo()
+                reclamoDTO.getEstadoReclamo(),
+                reclamoDTO.getHistorial()
         );
     }
 

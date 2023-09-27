@@ -34,6 +34,13 @@ public class ReclamoDTO {
         this.historial = historial;
     }
 
+    public ReclamoDTO(long id, String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.fotos = fotos;
+        this.estadoReclamo = estadoReclamo;
+    }
+
     public long getId() {
         return id;
     }

@@ -9,7 +9,14 @@ public class Localizado extends Reclamo {
     @ManyToOne
     private Unidad unidad;
 
-    public Localizado() {
+    public Localizado(Reclamo r) {
+        super(
+                r.getDescripcion(),
+                r.getFotos(),
+                r.getUsuario(),
+                r.getEstadoReclamo(),
+                r.getHistorial()
+        );
     }
 
     public Localizado(Unidad unidad) {

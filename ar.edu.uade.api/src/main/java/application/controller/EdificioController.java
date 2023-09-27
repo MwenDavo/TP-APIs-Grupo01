@@ -30,12 +30,10 @@ public class EdificioController {
         return new ResponseEntity<>(edificioDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/edificio/{id}")
-    public ResponseEntity<?> read(@RequestBody EdificioDTO edificioDTO) {
-        Edificio edificio = new Edificio(
-                edificioDTO.getDireccion()
-        );
-        Edificio edificio = edificioService.readByDireccion(edificio);
+    @GetMapping(value = "/edificio")
+    public ResponseEntity<?> read(@RequestBody EdificioDTO eDTO) {
+        Edificio e = convertToEntity(eDTO);
+        Edificio edificio = edificioService.readByDireccion(e);
         if (edificio == null) {
             String mensaje = "Edificio no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
@@ -59,7 +57,7 @@ public class EdificioController {
         return response;
     }
 
-    private EdificioDTO convertToDTO(Edificio e){
+    public static EdificioDTO convertToDTO(Edificio e){
         return new EdificioDTO(
                 e.getId(),
                 e.getDireccion(),
@@ -67,7 +65,7 @@ public class EdificioController {
         );
     }
 
-    private Edificio convertToEntity(EdificioDTO e){
+    public static Edificio convertToEntity(EdificioDTO e){
         return new Edificio(
                 e.getId(),
                 e.getDireccion(),
