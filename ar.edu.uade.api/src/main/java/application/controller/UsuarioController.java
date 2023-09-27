@@ -72,6 +72,6 @@ public class UsuarioController {
     }
 
     private UsuarioDTO convertToDTO(Usuario usuario) {
-        return null;
+        return new UsuarioDTO(usuario.getUsername(),usuario.getPassword(),usuario.getDni(),usuario.getNombre(),usuario.getTelefono());
     }
 }

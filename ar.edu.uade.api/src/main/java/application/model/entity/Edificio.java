@@ -26,6 +26,13 @@ public class Edificio {
         this.unidades = unidades;
     }
 
+    public Edificio(long id, String direccion, List<Unidad> unidades, List<General> reclamos) {
+        this.id = id;
+        this.direccion = direccion;
+        this.unidades = unidades;
+        this.reclamos = reclamos;
+    }
+
     public long getId() {
         return id;
     }

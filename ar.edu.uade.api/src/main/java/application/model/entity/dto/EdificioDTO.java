@@ -22,6 +22,12 @@ public class EdificioDTO {
         this.reclamos = reclamos;
     }
 
+    public EdificioDTO(long id, String direccion, List<General> reclamos) {
+        this.id = id;
+        this.direccion = direccion;
+        this.reclamos = reclamos;
+    }
+
     public long getId() {
         return id;
     }

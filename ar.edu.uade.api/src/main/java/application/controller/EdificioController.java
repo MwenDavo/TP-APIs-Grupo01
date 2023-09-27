@@ -58,4 +58,21 @@ public class EdificioController {
         }
         return response;
     }
+
+    private EdificioDTO convertToDTO(Edificio e){
+        return new EdificioDTO(
+                e.getId(),
+                e.getDireccion(),
+                new ArrayList<>(e.getReclamos())
+        );
+    }
+
+    private Edificio convertToEntity(EdificioDTO e){
+        return new Edificio(
+                e.getId(),
+                e.getDireccion(),
+                e.getUnidades(),
+                e.getReclamos()
+        );
+    }
 }
