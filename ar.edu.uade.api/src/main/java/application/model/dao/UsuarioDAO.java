@@ -1,5 +1,6 @@
 package application.model.dao;
 
+import application.model.entity.Edificio;
 import application.model.entity.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -40,6 +41,12 @@ public class UsuarioDAO implements IUsuarioDAO {
             return usuario;
         }
         return null;
+    }
+
+    @Override
+    public Usuario readById(long id) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.get(Usuario.class, id);
     }
 
     @Override

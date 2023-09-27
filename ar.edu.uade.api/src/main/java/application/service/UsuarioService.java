@@ -33,12 +33,12 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public void update(Usuario usuario) {
+    public void update(long id, Usuario usuario) {
         usuarioDAO.update(usuario);
     }
 
     @Override
-    public void delete(Usuario usuario) {
+    public void delete(long id, Usuario usuario) {
         usuario = usuarioDAO.read(usuario.getUsername(), usuario.getPassword());
         usuario.setEstadoUsuario(EstadoUsuario.ELIMINADO);
         usuarioDAO.update(usuario);
