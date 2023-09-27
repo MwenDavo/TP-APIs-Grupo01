@@ -32,6 +32,9 @@ public class EdificioController {
 
     @GetMapping(value = "/edificio/{id}")
     public ResponseEntity<?> read(@RequestBody EdificioDTO edificioDTO) {
+        Edificio edificio = new Edificio(
+                edificioDTO.getDireccion()
+        );
         Edificio edificio = edificioService.readByDireccion(edificio);
         if (edificio == null) {
             String mensaje = "Edificio no encontrado.";
@@ -43,6 +46,10 @@ public class EdificioController {
 
     @GetMapping(value = "/edificios")
     public List<EdificioDTO> readAll(UsuarioDTO usuarioDTO) {
+        Usuario usuario = new Usuario(
+                usuarioDTO.getTipoUsuario(),
+                usuarioDTO.getUnidades()
+        );
         List<Edificio> edificios = edificioService.readAll(usuario);
         List<EdificioDTO> response = new ArrayList<>();
         for (Edificio edificio : edificios) {
