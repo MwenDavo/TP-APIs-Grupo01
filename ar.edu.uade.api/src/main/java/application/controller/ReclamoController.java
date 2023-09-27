@@ -30,14 +30,26 @@ public class ReclamoController {
     public ResponseEntity<?> read(@RequestBody ReclamoDTO rDTO) {
         Reclamo reclamo = reclamoService.read(convertToEntity(rDTO));
         if (reclamo == null) {
-            String mensaje = "Edificio no encontrado.";
+            String mensaje = "Reclamo no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
         ReclamoDTO reclamoDTO = convertToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/reclamos")
+    @GetMapping(value = "/byEstado")
+    public List<ReclamoDTO> readByEstadoReclamo(@RequestBody ReclamoDTO reclamoDTO) {
+        Reclamo reclamo = convertToEntity(reclamoDTO);
+        List<Reclamo> reclamos = reclamoService.readByEstadoReclamo(reclamo);
+        List<ReclamoDTO> response = new ArrayList<>();
+        for (Reclamo r : reclamos) {
+            ReclamoDTO reclamoDto = convertToDTO(r);
+            response.add(reclamoDto);
+        }
+        return response;
+    }
+
+    @GetMapping(value = "/all")
     public List<ReclamoDTO> readAll() {
         List<Reclamo> reclamos = reclamoService.readAll();
         List<ReclamoDTO> response = new ArrayList<>();

@@ -21,10 +21,7 @@ public class EdificioController {
 
     @PostMapping("/edificio")
     public ResponseEntity<EdificioDTO> create(@RequestBody EdificioDTO edificioDTO) {
-        Edificio edificio = new Edificio(
-                edificioDTO.getDireccion(),
-                edificioDTO.getUnidades()
-        );
+        Edificio edificio = convertToEntity(edificioDTO);
         edificioService.create(edificio);
         edificioDTO = convertToDTO(edificio);
         return new ResponseEntity<>(edificioDTO, HttpStatus.CREATED);
@@ -42,12 +39,9 @@ public class EdificioController {
         return new ResponseEntity<>(edificioDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/edificios")
+    @GetMapping(value = "/all")
     public List<EdificioDTO> readAll(UsuarioDTO usuarioDTO) {
-        Usuario usuario = new Usuario(
-                usuarioDTO.getTipoUsuario(),
-                usuarioDTO.getUnidades()
-        );
+        Usuario usuario = UsuarioController. convertToEntity(usuarioDTO);
         List<Edificio> edificios = edificioService.readAll(usuario);
         List<EdificioDTO> response = new ArrayList<>();
         for (Edificio edificio : edificios) {

@@ -1,8 +1,8 @@
 package application.service;
 
 import application.model.dao.IReclamoDAO;
-import application.model.entity.General;
-import application.model.entity.Reclamo;
+import application.model.entity.*;
+import application.model.util.TipoRelacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,14 @@ public class ReclamoService implements IReclamoService {
 
     @Override
     public void create(Reclamo reclamo) {
-        reclamoDAO.create(reclamo);
+        if (reclamo.getClass() == General.class) {
+            if (cargarEnGeneral((General) reclamo)) {
+                reclamoDAO.create(reclamo);
+            }
+        }
+        if (cargarEnLocalizado((Localizado) reclamo)) {
+            reclamoDAO.create(reclamo);
+        }
     }
 
     @Override
@@ -36,5 +43,36 @@ public class ReclamoService implements IReclamoService {
     @Override
     public void update(Reclamo reclamo) {
         reclamoDAO.update(reclamo);
+    }
+
+    public boolean cargarEnGeneral (General reclamo){
+        Edificio edificio = reclamo.getEdificio();
+        for (Unidad unidad : edificio.getUnidades()) {
+            for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
+                if (reclamo.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean cargarEnLocalizado (Localizado reclamo){
+        Unidad unidad = reclamo.getUnidad();
+        if (unidad.getUsuarios().size() == 2) {
+            for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
+                if (reclamo.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
+                    return usuarioUnidad.getTipoRelacion() == TipoRelacion.INQUILINO;
+                }
+            }
+        }
+        if (unidad.getUsuarios().size() == 1) {
+            for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
+                if (reclamo.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
+                    return usuarioUnidad.getTipoRelacion() == TipoRelacion.PROPIETARIO;
+                }
+            }
+        }
+        return false;
     }
 }

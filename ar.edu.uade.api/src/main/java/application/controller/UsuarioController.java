@@ -17,7 +17,7 @@ public class UsuarioController {
     @Autowired
     private IUsuarioService usuarioService;
 
-    @GetMapping(value = "/usuarios")
+    @GetMapping(value = "/all")
     /**
      * para que se ejecute únicamente por el admin
      */

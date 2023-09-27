@@ -1,8 +1,10 @@
 package application.controller;
 
 import application.model.entity.Usuario;
+import application.model.entity.dto.CredencialDTO;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.IUsuarioService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +35,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<?> login(@RequestBody UsuarioDTO usuarioDTO) {
         Usuario usuario = convertToEntity(usuarioDTO);
         if (usuarioService.readByUsernameAndPassword(usuario) != null) {
             String token = Jwts.builder()
@@ -42,7 +44,7 @@ public class AuthenticationController {
                     .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_MINUTES * 60 * 1000))
                     .signWith(secretKey, SignatureAlgorithm.HS256)
                     .compact();
-            return new ResponseEntity<>(token, HttpStatus.OK);
+            return new ResponseEntity<>(new CredencialDTO(usuarioDTO, token), HttpStatus.OK);
         }
         return new ResponseEntity<>("Credenciales inválidas.", HttpStatus.UNAUTHORIZED);
     }
