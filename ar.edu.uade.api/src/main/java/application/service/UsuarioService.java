@@ -14,13 +14,35 @@ public class UsuarioService implements IUsuarioService {
     private IUsuarioDAO usuarioDAO;
 
     @Override
+    /**
+     * @param UsuarioDTO completo convertido a Usuario
+     */
     public void create(Usuario usuario) {
         usuarioDAO.create(usuario);
     }
 
     @Override
-    public Usuario read(String username, String password) {
-        Usuario usuario = usuarioDAO.read(username, password);
+    /**
+     * @param UsuarioDTO con id convertido a Usuario
+     */
+    public Usuario read(Usuario usuario) {
+        return usuarioDAO.read(usuario.getId());
+    }
+
+    @Override
+    /**
+     * @param UsuarioDTO con username convertido a Usuario
+     */
+    public Usuario readByUsername(Usuario usuario) {
+        return usuarioDAO.readByUsername(usuario.getUsername());
+    }
+
+    @Override
+    /**
+     * @param UsuarioDTO con username y password convertido a Usuario
+     */
+    public Usuario readByUsernameAndPassword(Usuario usuario) {
+        usuario = usuarioDAO.readByUsernameAndPassword(usuario.getUsername(), usuario.getPassword());
         if (usuario.getEstadoUsuario() == EstadoUsuario.DISPONIBLE) {
             return usuario;
         }
@@ -33,13 +55,19 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public void update(long id, Usuario usuario) {
+    /**
+     * @param UsuarioDTO completo convertido a Usuario
+     */
+    public void update(Usuario usuario) {
         usuarioDAO.update(usuario);
     }
 
     @Override
-    public void delete(long id, Usuario usuario) {
-        usuario = usuarioDAO.read(usuario.getUsername(), usuario.getPassword());
+    /**
+     * @param UsuarioDTO con id convertido a Usuario
+     */
+    public void delete(Usuario usuario) {
+        usuario = usuarioDAO.read(usuario.getId());
         usuario.setEstadoUsuario(EstadoUsuario.ELIMINADO);
         usuarioDAO.update(usuario);
     }

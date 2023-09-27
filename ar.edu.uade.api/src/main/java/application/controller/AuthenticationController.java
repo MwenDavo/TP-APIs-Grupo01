@@ -35,7 +35,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
         Usuario usuario = convertToEntity(usuarioDTO);
-        if (usuarioService.read(usuario.getUsername(), usuario.getPassword()) != null) {
+        if (usuarioService.readByUsernameAndPassword(usuario) != null) {
             String token = Jwts.builder()
                     .setSubject(usuario.getUsername())
                     .setIssuedAt(new Date())

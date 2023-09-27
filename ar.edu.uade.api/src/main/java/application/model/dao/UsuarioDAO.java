@@ -32,7 +32,23 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     @Transactional(readOnly = true)
-    public Usuario read(String username, String password) {
+    public Usuario read(long id) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.get(Usuario.class, id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario readByUsername(String username) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Usuario> query = session.createQuery("FROM Usuario WHERE username = :username", Usuario.class);
+        query.setParameter("username", username);
+        return query.uniqueResult();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario readByUsernameAndPassword(String username, String password) {
         Session session = entityManager.unwrap(Session.class);
         Query<Usuario> query = session.createQuery("FROM Usuario WHERE username = :username", Usuario.class);
         query.setParameter("username", username);
@@ -41,12 +57,6 @@ public class UsuarioDAO implements IUsuarioDAO {
             return usuario;
         }
         return null;
-    }
-
-    @Override
-    public Usuario readById(long id) {
-        Session session = entityManager.unwrap(Session.class);
-        return session.get(Usuario.class, id);
     }
 
     @Override

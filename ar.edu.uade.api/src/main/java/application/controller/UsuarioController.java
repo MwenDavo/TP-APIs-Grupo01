@@ -31,63 +31,33 @@ public class UsuarioController {
         return response;
     }
 
-    @PutMapping("/usuario/{id}")
+    @PutMapping("/usuario")
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody UsuarioDTO usuarioDTO) {
-        if (usuarioService.read(id) == null) {
-            String mensaje = "Edificio no encontrado.";
+    public ResponseEntity<?> update(@RequestBody UsuarioDTO usuarioDTO) {
+        Usuario usuario = convertToEntity(usuarioDTO);
+        if (usuarioService.read(usuario) == null) {
+            String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-        Usuario usuario = convertToEntity(usuarioDTO);
-        usuarioService.update(id, usuario);
+        usuarioService.update(usuario);
         usuarioDTO = convertToDTO(usuario);
         return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
     }
 
-    @PutMapping("/usuario/edificioParameters")
+    @DeleteMapping("/usuario")
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> updateParameterized(@RequestParam("id") long id, @RequestBody UsuarioDTO usuarioDTO) {
-        if (usuarioService.read(id) == null) {
-            String mensaje = "Edificio no encontrado.";
-            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> delete(@RequestBody UsuarioDTO usuarioDTO) {
         Usuario usuario = convertToEntity(usuarioDTO);
-        usuarioService.update(id, usuario);
-        usuarioDTO = convertToDTO(usuario);
-        return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/usuario/{id}")
-    /**
-     * para que se ejecute únicamente por el admin
-     */
-    public ResponseEntity<?> delete(@PathVariable long id) {
-        Usuario usuario = usuarioService.read(id);
-        if (usuario == null) {
-            String mensaje = "Edificio no encontrado.";
+        if (usuarioService.read(usuario) == null) {
+            String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
         usuarioService.delete(usuario);
-        String mensaje = "Edificio eliminado.";
-        return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
-    }
-
-    @DeleteMapping("/usuario/edificioParameters")
-    /**
-     * para que se ejecute únicamente por el admin
-     */
-    public ResponseEntity<?> deleteParameterized(@RequestParam("id") long id) {
-        Usuario usuario = usuarioService.read(id);
-        if (usuario == null) {
-            String mensaje = "Edificio no encontrado.";
-            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        }
-        usuarioService.delete(usuario);
-        String mensaje = "Edificio eliminado.";
+        String mensaje = "Usuario eliminado.";
         return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
     }
 
