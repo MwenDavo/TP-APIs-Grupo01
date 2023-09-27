@@ -11,7 +11,6 @@ public interface IReclamoDAO {
     void create(Reclamo reclamo);
     Reclamo read(long id);
     List<Reclamo> readByEstadoReclamo(EstadoReclamo estadoReclamo);
-    List<General> readByEdificio(Edificio edificio);
     List<Reclamo> readAll();
     void update(Reclamo reclamo);
 }
