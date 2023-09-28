@@ -2,6 +2,7 @@ package application.service;
 
 import application.model.dao.IReclamoDAO;
 import application.model.entity.*;
+import application.model.util.EstadoReclamo;
 import application.model.util.TipoRelacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,11 @@ public class ReclamoService implements IReclamoService {
 
     @Override
     public void update(Reclamo reclamo) {
-        reclamoDAO.update(reclamo);
+        if (reclamo.validarUpdate()) {
+            reclamoDAO.update(reclamo);
+        }
     }
+
 
     public boolean cargarEnGeneral (General reclamo){
         Edificio edificio = reclamo.getEdificio();

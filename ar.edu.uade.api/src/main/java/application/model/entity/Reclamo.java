@@ -83,4 +83,15 @@ public class Reclamo {
     public void setHistorial(List<Log> historial) {
         this.historial = historial;
     }
+
+    public boolean validarUpdate(){
+        boolean validez;
+        if (this.getEstadoReclamo() == EstadoReclamo.DESESTIMADO || this.getEstadoReclamo() == EstadoReclamo.ANULADO || this.getEstadoReclamo() == EstadoReclamo.TERMINADO){
+            validez = false;
+        } else {
+            validez = true;
+        }
+        return validez;
+    }
+
 }
