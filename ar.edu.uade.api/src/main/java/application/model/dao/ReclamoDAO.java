@@ -1,9 +1,6 @@
 package application.model.dao;
 
-import application.model.entity.Edificio;
-import application.model.entity.General;
-import application.model.entity.Localizado;
-import application.model.entity.Reclamo;
+import application.model.entity.*;
 import application.model.util.EstadoReclamo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -42,14 +39,6 @@ public class ReclamoDAO implements IReclamoDAO {
     }
 
     @Override
-    public List<General> readByEdificio(Edificio edificio) {
-        Session session = entityManager.unwrap(Session.class);
-        Query<General> query = session.createQuery("SELECT g FROM General g JOIN g.edificio e WHERE e.id = :id", General.class);
-        query.setParameter("id", edificio.getId());
-        return query.getResultList();
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Reclamo> readAll() {
         Session session = entityManager.unwrap(Session.class);
@@ -58,8 +47,16 @@ public class ReclamoDAO implements IReclamoDAO {
     }
 
     @Override
+    @Transactional
     public void update(Reclamo reclamo) {
         Session session = entityManager.unwrap(Session.class);
         session.merge(reclamo);
+        session.persist(
+                new Log(
+                    reclamo.getEstadoReclamo(),
+                    reclamo.getDescripcion(),
+                    reclamo
+                )
+        );
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "reclamos")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_reclamo", discriminatorType = DiscriminatorType.STRING)
-public class Reclamo {
+public abstract class Reclamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -82,16 +82,6 @@ public class Reclamo {
 
     public void setHistorial(List<Log> historial) {
         this.historial = historial;
-    }
-
-    public boolean validarUpdate(){
-        boolean validez;
-        if (this.getEstadoReclamo() == EstadoReclamo.DESESTIMADO || this.getEstadoReclamo() == EstadoReclamo.ANULADO || this.getEstadoReclamo() == EstadoReclamo.TERMINADO){
-            validez = false;
-        } else {
-            validez = true;
-        }
-        return validez;
     }
 
 }

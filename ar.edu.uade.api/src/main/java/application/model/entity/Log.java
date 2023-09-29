@@ -24,8 +24,8 @@ public class Log {
     public Log() {
     }
 
-    public Log(Date fechaHora, EstadoReclamo estadoReclamo, String descripcion, Reclamo reclamo) {
-        this.fechaHora = fechaHora;
+    public Log(EstadoReclamo estadoReclamo, String descripcion, Reclamo reclamo) {
+
         this.estadoReclamo = estadoReclamo;
         this.descripcion = descripcion;
         this.reclamo = reclamo;

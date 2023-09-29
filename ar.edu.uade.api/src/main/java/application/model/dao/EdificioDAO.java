@@ -1,6 +1,7 @@
 package application.model.dao;
 
 import application.model.entity.Edificio;
+import application.model.entity.Unidad;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
@@ -19,6 +20,9 @@ public class EdificioDAO implements IEdificioDAO {
     @Transactional
     public void create(Edificio edificio) {
         Session session = entityManager.unwrap(Session.class);
+        for (Unidad unidad : edificio.getUnidades()) {
+            unidad.setEdificio(edificio);
+        }
         session.persist(edificio);
     }
 

@@ -15,13 +15,15 @@ public class ReclamoService implements IReclamoService {
     private IReclamoDAO reclamoDAO;
 
     @Override
-    public void create(Reclamo reclamo) {
-        if (reclamo.getClass() == General.class) {
-            if (cargarEnGeneral((General) reclamo)) {
-                reclamoDAO.create(reclamo);
-            }
+    public void createReclamoGeneral(General reclamo) {
+        if (cargarEnGeneral(reclamo)) {
+            reclamoDAO.create(reclamo);
         }
-        if (cargarEnLocalizado((Localizado) reclamo)) {
+    }
+
+    @Override
+    public void createReclamoLocalizado(Localizado reclamo) {
+        if (cargarEnLocalizado(reclamo)) {
             reclamoDAO.create(reclamo);
         }
     }
@@ -43,7 +45,7 @@ public class ReclamoService implements IReclamoService {
 
     @Override
     public void update(Reclamo reclamo) {
-        if (reclamo.validarUpdate()) {
+        if (validarUpdate(reclamo)) {
             reclamoDAO.update(reclamo);
         }
     }
@@ -78,5 +80,17 @@ public class ReclamoService implements IReclamoService {
             }
         }
         return false;
+    }
+
+    public boolean validarUpdate(Reclamo reclamo) {
+        boolean validez;
+        if (reclamo.getEstadoReclamo() == EstadoReclamo.DESESTIMADO
+                || reclamo.getEstadoReclamo() == EstadoReclamo.ANULADO
+                || reclamo.getEstadoReclamo() == EstadoReclamo.TERMINADO) {
+            validez = false;
+        } else {
+            validez = true;
+        }
+        return validez;
     }
 }

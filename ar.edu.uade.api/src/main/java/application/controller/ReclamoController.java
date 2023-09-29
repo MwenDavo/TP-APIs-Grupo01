@@ -18,10 +18,18 @@ public class ReclamoController {
     @Autowired
     private IReclamoService reclamoService;
 
-    @PostMapping("/reclamo")
-    public ResponseEntity<ReclamoDTO> create(@RequestBody ReclamoDTO reclamoDTO) {
+    @PostMapping("/reclamoGeneral") //TODO cambiar el DTO
+    public ResponseEntity<ReclamoDTO> createReclamoGeneral(@RequestBody ReclamoDTO reclamoDTO) {
         Reclamo reclamo = convertToEntity(reclamoDTO);
-        reclamoService.create(reclamo);
+        reclamoService.createReclamoGeneral(reclamo);
+        reclamoDTO = convertToDTO(reclamo);
+        return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/reclamoLocalizado") //TODO cambiar el DTO
+    public ResponseEntity<ReclamoDTO> createReclamoLocalizado(@RequestBody ReclamoDTO reclamoDTO) {
+        Reclamo reclamo = convertToEntity(reclamoDTO);
+        reclamoService.createReclamoLocalizado(reclamo);
         reclamoDTO = convertToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
     }
