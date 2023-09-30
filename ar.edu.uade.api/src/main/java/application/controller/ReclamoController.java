@@ -1,7 +1,11 @@
 package application.controller;
 
 import application.model.entity.Edificio;
+import application.model.entity.General;
+import application.model.entity.Localizado;
 import application.model.entity.Reclamo;
+import application.model.entity.dto.GeneralDTO;
+import application.model.entity.dto.LocalizadoDTO;
 import application.model.entity.dto.ReclamoDTO;
 import application.service.IReclamoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +23,39 @@ public class ReclamoController {
     private IReclamoService reclamoService;
 
     @PostMapping("/reclamoGeneral") //TODO cambiar el DTO
-    public ResponseEntity<ReclamoDTO> createReclamoGeneral(@RequestBody ReclamoDTO reclamoDTO) {
-        Reclamo reclamo = convertToEntity(reclamoDTO);
+    public ResponseEntity<ReclamoDTO> createReclamoGeneral(@RequestBody GeneralDTO reclamoDTO) {
+        General reclamo = convertToGeneralEntity(reclamoDTO);
         reclamoService.createReclamoGeneral(reclamo);
-        reclamoDTO = convertToDTO(reclamo);
+        reclamoDTO = convertGeneralToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
     }
 
+    private GeneralDTO convertGeneralToDTO(General reclamo) {
+
+    }
+
+    private General convertToGeneralEntity(GeneralDTO reclamoDTO) {
+    }
+
     @PostMapping("/reclamoLocalizado") //TODO cambiar el DTO
-    public ResponseEntity<ReclamoDTO> createReclamoLocalizado(@RequestBody ReclamoDTO reclamoDTO) {
-        Reclamo reclamo = convertToEntity(reclamoDTO);
+    public ResponseEntity<ReclamoDTO> createReclamoLocalizado(@RequestBody LocalizadoDTO reclamoDTO) {
+        Localizado reclamo = convertToLocalizadoEntity(reclamoDTO);
         reclamoService.createReclamoLocalizado(reclamo);
-        reclamoDTO = convertToDTO(reclamo);
+        reclamoDTO = convertLocalizadoToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
+    }
+
+    private Localizado convertToLocalizadoEntity(LocalizadoDTO reclamoDTO) {
+        return new Localizado(
+                reclamoDTO.getDescripcion(),
+                reclamoDTO.getFotos(),
+                reclamoDTO.getUsuario(),
+                reclamoDTO.getEstadoReclamo(),
+                reclamoDTO.getHistorial()
+        );
+    }
+
+    private LocalizadoDTO convertLocalizadoToDTO(Localizado reclamo) {
     }
 
     @GetMapping(value = "/reclamo")
