@@ -22,19 +22,19 @@ public class ReclamoController {
     @Autowired
     private IReclamoService reclamoService;
 
-    @PostMapping("/reclamoGeneral") //TODO cambiar el DTO
-    public ResponseEntity<ReclamoDTO> createReclamoGeneral(@RequestBody GeneralDTO reclamoDTO) {
-        General reclamo = convertToGeneralEntity(reclamoDTO);
-        reclamoService.createReclamoGeneral(reclamo);
-        reclamoDTO = convertGeneralToDTO(reclamo);
+    @PostMapping("/reclamo")
+    public ResponseEntity<ReclamoDTO> create(@RequestBody GeneralDTO reclamoDTO) {
+        General reclamo = convertToEntity(reclamoDTO);
+        reclamoService.create(reclamo);
+        reclamoDTO = convertToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
     }
 
-    @PostMapping("/reclamoLocalizado") //TODO cambiar el DTO
-    public ResponseEntity<ReclamoDTO> createReclamoLocalizado(@RequestBody LocalizadoDTO reclamoDTO) {
-        Localizado reclamo = convertToLocalizadoEntity(reclamoDTO);
-        reclamoService.createReclamoLocalizado(reclamo);
-        reclamoDTO = convertLocalizadoToDTO(reclamo);
+    @PostMapping("/reclamo") //TODO cambiar el DTO
+    public ResponseEntity<ReclamoDTO> create(@RequestBody LocalizadoDTO reclamoDTO) {
+        Localizado reclamo = convertToEntity(reclamoDTO);
+        reclamoService.create(reclamo);
+        reclamoDTO = convertToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
     }
 
@@ -49,27 +49,15 @@ public class ReclamoController {
         return new ResponseEntity<>(reclamoDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/byEstado")
-    public List<ReclamoDTO> readByEstadoReclamo(@RequestBody ReclamoDTO reclamoDTO) {
-        Reclamo reclamo = convertToEntity(reclamoDTO);
-        List<Reclamo> reclamos = reclamoService.readByEstadoReclamo(reclamo);
-        List<ReclamoDTO> response = new ArrayList<>();
-        for (Reclamo r : reclamos) {
-            ReclamoDTO reclamoDto = convertToDTO(r);
-            response.add(reclamoDto);
+    @GetMapping(value = "/reclamo")
+    public ResponseEntity<?> read(@RequestBody ReclamoDTO rDTO) {
+        Reclamo reclamo = reclamoService.read(convertToEntity(rDTO));
+        if (reclamo == null) {
+            String mensaje = "Reclamo no encontrado.";
+            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-        return response;
-    }
-
-    @GetMapping(value = "/all")
-    public List<ReclamoDTO> readAll() {
-        List<Reclamo> reclamos = reclamoService.readAll();
-        List<ReclamoDTO> response = new ArrayList<>();
-        for (Reclamo reclamo : reclamos) {
-            ReclamoDTO reclamoDto = convertToDTO(reclamo);
-            response.add(reclamoDto);
-        }
-        return response;
+        ReclamoDTO reclamoDTO = convertToDTO(reclamo);
+        return new ResponseEntity<>(reclamoDTO, HttpStatus.OK);
     }
 
     @PutMapping("/reclamo")
@@ -84,7 +72,19 @@ public class ReclamoController {
         return new ResponseEntity<>(reclamoDTO, HttpStatus.OK);
     }
 
-    public static ReclamoDTO convertToDTO(Reclamo reclamo) {
+    @PutMapping("/reclamo")
+    public ResponseEntity<?> update(@RequestBody ReclamoDTO rDTO) {
+        Reclamo reclamo = convertToEntity(rDTO);
+        if (reclamoService.read(reclamo) == null) {
+            String mensaje = "Reclamo no encontrado.";
+            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+        }
+        reclamoService.update(reclamo);
+        ReclamoDTO reclamoDTO = convertToDTO(reclamo);
+        return new ResponseEntity<>(reclamoDTO, HttpStatus.OK);
+    }
+
+    public static ReclamoDTO convertToDTO(General reclamo) {
         return new ReclamoDTO(
                 reclamo.getId(),
                 reclamo.getDescripcion(),
@@ -93,7 +93,26 @@ public class ReclamoController {
         );
     }
 
-    public static Reclamo convertToEntity(ReclamoDTO reclamoDTO) {
+    public static ReclamoDTO convertToDTO(Localizado reclamo) {
+        return new ReclamoDTO(
+                reclamo.getId(),
+                reclamo.getDescripcion(),
+                reclamo.getFotos(),
+                reclamo.getEstadoReclamo()
+        );
+    }
+
+    public static Reclamo convertToEntity(GeneralDTO reclamoDTO) {
+        return new Reclamo(
+                reclamoDTO.getDescripcion(),
+                reclamoDTO.getFotos(),
+                reclamoDTO.getUsuario(),
+                reclamoDTO.getEstadoReclamo(),
+                reclamoDTO.getHistorial()
+        );
+    }
+
+    public static Reclamo convertToEntity(LocalizadoDTO reclamoDTO) {
         return new Reclamo(
                 reclamoDTO.getDescripcion(),
                 reclamoDTO.getFotos(),

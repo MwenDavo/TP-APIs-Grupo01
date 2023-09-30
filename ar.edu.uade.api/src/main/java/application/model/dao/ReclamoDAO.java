@@ -16,21 +16,32 @@ public class ReclamoDAO implements IReclamoDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
     @Transactional
-    public void create(Reclamo reclamo) {
+    public void create(General reclamo) {
         Session session = entityManager.unwrap(Session.class);
         session.persist(reclamo);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Reclamo read(long id) {
+    @Transactional
+    public void create(Localizado reclamo) {
         Session session = entityManager.unwrap(Session.class);
-        return session.get(Reclamo.class, id);
+        session.persist(reclamo);
     }
 
-    @Override
+    @Transactional(readOnly = true)
+    public General read(General reclamo) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.get(General.class, reclamo.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public Localizado read(Localizado reclamo) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.get(Localizado.class, reclamo.getId());
+    }
+
+    @Deprecated
+    @Transactional(readOnly = true)
     public List<Reclamo> readByEstadoReclamo(EstadoReclamo estadoReclamo) {
         Session session = entityManager.unwrap(Session.class);
         Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE estado_reclamo = :estado_reclamo", Reclamo.class);
@@ -38,7 +49,7 @@ public class ReclamoDAO implements IReclamoDAO {
         return query.getResultList();
     }
 
-    @Override
+    @Deprecated
     @Transactional(readOnly = true)
     public List<Reclamo> readAll() {
         Session session = entityManager.unwrap(Session.class);
@@ -46,9 +57,9 @@ public class ReclamoDAO implements IReclamoDAO {
         return query.getResultList();
     }
 
-    @Override
+
     @Transactional
-    public void update(Reclamo reclamo) {
+    public void update(General reclamo) {
         Session session = entityManager.unwrap(Session.class);
         session.merge(reclamo);
         session.persist(
@@ -56,6 +67,18 @@ public class ReclamoDAO implements IReclamoDAO {
                     reclamo.getEstadoReclamo(),
                     reclamo.getDescripcion(),
                     reclamo
+                )
+        );
+    }
+
+    public void update(Localizado reclamo) {
+        Session session = entityManager.unwrap(Session.class);
+        session.merge(reclamo);
+        session.persist(
+                new Log(
+                        reclamo.getEstadoReclamo(),
+                        reclamo.getDescripcion(),
+                        reclamo
                 )
         );
     }

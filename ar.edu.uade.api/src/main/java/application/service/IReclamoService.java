@@ -7,10 +7,10 @@ import application.model.entity.Reclamo;
 import java.util.List;
 
 public interface IReclamoService {
-    void createReclamoGeneral(General reclamo);
-    void createReclamoLocalizado(Localizado reclamo);
-    Reclamo read(Reclamo reclamo);
-    List<Reclamo> readByEstadoReclamo(Reclamo reclamo);
-    List<Reclamo> readAll();
-    void update(Reclamo reclamo);
+    void create(General reclamo);
+    void create(Localizado reclamo);
+    General read(General reclamo);
+    Localizado read(Localizado reclamo);
+    void update(General reclamo);
+    void update(Localizado reclamo);
 }

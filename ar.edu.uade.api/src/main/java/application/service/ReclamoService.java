@@ -14,44 +14,48 @@ public class ReclamoService implements IReclamoService {
     @Autowired
     private IReclamoDAO reclamoDAO;
 
-    @Override
-    public void createReclamoGeneral(General reclamo) {
-        if (cargarEnGeneral(reclamo)) {
+
+    public void create(General reclamo) {
+        if (allowCreate(reclamo)) {
             reclamoDAO.create(reclamo);
         }
     }
 
-    @Override
-    public void createReclamoLocalizado(Localizado reclamo) {
-        if (cargarEnLocalizado(reclamo)) {
+    public void create(Localizado reclamo) {
+        if (allowCreate(reclamo)) {
             reclamoDAO.create(reclamo);
         }
     }
 
-    @Override
-    public Reclamo read(Reclamo reclamo) {
-        return reclamoDAO.read(reclamo.getId());
+    public General read(General reclamo) {
+        return reclamoDAO.read(reclamo);
     }
 
-    @Override
+    public Localizado read(Localizado reclamo) {
+        return reclamoDAO.read(reclamo);
+    }
+
+    /*
+    @Deprecated
     public List<Reclamo> readByEstadoReclamo(Reclamo reclamo) {
         return reclamoDAO.readByEstadoReclamo(reclamo.getEstadoReclamo());
     }
 
-    @Override
-    public List<Reclamo> readAll() {
-        return reclamoDAO.readAll();
-    }
+     */
 
-    @Override
-    public void update(Reclamo reclamo) {
-        if (validarUpdate(reclamo)) {
+    public void update(General reclamo) {
+        if (allowUpdate(reclamo)) {
             reclamoDAO.update(reclamo);
         }
     }
 
+    public void update(Localizado reclamo) {
+        if (allowUpdate(reclamo)) {
+            reclamoDAO.update(reclamo);
+        }
+    }
 
-    public boolean cargarEnGeneral (General reclamo){
+    public boolean allowCreate(General reclamo){
         Edificio edificio = reclamo.getEdificio();
         for (Unidad unidad : edificio.getUnidades()) {
             for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
@@ -63,7 +67,7 @@ public class ReclamoService implements IReclamoService {
         return false;
     }
 
-    public boolean cargarEnLocalizado (Localizado reclamo){
+    public boolean allowCreate(Localizado reclamo){
         Unidad unidad = reclamo.getUnidad();
         if (unidad.getUsuarios().size() == 2) {
             for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
@@ -82,7 +86,7 @@ public class ReclamoService implements IReclamoService {
         return false;
     }
 
-    public boolean validarUpdate(Reclamo reclamo) {
+    public boolean allowUpdate(Reclamo reclamo) {
         boolean validez;
         if (reclamo.getEstadoReclamo() == EstadoReclamo.DESESTIMADO
                 || reclamo.getEstadoReclamo() == EstadoReclamo.ANULADO
