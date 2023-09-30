@@ -75,12 +75,17 @@ public class UsuarioController {
         return new UsuarioDTO(usuario.getUsername(),usuario.getPassword(),usuario.getDni(),usuario.getNombre(),usuario.getTelefono());
     }
 
-    public UsuarioDTO buscarPorUsername(UsuarioDTO user){
+    @GetMapping(value = "/usuario")
+    /**
+     * para que se ejecute únicamente por el admin
+     */
+    public ResponseEntity<?> buscarPorUsername(UsuarioDTO user){
         Usuario usuario = convertToEntity(user);
         Usuario respuesta = usuarioService.readByUsername(usuario);
         if(respuesta != null){
-            return  convertToDTO(respuesta);
+            return new ResponseEntity<>(convertToDTO(respuesta),HttpStatus.OK);
         }
-        return null;
+        String mensaje = "Usuario no encontrado.";
+        return new ResponseEntity<>(mensaje,HttpStatus.NOT_FOUND);
     }
 }
