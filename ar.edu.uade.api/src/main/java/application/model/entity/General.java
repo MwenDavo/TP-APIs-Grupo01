@@ -1,6 +1,9 @@
 package application.model.entity;
 
+import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "generales")
@@ -17,6 +20,10 @@ public class General extends Reclamo {
                 r.getEstadoReclamo(),
                 r.getHistorial()
         );
+    }
+
+    public General(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
+        super(descripcion, fotos, usuario, estadoReclamo, historial);
     }
 
     public General(Edificio edificio) {

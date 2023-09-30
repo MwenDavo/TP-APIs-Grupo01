@@ -30,32 +30,12 @@ public class ReclamoController {
         return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
     }
 
-    private GeneralDTO convertGeneralToDTO(General reclamo) {
-
-    }
-
-    private General convertToGeneralEntity(GeneralDTO reclamoDTO) {
-    }
-
     @PostMapping("/reclamoLocalizado") //TODO cambiar el DTO
     public ResponseEntity<ReclamoDTO> createReclamoLocalizado(@RequestBody LocalizadoDTO reclamoDTO) {
         Localizado reclamo = convertToLocalizadoEntity(reclamoDTO);
         reclamoService.createReclamoLocalizado(reclamo);
         reclamoDTO = convertLocalizadoToDTO(reclamo);
         return new ResponseEntity<>(reclamoDTO, HttpStatus.CREATED);
-    }
-
-    private Localizado convertToLocalizadoEntity(LocalizadoDTO reclamoDTO) {
-        return new Localizado(
-                reclamoDTO.getDescripcion(),
-                reclamoDTO.getFotos(),
-                reclamoDTO.getUsuario(),
-                reclamoDTO.getEstadoReclamo(),
-                reclamoDTO.getHistorial()
-        );
-    }
-
-    private LocalizadoDTO convertLocalizadoToDTO(Localizado reclamo) {
     }
 
     @GetMapping(value = "/reclamo")
@@ -122,6 +102,4 @@ public class ReclamoController {
                 reclamoDTO.getHistorial()
         );
     }
-
-
 }

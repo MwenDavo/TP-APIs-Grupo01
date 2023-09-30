@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "reclamos")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_reclamo", discriminatorType = DiscriminatorType.STRING)
-public abstract class Reclamo {
+public class Reclamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -1,6 +1,9 @@
 package application.model.entity;
 
+import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "localizados")
@@ -17,6 +20,10 @@ public class Localizado extends Reclamo {
                 r.getEstadoReclamo(),
                 r.getHistorial()
         );
+    }
+
+    public Localizado(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
+        super(descripcion, fotos, usuario, estadoReclamo, historial);
     }
 
     public Localizado(Unidad unidad) {
