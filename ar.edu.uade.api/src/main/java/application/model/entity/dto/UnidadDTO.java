@@ -23,6 +23,10 @@ public class UnidadDTO {
         this.reclamos = reclamos;
     }
 
+    public UnidadDTO(long id){
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

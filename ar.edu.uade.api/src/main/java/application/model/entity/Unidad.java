@@ -34,6 +34,10 @@ public class Unidad {
         this.reclamos = reclamos;
     }
 
+    public Unidad(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

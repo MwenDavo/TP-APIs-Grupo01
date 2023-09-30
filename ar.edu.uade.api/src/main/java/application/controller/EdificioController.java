@@ -1,8 +1,10 @@
 package application.controller;
 
 import application.model.entity.Edificio;
+import application.model.entity.Unidad;
 import application.model.entity.Usuario;
 import application.model.entity.dto.EdificioDTO;
+import application.model.entity.dto.UnidadDTO;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.IEdificioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +67,12 @@ public class EdificioController {
                 e.getDireccion(),
                 e.getUnidades(),
                 e.getReclamos()
+        );
+    }
+
+    public static Unidad convertUnidadDTOToEntity(UnidadDTO u){
+        return new Unidad(
+          u.getId()
         );
     }
 }
