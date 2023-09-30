@@ -74,4 +74,13 @@ public class UsuarioController {
     public static UsuarioDTO convertToDTO(Usuario usuario) {
         return new UsuarioDTO(usuario.getUsername(),usuario.getPassword(),usuario.getDni(),usuario.getNombre(),usuario.getTelefono());
     }
+
+    public UsuarioDTO buscarPorUsername(UsuarioDTO user){
+        Usuario usuario = convertToEntity(user);
+        Usuario respuesta = usuarioService.readByUsername(usuario);
+        if(respuesta != null){
+            return  convertToDTO(respuesta);
+        }
+        return null;
+    }
 }
