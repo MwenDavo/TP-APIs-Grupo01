@@ -29,7 +29,7 @@ public class AsignacionController {
      */
     public ResponseEntity<?> asignarUnidad(@RequestBody UsuarioDTO usuarioDTO, UnidadDTO unidadDTO, TipoRelacion tipoRelacion) {
         Usuario usuario = UsuarioController.convertToEntity(usuarioDTO);
-        Unidad unidad = EdificioController.convertUnidadToEntity(unidadDTO);
+        Unidad unidad = EdificioController.convertUnidadDTOToEntity(unidadDTO);
         if (usuarioService.read(usuario) == null) {
             String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
@@ -45,7 +45,7 @@ public class AsignacionController {
      */
     public ResponseEntity<?> desasignarUnidad(@RequestBody UsuarioDTO usuarioDTO, UnidadDTO unidadDTO) {
         Usuario usuario = UsuarioController.convertToEntity(usuarioDTO);
-        Unidad unidad = EdificioController.convertUnidadToEntity(unidadDTO);
+        Unidad unidad = EdificioController.convertUnidadDTOToEntity(unidadDTO);
         if (usuarioService.read(usuario) == null) {
             String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
