@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneralDTO extends ReclamoDTO{
-    private Edificio edificio;
+    private Edificio edificio; //TODO CHEQUEAR CORRECTA IMPLEMENTACION DE DTOS, POR EJEMPLO EN GENERALDTO SE ESTA UTILIZANDO UN EDIFICIO COMUN Y NO UN EDIFICIODTO
 
-    public GeneralDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial, Edificio edificio) {
+    public GeneralDTO(long id, String descripcion, List<FotoDTO> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<LogDTO> historial, Edificio edificio) {
         super(id, descripcion, fotos, usuario, estadoReclamo, historial);
         this.edificio = edificio;
     }
@@ -24,4 +24,7 @@ public class GeneralDTO extends ReclamoDTO{
     public void setEdificio(Edificio edificio) {
         this.edificio = edificio;
     }
+
+
+
 }

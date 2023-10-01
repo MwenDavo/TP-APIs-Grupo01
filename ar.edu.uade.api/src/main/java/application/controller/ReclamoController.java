@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.entity.*;
+import application.model.entity.dto.FotoDTO;
 import application.model.entity.dto.GeneralDTO;
 import application.model.entity.dto.LocalizadoDTO;
 import application.model.entity.dto.LogDTO;
@@ -54,7 +55,7 @@ public class ReclamoController {
     public static General convertToEntity(GeneralDTO generalDTO) {
         return new General(
                 generalDTO.getDescripcion(),
-                generalDTO.getFotos(),
+                convertToEntities(generalDTO.getFotos()),
                 generalDTO.getUsuario(),
                 generalDTO.getEdificio()
         );
@@ -63,7 +64,7 @@ public class ReclamoController {
     public static Localizado convertToEntity(LocalizadoDTO localizadoDTO) {
         return new Localizado(
                 localizadoDTO.getDescripcion(),
-                localizadoDTO.getFotos(),
+                convertToEntities(localizadoDTO.getFotos()),
                 localizadoDTO.getUsuario(),
                 localizadoDTO.getUnidad()
         );
@@ -80,7 +81,7 @@ public class ReclamoController {
         ReclamoDTO reclamoDTO = new ReclamoDTO(
                 reclamo.getDescripcion(),
                 reclamo.getEstadoReclamo()
-        ); //TODO hacer constructor
+        );
         for (Foto foto : reclamo.getFotos()) {
             reclamoDTO.getFotos().add(convertToDTO(foto));
         }
@@ -95,12 +96,27 @@ public class ReclamoController {
                 log.getFechaHora(),
                 log.getEstadoReclamo(),
                 log.getDescripcion()
-        ); //TODO hacer constructor
+        );
     }
 
     public static FotoDTO convertToDTO(Foto foto) {
         return new FotoDTO(
                 foto.getData()
-        ); //TODO hacer DTO
+        );
+    }
+
+    public static List<Foto> convertToEntities(List<FotoDTO> fDTO){
+        List<Foto> Fotos = new ArrayList<>();
+        for (FotoDTO f: fDTO) {
+            Foto fotoC = convertToEntity(f);
+            Fotos.add(fotoC);
+
+        }
+        return Fotos;
+    }
+
+    private static Foto convertToEntity(FotoDTO fotoAConvertirDTO) {
+        Foto f = new Foto(fotoAConvertirDTO.getData());
+        return f;
     }
 }

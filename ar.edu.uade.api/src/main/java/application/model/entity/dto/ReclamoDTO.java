@@ -14,12 +14,12 @@ import java.util.List;
 public class ReclamoDTO {
     private long id;
     private String descripcion;
-    private List<Foto> fotos = new ArrayList<>();
+    private List<FotoDTO> fotos = new ArrayList<>();
     private Usuario usuario;
     private EstadoReclamo estadoReclamo = EstadoReclamo.NUEVO;
     private List<LogDTO> historial = new ArrayList<>();
 
-    public ReclamoDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
+    public ReclamoDTO(long id, String descripcion, List<FotoDTO> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
         this.id = id;
         this.descripcion = descripcion;
         this.fotos = fotos;
@@ -28,11 +28,17 @@ public class ReclamoDTO {
         this.historial = historial;
     }
 
-    public ReclamoDTO(String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo) {
+    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.estadoReclamo = estadoReclamo;
     }
+
+    public ReclamoDTO(String descripcion, EstadoReclamo estadoReclamo) {
+        this.descripcion = descripcion;
+        this.estadoReclamo = estadoReclamo;
+    }
+
 
     public long getId() {
         return id;
@@ -50,11 +56,11 @@ public class ReclamoDTO {
         this.descripcion = descripcion;
     }
 
-    public List<Foto> getFotos() {
+    public List<FotoDTO> getFotos() {
         return fotos;
     }
 
-    public void setFotos(List<Foto> fotos) {
+    public void setFotos(List<FotoDTO> fotos) {
         this.fotos = fotos;
     }
 

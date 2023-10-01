@@ -45,7 +45,7 @@ public class AuthenticationController {
             return new ResponseEntity<>(token, HttpStatus.OK);
         }
         return new ResponseEntity<>("Credenciales inválidas.", HttpStatus.UNAUTHORIZED);
-    }
+    }//TODO cuando se acceda al login, chequear que el usuario, si se encuentra eliminado, no brindar acceso
 
     private Usuario convertToEntity(UsuarioDTO usuarioDTO) {
         return new Usuario(

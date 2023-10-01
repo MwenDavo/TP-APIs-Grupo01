@@ -9,20 +9,20 @@ import java.util.List;
 public class EdificioDTO {
     private long id;
     private String direccion;
-    private List<Unidad> unidades = new ArrayList<>();
-    private List<General> reclamos = new ArrayList<>();
+    private List<UnidadDTO> unidades = new ArrayList<>();
+    private List<GeneralDTO> reclamos = new ArrayList<>();
 
     public EdificioDTO() {
     }
 
-    public EdificioDTO(long id, String direccion, List<Unidad> unidades, List<General> reclamos) {
+    public EdificioDTO(long id, String direccion, List<UnidadDTO> unidades, List<GeneralDTO> reclamos) {
         this.id = id;
         this.direccion = direccion;
         this.unidades = unidades;
         this.reclamos = reclamos;
     }
 
-    public EdificioDTO(long id, String direccion, List<General> reclamos) {
+    public EdificioDTO(long id, String direccion, List<GeneralDTO> reclamos) {
         this.id = id;
         this.direccion = direccion;
         this.reclamos = reclamos;
@@ -44,19 +44,19 @@ public class EdificioDTO {
         this.direccion = direccion;
     }
 
-    public List<Unidad> getUnidades() {
+    public List<UnidadDTO> getUnidades() {
         return unidades;
     }
 
-    public void setUnidades(List<Unidad> unidades) {
+    public void setUnidades(List<UnidadDTO> unidades) {
         this.unidades = unidades;
     }
 
-    public List<General> getReclamos() {
+    public List<GeneralDTO> getReclamos() {
         return reclamos;
     }
 
-    public void setReclamos(List<General> reclamos) {
+    public void setReclamos(List<GeneralDTO> reclamos) {
         this.reclamos = reclamos;
     }
 }
