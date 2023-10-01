@@ -14,52 +14,41 @@ public class ReclamoService implements IReclamoService {
     @Autowired
     private IReclamoDAO reclamoDAO;
 
-
-    public void create(General reclamo) {
-        if (allowCreate(reclamo)) {
-            reclamoDAO.create(reclamo);
+    @Override
+    public void create(General general) {
+        if (allowCreate(general)) {
+            reclamoDAO.create(general);
         }
     }
 
-    public void create(Localizado reclamo) {
-        if (allowCreate(reclamo)) {
-            reclamoDAO.create(reclamo);
+    @Override
+    public void create(Localizado localizado) {
+        if (allowCreate(localizado)) {
+            reclamoDAO.create(localizado);
         }
     }
 
-    public General read(General reclamo) {
-        return reclamoDAO.read(reclamo);
+    @Override
+    public Reclamo read(long id) {
+        return reclamoDAO.read(id);
     }
 
-    public Localizado read(Localizado reclamo) {
-        return reclamoDAO.read(reclamo);
-    }
-
-    /*
-    @Deprecated
-    public List<Reclamo> readByEstadoReclamo(Reclamo reclamo) {
-        return reclamoDAO.readByEstadoReclamo(reclamo.getEstadoReclamo());
-    }
-
-     */
-
-    public void update(General reclamo) {
+    @Override
+    public void update(long id, Log log) {
+        Reclamo reclamo = reclamoDAO.read(id);
         if (allowUpdate(reclamo)) {
+            reclamo.setEstadoReclamo(log.getEstadoReclamo());
+            reclamo.getHistorial().add(log);
+            log.setReclamo(reclamo);
             reclamoDAO.update(reclamo);
         }
     }
 
-    public void update(Localizado reclamo) {
-        if (allowUpdate(reclamo)) {
-            reclamoDAO.update(reclamo);
-        }
-    }
-
-    public boolean allowCreate(General reclamo){
-        Edificio edificio = reclamo.getEdificio();
+    private boolean allowCreate(General general){
+        Edificio edificio = general.getEdificio();
         for (Unidad unidad : edificio.getUnidades()) {
             for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
-                if (reclamo.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
+                if (general.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
                     return true;
                 }
             }
@@ -67,18 +56,18 @@ public class ReclamoService implements IReclamoService {
         return false;
     }
 
-    public boolean allowCreate(Localizado reclamo){
-        Unidad unidad = reclamo.getUnidad();
+    private boolean allowCreate(Localizado localizado){
+        Unidad unidad = localizado.getUnidad();
         if (unidad.getUsuarios().size() == 2) {
             for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
-                if (reclamo.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
+                if (localizado.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
                     return usuarioUnidad.getTipoRelacion() == TipoRelacion.INQUILINO;
                 }
             }
         }
         if (unidad.getUsuarios().size() == 1) {
             for (UsuarioUnidad usuarioUnidad : unidad.getUsuarios()) {
-                if (reclamo.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
+                if (localizado.getUsuario().getId() == usuarioUnidad.getUsuario().getId()) {
                     return usuarioUnidad.getTipoRelacion() == TipoRelacion.PROPIETARIO;
                 }
             }
@@ -86,7 +75,7 @@ public class ReclamoService implements IReclamoService {
         return false;
     }
 
-    public boolean allowUpdate(Reclamo reclamo) {
+    private boolean allowUpdate(Reclamo reclamo) {
         boolean validez;
         if (reclamo.getEstadoReclamo() == EstadoReclamo.DESESTIMADO
                 || reclamo.getEstadoReclamo() == EstadoReclamo.ANULADO

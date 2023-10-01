@@ -6,27 +6,18 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "generales")
+@Table(name = "reclamos_generales")
 @DiscriminatorValue("general")
 public class General extends Reclamo {
     @ManyToOne
     private Edificio edificio;
 
-    public General(Reclamo r) {
-        super(
-                r.getDescripcion(),
-                r.getFotos(),
-                r.getUsuario(),
-                r.getEstadoReclamo(),
-                r.getHistorial()
-        );
+    public General(EstadoReclamo estadoReclamo) {
+        super(estadoReclamo);
     }
 
-    public General(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
-        super(descripcion, fotos, usuario, estadoReclamo, historial);
-    }
-
-    public General(Edificio edificio) {
+    public General(String descripcion, List<Foto> fotos, Usuario usuario, Edificio edificio) {
+        super(descripcion, fotos, usuario);
         this.edificio = edificio;
     }
 

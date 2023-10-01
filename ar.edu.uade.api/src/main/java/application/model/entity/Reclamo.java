@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "reclamos")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_reclamo", discriminatorType = DiscriminatorType.STRING)
 public class Reclamo {
@@ -17,23 +16,29 @@ public class Reclamo {
     @Column(nullable = false) //TODO definir con el cliente el largo
     private String descripcion;
     @OneToMany(mappedBy = "reclamo")
-    private List<Foto> fotos = new ArrayList<>();
+    private List<Foto> fotos;
     @ManyToOne
     private Usuario usuario;
     @Column(name = "estado_reclamo")
     private EstadoReclamo estadoReclamo = EstadoReclamo.NUEVO;
-    @OneToMany(mappedBy = "reclamo")
+    @OneToMany(mappedBy = "reclamo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Log> historial = new ArrayList<>();
 
     public Reclamo() {
     }
 
-    public Reclamo(String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
+    public Reclamo(EstadoReclamo estadoReclamo) {
+        this.estadoReclamo = estadoReclamo;
+    }
+
+    public Reclamo(String descripcion, List<Foto> fotos, Usuario usuario) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.usuario = usuario;
-        this.estadoReclamo = estadoReclamo;
-        this.historial = historial;
+    }
+
+    public Reclamo(long id) {
+        this.id = id;
     }
 
     public long getId() {

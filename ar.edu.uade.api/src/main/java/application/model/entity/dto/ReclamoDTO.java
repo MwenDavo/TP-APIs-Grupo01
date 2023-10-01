@@ -12,18 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReclamoDTO {
-
     private long id;
-
     private String descripcion;
-
     private List<Foto> fotos = new ArrayList<>();
-
     private Usuario usuario;
-
     private EstadoReclamo estadoReclamo = EstadoReclamo.NUEVO;
-
-    private List<Log> historial = new ArrayList<>();
+    private List<LogDTO> historial = new ArrayList<>();
 
     public ReclamoDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
         this.id = id;
@@ -34,8 +28,7 @@ public class ReclamoDTO {
         this.historial = historial;
     }
 
-    public ReclamoDTO(long id, String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo) {
-        this.id = id;
+    public ReclamoDTO(String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.estadoReclamo = estadoReclamo;
@@ -81,11 +74,11 @@ public class ReclamoDTO {
         this.estadoReclamo = estadoReclamo;
     }
 
-    public List<Log> getHistorial() {
+    public List<LogDTO> getHistorial() {
         return historial;
     }
 
-    public void setHistorial(List<Log> historial) {
+    public void setHistorial(List<LogDTO> historial) {
         this.historial = historial;
     }
 }

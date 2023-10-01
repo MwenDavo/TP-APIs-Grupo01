@@ -24,11 +24,9 @@ public class Log {
     public Log() {
     }
 
-    public Log(EstadoReclamo estadoReclamo, String descripcion, Reclamo reclamo) {
-
+    public Log(EstadoReclamo estadoReclamo, String descripcion) {
         this.estadoReclamo = estadoReclamo;
         this.descripcion = descripcion;
-        this.reclamo = reclamo;
     }
 
     public long getId() {

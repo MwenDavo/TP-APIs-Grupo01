@@ -12,12 +12,9 @@ import java.util.List;
 public class GeneralDTO extends ReclamoDTO{
     private Edificio edificio;
 
-    public GeneralDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
-        super(id,descripcion,fotos,usuario,estadoReclamo,historial);
-    }
-
-    public GeneralDTO(long id, String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo) {
-        super(id,descripcion,fotos,estadoReclamo);
+    public GeneralDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial, Edificio edificio) {
+        super(id, descripcion, fotos, usuario, estadoReclamo, historial);
+        this.edificio = edificio;
     }
 
     public Edificio getEdificio() {

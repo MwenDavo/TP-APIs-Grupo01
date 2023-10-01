@@ -29,57 +29,14 @@ public class ReclamoDAO implements IReclamoDAO {
     }
 
     @Transactional(readOnly = true)
-    public General read(General reclamo) {
+    public Reclamo read(long id) {
         Session session = entityManager.unwrap(Session.class);
-        return session.get(General.class, reclamo.getId());
+        return session.get(Reclamo.class, id);
     }
-
-    @Transactional(readOnly = true)
-    public Localizado read(Localizado reclamo) {
-        Session session = entityManager.unwrap(Session.class);
-        return session.get(Localizado.class, reclamo.getId());
-    }
-
-    @Deprecated
-    @Transactional(readOnly = true)
-    public List<Reclamo> readByEstadoReclamo(EstadoReclamo estadoReclamo) {
-        Session session = entityManager.unwrap(Session.class);
-        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE estado_reclamo = :estado_reclamo", Reclamo.class);
-        query.setParameter("estado_reclamo", estadoReclamo);
-        return query.getResultList();
-    }
-
-    @Deprecated
-    @Transactional(readOnly = true)
-    public List<Reclamo> readAll() {
-        Session session = entityManager.unwrap(Session.class);
-        Query<Reclamo> query = session.createQuery("FROM Reclamo", Reclamo.class);
-        return query.getResultList();
-    }
-
 
     @Transactional
-    public void update(General reclamo) {
+    public void update(Reclamo reclamo) {
         Session session = entityManager.unwrap(Session.class);
         session.merge(reclamo);
-        session.persist(
-                new Log(
-                    reclamo.getEstadoReclamo(),
-                    reclamo.getDescripcion(),
-                    reclamo
-                )
-        );
-    }
-
-    public void update(Localizado reclamo) {
-        Session session = entityManager.unwrap(Session.class);
-        session.merge(reclamo);
-        session.persist(
-                new Log(
-                        reclamo.getEstadoReclamo(),
-                        reclamo.getDescripcion(),
-                        reclamo
-                )
-        );
     }
 }

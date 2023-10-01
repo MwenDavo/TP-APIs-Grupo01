@@ -57,7 +57,7 @@ public class EdificioController {
         return new EdificioDTO(
                 e.getId(),
                 e.getDireccion(),
-                new ArrayList<>(e.getReclamos())
+                new ArrayList<>(e.getReclamos()) //TODO en todos los DTO que haya una relacion con otro objeto, convertir ese objeto a DTO con un metodo similar al usado en ReclamoController
         );
     }
 

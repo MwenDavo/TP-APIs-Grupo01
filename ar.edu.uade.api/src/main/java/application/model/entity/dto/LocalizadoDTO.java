@@ -13,12 +13,9 @@ public class LocalizadoDTO extends ReclamoDTO{
 
     private Unidad unidad;
 
-    public LocalizadoDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial) {
-        super(id,descripcion,fotos,usuario,estadoReclamo,historial);
-    }
-
-    public LocalizadoDTO(long id, String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo) {
-        super(id,descripcion,fotos,estadoReclamo);
+    public LocalizadoDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial, Unidad unidad) {
+        super(id, descripcion, fotos, usuario, estadoReclamo, historial);
+        this.unidad = unidad;
     }
 
     public Unidad getUnidad() {

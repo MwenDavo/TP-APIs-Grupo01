@@ -1,10 +1,8 @@
 package application.controller;
 
 import application.model.entity.Usuario;
-import application.model.entity.dto.CredencialDTO;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.IUsuarioService;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +42,7 @@ public class AuthenticationController {
                     .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_MINUTES * 60 * 1000))
                     .signWith(secretKey, SignatureAlgorithm.HS256)
                     .compact();
-            return new ResponseEntity<>(new CredencialDTO(usuarioDTO, token), HttpStatus.OK);
+            return new ResponseEntity<>(token, HttpStatus.OK);
         }
         return new ResponseEntity<>("Credenciales inválidas.", HttpStatus.UNAUTHORIZED);
     }
