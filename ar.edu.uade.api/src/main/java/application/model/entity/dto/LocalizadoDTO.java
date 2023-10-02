@@ -13,7 +13,7 @@ public class LocalizadoDTO extends ReclamoDTO{
 
     private Unidad unidad;
 
-    public LocalizadoDTO(long id, String descripcion, List<Foto> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<Log> historial, Unidad unidad) {
+    public LocalizadoDTO(long id, String descripcion, List<FotoDTO> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<LogDTO> historial, Unidad unidad) {
         super(id, descripcion, fotos, usuario, estadoReclamo, historial);
         this.unidad = unidad;
     }
