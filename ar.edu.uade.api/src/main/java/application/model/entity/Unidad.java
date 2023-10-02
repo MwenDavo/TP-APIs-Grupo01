@@ -38,6 +38,11 @@ public class Unidad {
         this.id = id;
     }
 
+    public Unidad(int piso, int numero) {
+        this.piso = piso;
+        this.numero = numero;
+    }
+
     public long getId() {
         return id;
     }

@@ -15,17 +15,8 @@ public class EdificioDTO {
     public EdificioDTO() {
     }
 
-    public EdificioDTO(long id, String direccion, List<UnidadDTO> unidades, List<GeneralDTO> reclamos) {
-        this.id = id;
+    public EdificioDTO(String direccion) {
         this.direccion = direccion;
-        this.unidades = unidades;
-        this.reclamos = reclamos;
-    }
-
-    public EdificioDTO(long id, String direccion, List<GeneralDTO> reclamos) {
-        this.id = id;
-        this.direccion = direccion;
-        this.reclamos = reclamos;
     }
 
     public long getId() {

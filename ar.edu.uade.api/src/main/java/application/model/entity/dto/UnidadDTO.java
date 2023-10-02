@@ -27,6 +27,11 @@ public class UnidadDTO {
         this.id = id;
     }
 
+    public UnidadDTO(int piso, int numero) {
+        this.piso = piso;
+        this.numero = numero;
+    }
+
     public long getId() {
         return id;
     }

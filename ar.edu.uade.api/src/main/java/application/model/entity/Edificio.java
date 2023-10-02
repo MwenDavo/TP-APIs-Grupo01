@@ -1,5 +1,6 @@
 package application.model.entity;
 
+import application.model.entity.dto.UnidadDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,16 +22,18 @@ public class Edificio {
     public Edificio() {
     }
 
-    public Edificio(String direccion, List<Unidad> unidades) {
-        this.direccion = direccion;
-        this.unidades = unidades;
-    }
 
     public Edificio(long id, String direccion, List<Unidad> unidades, List<General> reclamos) {
         this.id = id;
         this.direccion = direccion;
         this.unidades = unidades;
         this.reclamos = reclamos;
+    }
+
+
+    public Edificio(String direccion, List<Unidad> unidades) {
+        this.direccion = direccion;
+        this.unidades = unidades;
     }
 
     public long getId() {

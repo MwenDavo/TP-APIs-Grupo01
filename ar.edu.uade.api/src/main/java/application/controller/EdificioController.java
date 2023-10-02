@@ -47,12 +47,38 @@ public class EdificioController {
         return response;
     }
 
+    public static EdificioDTO convertToDTO(Edificio edificio) {
+        EdificioDTO edificioDTO = new EdificioDTO(
+                edificio.getDireccion()
+        );
+        for (Unidad unidad : edificio.getUnidades()) {
+            edificioDTO.getUnidades().add(convertToDTO(unidad));
+        }
+        return edificioDTO;
+    }
+
+    public static UnidadDTO convertToDTO(Unidad unidad) {
+        return new UnidadDTO(
+                unidad.getPiso(),
+                unidad.getNumero()
+        );
+    }
+
+    public static Edificio convertToEntity(EdificioDTO edificioDTO) {
+        Edificio edificio = new Edificio(
+                edificioDTO.getDireccion(),
+                edificioDTO.getUnidades()
+        );
+        return edificio;
+    }
+
+    /*
     public static EdificioDTO convertToDTO(Edificio e){
         return new EdificioDTO(
                 e.getId(),
                 e.getDireccion(),
-                convertToDTOSGeneral(e.getReclamos()) //TODO en todos los DTO que haya una relacion con otro objeto, convertir ese objeto a DTO con un metodo similar al usado en ReclamoController
-        );
+                e.getUnidades()
+                );
     }
 
     public static List<GeneralDTO> convertToDTOSGeneral(List<General> reclamos){
@@ -156,6 +182,8 @@ public class EdificioController {
         );
 
     }
+
+     */
 
     //TODO CHEQUEAR CORRECTA IMPLEMENTACION DE DTOS, POR EJEMPLO EN GENERALDTO SE ESTA UTILIZANDO UN EDIFICIO COMUN Y NO UN EDIFICIODTO
 
