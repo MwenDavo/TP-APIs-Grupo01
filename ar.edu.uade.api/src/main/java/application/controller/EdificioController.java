@@ -25,8 +25,8 @@ public class EdificioController {
         return new ResponseEntity<>(edificioDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/edificio")
-    public ResponseEntity<?> read(@RequestBody EdificioDTO eDTO) {
+    @GetMapping(value = "/edificio/parameters") //TODO me di cuenta que debiamos usar params para esto corregir dtos y el metodo
+    public ResponseEntity<?> read(@RequestParam("direccion") String direccion) {
         Edificio e = convertToEntity(eDTO);
         Edificio edificio = edificioService.readByDireccion(e);
         if (edificio == null) {
@@ -37,7 +37,7 @@ public class EdificioController {
         return new ResponseEntity<>(edificioDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/all") //TODO posibilidad de hacerlo por RequestParam username o idUsuario
     public List<EdificioDTO> readAll(UsuarioDTO usuarioDTO) {
         Usuario usuario = UsuarioController. convertToEntity(usuarioDTO);
         List<Edificio> edificios = edificioService.readAll(usuario);

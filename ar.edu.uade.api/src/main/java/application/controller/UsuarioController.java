@@ -31,11 +31,11 @@ public class UsuarioController {
         return response;
     }
 
-    @PutMapping("/usuario")
+    @PutMapping("/usuario/parameters")
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> update(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<?> update(@RequestParam("id") long id, @RequestBody UsuarioDTO usuarioDTO) { //TODO corregir como en EdificioController
         Usuario usuario = convertToEntity(usuarioDTO);
         if (usuarioService.read(usuario) == null) {
             String mensaje = "Usuario no encontrado.";
@@ -46,11 +46,11 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/usuario")
+    @DeleteMapping("/usuario/parameters")
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> delete(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<?> delete(@RequestParam("id") long id) { //TODO corregir como en EdificioController
         Usuario usuario = convertToEntity(usuarioDTO);
         if (usuarioService.read(usuario) == null) {
             String mensaje = "Usuario no encontrado.";
@@ -75,11 +75,11 @@ public class UsuarioController {
         return new UsuarioDTO(usuario.getUsername(),usuario.getPassword(),usuario.getDni(),usuario.getNombre(),usuario.getTelefono());
     }
 
-    @GetMapping(value = "/usuario")
+    @GetMapping(value = "/usuario/parameters")
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> buscarPorUsername(UsuarioDTO user){
+    public ResponseEntity<?> buscarPorUsername(@RequestParam("username") String username){ //TODO corregir como en EdificioController
         Usuario usuario = convertToEntity(user);
         Usuario respuesta = usuarioService.readByUsername(usuario);
         if(respuesta != null){
