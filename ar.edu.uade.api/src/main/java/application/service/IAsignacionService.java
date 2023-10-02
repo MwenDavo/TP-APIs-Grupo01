@@ -5,6 +5,6 @@ import application.model.entity.Usuario;
 import application.model.util.TipoRelacion;
 
 public interface IAsignacionService {
-    Usuario asignarUnidad(Usuario usuario, Unidad unidad, TipoRelacion tipoRelacion);
-    Usuario desasignarUnidad(Usuario usuario, Unidad unidad);
+    void asignarUnidad(long idUsuario, long idUnidad, String relacion);
+    void desasignarUnidad(long idUsuario, long idUnidad);
 }

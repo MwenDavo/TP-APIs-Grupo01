@@ -35,13 +35,13 @@ public class UsuarioController {
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> update(@RequestParam("id") long id, @RequestBody UsuarioDTO usuarioDTO) { //TODO corregir como en EdificioController
+    public ResponseEntity<?> update(@RequestParam("id") long id, @RequestBody UsuarioDTO usuarioDTO) {
         Usuario usuario = convertToEntity(usuarioDTO);
-        if (usuarioService.read(usuario) == null) {
+        if (usuarioService.read(id) == null) {
             String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-        usuarioService.update(usuario);
+        usuarioService.update(id, usuario);
         usuarioDTO = convertToDTO(usuario);
         return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
     }
@@ -50,13 +50,12 @@ public class UsuarioController {
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> delete(@RequestParam("id") long id) { //TODO corregir como en EdificioController
-        Usuario usuario = convertToEntity(usuarioDTO);
-        if (usuarioService.read(usuario) == null) {
+    public ResponseEntity<?> delete(@RequestParam("id") long id) {
+        if (usuarioService.read(id) == null) {
             String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-        usuarioService.delete(usuario);
+        usuarioService.delete(id);
         String mensaje = "Usuario eliminado.";
         return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
     }
@@ -79,9 +78,8 @@ public class UsuarioController {
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> buscarPorUsername(@RequestParam("username") String username){ //TODO corregir como en EdificioController
-        Usuario usuario = convertToEntity(user);
-        Usuario respuesta = usuarioService.readByUsername(usuario);
+    public ResponseEntity<?> buscarPorUsername(@RequestParam("username") String username){
+        Usuario respuesta = usuarioService.readByUsername(username);
         if(respuesta != null){
             return new ResponseEntity<>(convertToDTO(respuesta),HttpStatus.OK);
         }

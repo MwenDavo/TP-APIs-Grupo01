@@ -13,7 +13,7 @@ public class Reclamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false) //TODO definir con el cliente el largo
+    @Column(nullable = false, length = 144)
     private String descripcion;
     @OneToMany(mappedBy = "reclamo")
     private List<Foto> fotos;

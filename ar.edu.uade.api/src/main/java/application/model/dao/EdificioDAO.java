@@ -48,4 +48,11 @@ public class EdificioDAO implements IEdificioDAO {
         Query<Edificio> query = session.createQuery("FROM Edificio", Edificio.class);
         return query.getResultList();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Unidad readUnidad(long id) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.get(Unidad.class, id);
+    }
 }

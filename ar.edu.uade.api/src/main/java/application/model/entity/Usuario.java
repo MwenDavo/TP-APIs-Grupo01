@@ -18,9 +18,9 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
     @Column(name = "estado_usuario")
-    private EstadoUsuario estadoUsuario = EstadoUsuario.DISPONIBLE; //TODO agregar validaciones
+    private EstadoUsuario estadoUsuario = EstadoUsuario.DISPONIBLE;
     @Column(name = "tipo_usuario")
-    private TipoUsuario tipoUsuario = TipoUsuario.COMMON; //TODO agregar validaciones
+    private TipoUsuario tipoUsuario = TipoUsuario.COMMON; //TODO incluir autenticacion de permisos en la vista!
     @Column(nullable = false, unique = true)
     private int dni;
     @Column(nullable = false)

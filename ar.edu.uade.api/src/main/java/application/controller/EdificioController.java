@@ -25,10 +25,9 @@ public class EdificioController {
         return new ResponseEntity<>(edificioDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/edificio/parameters") //TODO me di cuenta que debiamos usar params para esto corregir dtos y el metodo
+    @GetMapping(value = "/edificio/parameters")
     public ResponseEntity<?> read(@RequestParam("direccion") String direccion) {
-        Edificio e = convertToEntity(eDTO);
-        Edificio edificio = edificioService.readByDireccion(e);
+        Edificio edificio = edificioService.readByDireccion(direccion);
         if (edificio == null) {
             String mensaje = "Edificio no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
@@ -37,10 +36,9 @@ public class EdificioController {
         return new ResponseEntity<>(edificioDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/all") //TODO posibilidad de hacerlo por RequestParam username o idUsuario
-    public List<EdificioDTO> readAll(UsuarioDTO usuarioDTO) {
-        Usuario usuario = UsuarioController. convertToEntity(usuarioDTO);
-        List<Edificio> edificios = edificioService.readAll(usuario);
+    @GetMapping(value = "/all/parameters")
+    public List<EdificioDTO> readAll(@RequestParam("username") String username) {
+        List<Edificio> edificios = edificioService.readAll(username);
         List<EdificioDTO> response = new ArrayList<>();
         for (Edificio edificio : edificios) {
             EdificioDTO edificioDTO = convertToDTO(edificio);

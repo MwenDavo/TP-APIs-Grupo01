@@ -21,7 +21,7 @@ public class AsignacionService implements IAsignacionService {
     @Override //TODO modificar interfaz
     public void asignarUnidad(long idUsuario, long idUnidad, String relacion) {
         Usuario usuario = usuarioDAO.read(idUsuario);
-        Unidad unidad = edificioDAO.readUnidad(idUnidad); //TODO crear metodo session.get(Unidad.class, id)
+        Unidad unidad = edificioDAO.readUnidad(idUnidad);
         if (usuario != null && unidad != null) {
             if (Objects.equals(relacion, "PROPIETARIO")) {
                 TipoRelacion tipoRelacion = TipoRelacion.PROPIETARIO;
@@ -37,7 +37,7 @@ public class AsignacionService implements IAsignacionService {
     @Override //TODO modificar interfaz
     public void desasignarUnidad(long idUsuario, long idUnidad) {
         Usuario usuario = usuarioDAO.read(idUsuario);
-        Unidad unidad = edificioDAO.readUnidad(idUnidad); //TODO crear metodo session.get(Unidad.class, id)
+        Unidad unidad = edificioDAO.readUnidad(idUnidad);
         if (usuario != null && unidad != null) {
             for (UsuarioUnidad usuarioUnidad : usuario.getUnidades()) {
                 if (usuarioUnidad.getUnidad().getId() == unidad.getId()) {

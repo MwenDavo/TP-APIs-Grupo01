@@ -1,6 +1,8 @@
 package application.service;
 
 import application.model.dao.IEdificioDAO;
+import application.model.dao.IUsuarioDAO;
+import application.model.dao.UsuarioDAO;
 import application.model.entity.Edificio;
 import application.model.entity.Unidad;
 import application.model.entity.Usuario;
@@ -17,6 +19,9 @@ public class EdificioService implements IEdificioService {
     @Autowired
     private IEdificioDAO edificioDAO;
 
+    @Autowired
+    private IUsuarioDAO usuarioDAO;
+
     @Override
     public void create(Edificio edificio) {
         edificioDAO.create(edificio);
@@ -28,15 +33,16 @@ public class EdificioService implements IEdificioService {
     }
 
     @Override
-    public Edificio readByDireccion(Edificio edificio) {
-        return edificioDAO.readByDireccion(edificio.getDireccion());
+    public Edificio readByDireccion(String direccion) {
+        return edificioDAO.readByDireccion(direccion);
     }
 
     @Override
-    public List<Edificio> readAll(Usuario usuario) {
-        if (usuario.getTipoUsuario() == TipoUsuario.COMMON) {
+    public List<Edificio> readAll(String usuario) {
+        Usuario u = usuarioDAO.readByUsername(usuario);
+        if (u.getTipoUsuario() == TipoUsuario.COMMON) {
             List<Edificio> edificios = new ArrayList<>();
-            for (UsuarioUnidad usuarioUnidad : usuario.getUnidades()) {
+            for (UsuarioUnidad usuarioUnidad : u.getUnidades()) {
                 edificios.add(usuarioUnidad.getUnidad().getEdificio());
             }
             return edificios;
