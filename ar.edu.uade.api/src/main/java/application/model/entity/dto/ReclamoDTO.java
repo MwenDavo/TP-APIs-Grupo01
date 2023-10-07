@@ -13,15 +13,15 @@ import java.util.List;
 
 public class ReclamoDTO {
     private String descripcion;
-    private List<FotoDTO> fotos;
-    private UsuarioDTO usuario;
+    private List<FotoDTO> fotos = new ArrayList<>();;
+    private String username;
     private EstadoReclamo estadoReclamo;
-    private List<LogDTO> historial;
+    private List<LogDTO> historial = new ArrayList<>();;
 
-    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, UsuarioDTO usuario) {
+    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, String username) {
         this.descripcion = descripcion;
         this.fotos = fotos;
-        this.usuario = usuario;
+        this.username = username;
     }
 
     public ReclamoDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
@@ -55,12 +55,12 @@ public class ReclamoDTO {
         this.fotos = fotos;
     }
 
-    public UsuarioDTO getUsuario() {
-        return usuario;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsuario(UsuarioDTO usuario) {
-        this.usuario = usuario;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public EstadoReclamo getEstadoReclamo() {

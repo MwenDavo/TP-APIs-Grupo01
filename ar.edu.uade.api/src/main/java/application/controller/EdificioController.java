@@ -59,6 +59,10 @@ public class EdificioController {
             edificioDTO.getUnidades().add(convertToDTO(unidad));
         }
 
+        for (General general : edificio.getReclamos()){
+            edificioDTO.getReclamos().add(ReclamoController.convertToDTO(general));
+        }
+
         return edificioDTO;
     }
 

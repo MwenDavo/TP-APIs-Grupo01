@@ -13,7 +13,9 @@ public class UsuarioUnidad {
     private Usuario usuario;
     @ManyToOne
     private Unidad unidad;
-    @Column(nullable = false)
+
+    //TODO REGRESAR @COLUMN(NULLABLE = FALSE)
+    @Column(name = "tipo_relacion", nullable = false)
     private TipoRelacion tipoRelacion;
 
     public UsuarioUnidad() {
@@ -23,6 +25,11 @@ public class UsuarioUnidad {
         this.usuario = usuario;
         this.unidad = unidad;
         this.tipoRelacion = tipoRelacion;
+    }
+
+    public UsuarioUnidad(Usuario usuario, Unidad unidad) {
+        this.usuario = usuario;
+        this.unidad = unidad;
     }
 
     public Usuario getUsuario() {

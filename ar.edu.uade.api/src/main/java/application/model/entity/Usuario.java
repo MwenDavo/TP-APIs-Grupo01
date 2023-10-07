@@ -30,7 +30,7 @@ public class Usuario {
     private String nombre;
     @Column(nullable = false)
     private int telefono;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<UsuarioUnidad> unidades = new ArrayList<>();
     @OneToMany(mappedBy = "usuario")
     private List<Reclamo> reclamos = new ArrayList<>();

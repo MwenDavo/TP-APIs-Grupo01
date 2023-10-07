@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneralDTO extends ReclamoDTO{
-    private EdificioDTO edificio;
+    private String direccionEdificio;
 
     public GeneralDTO(){
         super();
     }
 
-    public GeneralDTO(String descripcion, List<FotoDTO> fotos, UsuarioDTO usuario, EdificioDTO edificio) {
-        super(descripcion, fotos, usuario);
-        this.edificio = edificio;
+    public GeneralDTO(String descripcion, List<FotoDTO> fotos, String username, String direccionEdificio) {
+        super(descripcion, fotos, username);
+        this.direccionEdificio = direccionEdificio;
     }
 
     public GeneralDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
@@ -29,12 +29,12 @@ public class GeneralDTO extends ReclamoDTO{
         super(estadoReclamo);
     }
 
-    public EdificioDTO getEdificio() {
-        return edificio;
+    public String getdireccionEdificio() {
+        return direccionEdificio;
     }
 
-    public void setEdificio(EdificioDTO edificio) {
-        this.edificio = edificio;
+    public void setdireccionEdificio(String direccionEdificio) {
+        this.direccionEdificio = direccionEdificio;
     }
 
 }

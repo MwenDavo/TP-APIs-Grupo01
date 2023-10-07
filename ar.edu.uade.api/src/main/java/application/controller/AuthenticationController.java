@@ -23,7 +23,7 @@ public class AuthenticationController {
     private IUsuarioService usuarioService;
     @Autowired
     private SecretKey secretKey;
-    private final int EXPIRATION_TIME_IN_MINUTES = 10;
+    private final int EXPIRATION_TIME_IN_HOURS = 24;
 
     @PostMapping("/register")
     private ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO) {
@@ -39,7 +39,7 @@ public class AuthenticationController {
             String token = Jwts.builder()
                     .setSubject(usuario.getUsername())
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_MINUTES * 60 * 1000))
+                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_HOURS * 60 * 60 * 1000))
                     .signWith(secretKey, SignatureAlgorithm.HS256)
                     .compact();
             return new ResponseEntity<>(token, HttpStatus.OK);

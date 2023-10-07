@@ -93,6 +93,7 @@ public class ReclamoService implements IReclamoService {
         return false;
     }
 
+
     private boolean allowUpdate(Reclamo reclamo) {
         boolean validez;
         if (reclamo.getEstadoReclamo() == EstadoReclamo.DESESTIMADO

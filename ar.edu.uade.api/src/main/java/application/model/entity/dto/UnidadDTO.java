@@ -4,12 +4,13 @@ import application.model.entity.Edificio;
 import application.model.entity.Localizado;
 import application.model.entity.UsuarioUnidad;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UnidadDTO {
     private int piso;
     private int numero;
-    private List<LocalizadoDTO> reclamos;
+    private List<LocalizadoDTO> reclamos = new ArrayList<>();;
 
     public UnidadDTO() {
     }

@@ -6,6 +6,7 @@ import application.model.entity.dto.LogDTO;
 import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,9 @@ public class General extends Reclamo {
 
     public General(EstadoReclamo estadoReclamo) {
         super(estadoReclamo);
+    }
+
+    public General(String descripcion, ArrayList<Foto> fotos, String username, String s) {
     }
 
     public Edificio getEdificio() {

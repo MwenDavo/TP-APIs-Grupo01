@@ -22,8 +22,8 @@ public class Reclamo {
     @ManyToOne
     private Usuario usuario;
     @Column(name = "estado_reclamo")
-    private EstadoReclamo estadoReclamo;
-    @OneToMany(mappedBy = "reclamo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private EstadoReclamo estadoReclamo = EstadoReclamo.NUEVO;
+    @OneToMany(mappedBy = "reclamo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Log> historial = new ArrayList<>();
 
     public Reclamo() {

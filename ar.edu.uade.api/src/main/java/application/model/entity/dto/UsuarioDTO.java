@@ -3,6 +3,7 @@ package application.model.entity.dto;
 import application.model.entity.Unidad;
 import application.model.util.TipoUsuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDTO {
@@ -12,7 +13,7 @@ public class UsuarioDTO {
     private String nombre;
     private int telefono;
     private TipoUsuario tipoUsuario;
-    private List<UnidadDTO> unidadesDTO;
+    private List<UnidadDTO> unidadesDTO = new ArrayList<>();;
 
     public UsuarioDTO(){
 

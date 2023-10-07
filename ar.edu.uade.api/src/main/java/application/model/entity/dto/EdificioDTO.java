@@ -8,8 +8,8 @@ import java.util.List;
 
 public class EdificioDTO {
     private String direccion;
-    private List<UnidadDTO> unidades;
-    private List<GeneralDTO> reclamos;
+    private List<UnidadDTO> unidades = new ArrayList<>();
+    private List<GeneralDTO> reclamos = new ArrayList<>();
 
     public EdificioDTO(){
 

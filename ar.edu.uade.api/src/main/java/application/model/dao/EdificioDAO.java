@@ -2,6 +2,7 @@ package application.model.dao;
 
 import application.model.entity.Edificio;
 import application.model.entity.Unidad;
+import application.model.entity.UsuarioUnidad;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
@@ -20,12 +21,10 @@ public class EdificioDAO implements IEdificioDAO {
     @Transactional
     public void create(Edificio edificio) {
         Session session = entityManager.unwrap(Session.class);
-        /*
+
         for (Unidad unidad : edificio.getUnidades()) {
             unidad.setEdificio(edificio);
         }
-
-         */
         session.persist(edificio);
     }
 
@@ -37,6 +36,7 @@ public class EdificioDAO implements IEdificioDAO {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Edificio readByDireccion(String direccion) {
         Session session = entityManager.unwrap(Session.class);
         Query<Edificio> query = session.createQuery("FROM Edificio WHERE direccion = :direccion", Edificio.class);
@@ -58,4 +58,12 @@ public class EdificioDAO implements IEdificioDAO {
         Session session = entityManager.unwrap(Session.class);
         return session.get(Unidad.class, id);
     }
+
+    @Override
+    @Transactional
+    public void borrarRelacion(UsuarioUnidad usuarioUnidad){
+        Session session = entityManager.unwrap(Session.class);
+        session.remove(usuarioUnidad);
+    }
+
 }

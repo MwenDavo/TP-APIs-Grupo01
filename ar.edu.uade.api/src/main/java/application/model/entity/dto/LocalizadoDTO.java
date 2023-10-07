@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocalizadoDTO extends ReclamoDTO{
-    private UnidadDTO unidad;
+    private long idUnidad;
 
     public LocalizadoDTO(){
 
     }
 
-    public LocalizadoDTO(String descripcion, List<FotoDTO> fotos, UsuarioDTO usuario, UnidadDTO unidad) {
+    public LocalizadoDTO(String descripcion, List<FotoDTO> fotos, String usuario, long idUnidad) {
         super(descripcion, fotos, usuario);
-        this.unidad = unidad;
+        this.idUnidad = idUnidad;
     }
 
     public LocalizadoDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
@@ -29,12 +29,12 @@ public class LocalizadoDTO extends ReclamoDTO{
         super(estadoReclamo);
     }
 
-    public UnidadDTO getUnidad() {
-        return unidad;
+    public long getUnidad() {
+        return idUnidad;
     }
 
-    public void setUnidad(UnidadDTO unidad) {
-        this.unidad = unidad;
+    public void setUnidad(long unidad) {
+        this.idUnidad = unidad;
     }
 
 

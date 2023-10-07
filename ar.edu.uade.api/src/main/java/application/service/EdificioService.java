@@ -2,7 +2,6 @@ package application.service;
 
 import application.model.dao.IEdificioDAO;
 import application.model.dao.IUsuarioDAO;
-import application.model.dao.UsuarioDAO;
 import application.model.entity.Edificio;
 import application.model.entity.Unidad;
 import application.model.entity.Usuario;
@@ -48,5 +47,10 @@ public class EdificioService implements IEdificioService {
             return edificios;
         }
         return edificioDAO.readAll();
+    }
+
+    @Override
+    public Unidad readUnidad(long id){
+        return edificioDAO.readUnidad(id);
     }
 }

@@ -2,8 +2,13 @@ package application.controller;
 
 import application.model.entity.*;
 import application.model.entity.dto.*;
+import application.service.IEdificioService;
 import application.service.IReclamoService;
+import application.service.IUsuarioService;
+import application.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.ParameterResolutionDelegate;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +22,47 @@ public class ReclamoController {
     @Autowired
     private IReclamoService reclamoService;
 
+    @Autowired
+    private IUsuarioService usuarioService;
+
+    @Autowired
+    private IEdificioService edificioService;
+
     @PostMapping("/general")
     public ResponseEntity<?> create(@RequestBody GeneralDTO generalDTO) {
-        reclamoService.create(convertToEntity(generalDTO));
+        ArrayList<Foto> fotos = new ArrayList<Foto>();
+        for(FotoDTO f:generalDTO.getFotos()){
+            fotos.add(FotoController.convertToEntity(f));
+        }
+        System.out.println(generalDTO.getdireccionEdificio());
+        General g = new General(
+                generalDTO.getDescripcion(),
+                fotos,
+                usuarioService.readByUsername(generalDTO.getUsername()),
+                edificioService.readByDireccion(generalDTO.getdireccionEdificio())
+        );
+        reclamoService.create(g);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
     @PostMapping("/localizado")
     public ResponseEntity<?> create(@RequestBody LocalizadoDTO localizadoDTO) {
-        reclamoService.create(convertToEntity(localizadoDTO));
+        ArrayList<Foto> fotos = new ArrayList<Foto>();
+
+        for(FotoDTO f:localizadoDTO.getFotos()){
+            fotos.add(FotoController.convertToEntity(f));
+        }
+        Localizado l = new Localizado(
+                localizadoDTO.getDescripcion(),
+                fotos,
+                usuarioService.readByUsername(localizadoDTO.getUsername()),
+                edificioService.readUnidad(localizadoDTO.getUnidad())
+        );
+        reclamoService.create(l);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/general/parameters")
+    @GetMapping(value = "/readGeneral/parameters")
     public ResponseEntity<?> readGeneral(@RequestParam("id") long id) {
         General reclamo = reclamoService.readGeneral(id);
         if (reclamo == null) {
@@ -38,7 +71,7 @@ public class ReclamoController {
         return new ResponseEntity<>(convertToDTO(reclamo), HttpStatus.OK);
     }
 
-    @GetMapping("/localizado/parameters")
+    @GetMapping("/readLocalizado/parameters")
     public ResponseEntity<?> readLocalizado(@RequestParam("id") long id) {
         Localizado reclamo = reclamoService.readLocalizado(id);
         if (reclamo == null) {
@@ -46,7 +79,7 @@ public class ReclamoController {
         }
         return new ResponseEntity<>(convertToDTO(reclamo), HttpStatus.OK);
     }
-    @PutMapping("/general/parameters")
+    @PutMapping("/updateGeneral/parameters")
     public ResponseEntity<?> updateGeneral(@RequestParam("id") long id, @RequestBody LogDTO logDTO) {
         Log log = convertToEntity(logDTO);
         if (reclamoService.readGeneral(id) == null) {
@@ -56,7 +89,7 @@ public class ReclamoController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @PutMapping("/localizado/parameters")
+    @PutMapping("/updateLocalizado/parameters")
     public ResponseEntity<?> updateLocalizado(@RequestParam("id") long id, @RequestBody LogDTO logDTO) {
         Log log = convertToEntity(logDTO);
         if (reclamoService.readLocalizado(id) == null) {
@@ -64,32 +97,6 @@ public class ReclamoController {
         }
         reclamoService.updateLocalizado(id, log);
         return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    public static General convertToEntity(GeneralDTO generalDTO) {
-        ArrayList<Foto> fotos = new ArrayList<Foto>();
-        for(FotoDTO f:generalDTO.getFotos()){
-            fotos.add(FotoController.convertToEntity(f));
-        }
-        return new General(
-                generalDTO.getDescripcion(),
-                fotos,
-                UsuarioController.convertToEntity(generalDTO.getUsuario()),
-                EdificioController.convertToEntity(generalDTO.getEdificio())
-        );
-    }
-
-    public static Localizado convertToEntity(LocalizadoDTO localizadoDTO) {
-        ArrayList<Foto> fotos = new ArrayList<Foto>();
-        for(FotoDTO f:localizadoDTO.getFotos()){
-            fotos.add(FotoController.convertToEntity(f));
-        }
-        return new Localizado(
-                localizadoDTO.getDescripcion(),
-                fotos,
-                UsuarioController.convertToEntity(localizadoDTO.getUsuario()),
-                EdificioController.convertToEntity(localizadoDTO.getUnidad())
-        );
     }
 
     public static Log convertToEntity(LogDTO logDTO) {
