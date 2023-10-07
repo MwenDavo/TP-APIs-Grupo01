@@ -1,5 +1,8 @@
 package application.model.entity;
 
+import application.model.entity.dto.EdificioDTO;
+import application.model.entity.dto.FotoDTO;
+import application.model.entity.dto.LogDTO;
 import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
 
@@ -12,13 +15,20 @@ public class General extends Reclamo {
     @ManyToOne
     private Edificio edificio;
 
-    public General(EstadoReclamo estadoReclamo) {
-        super(estadoReclamo);
+    public General() {
     }
 
     public General(String descripcion, List<Foto> fotos, Usuario usuario, Edificio edificio) {
         super(descripcion, fotos, usuario);
         this.edificio = edificio;
+    }
+
+    public General(String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+        super(descripcion, fotos, estadoReclamo, historial);
+    }
+
+    public General(EstadoReclamo estadoReclamo) {
+        super(estadoReclamo);
     }
 
     public Edificio getEdificio() {

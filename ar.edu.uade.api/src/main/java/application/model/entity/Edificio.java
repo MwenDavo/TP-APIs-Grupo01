@@ -1,5 +1,6 @@
 package application.model.entity;
 
+import application.model.entity.dto.GeneralDTO;
 import application.model.entity.dto.UnidadDTO;
 import jakarta.persistence.*;
 
@@ -29,13 +30,6 @@ public class Edificio {
         this.unidades = unidades;
         this.reclamos = reclamos;
     }
-
-
-    public Edificio(String direccion, List<Unidad> unidades) {
-        this.direccion = direccion;
-        this.unidades = unidades;
-    }
-
     public long getId() {
         return id;
     }

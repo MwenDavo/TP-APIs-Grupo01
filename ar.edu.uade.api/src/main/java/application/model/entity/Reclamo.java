@@ -1,5 +1,7 @@
 package application.model.entity;
 
+import application.model.entity.dto.FotoDTO;
+import application.model.entity.dto.LogDTO;
 import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
 
@@ -20,21 +22,28 @@ public class Reclamo {
     @ManyToOne
     private Usuario usuario;
     @Column(name = "estado_reclamo")
-    private EstadoReclamo estadoReclamo = EstadoReclamo.NUEVO;
+    private EstadoReclamo estadoReclamo;
     @OneToMany(mappedBy = "reclamo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Log> historial = new ArrayList<>();
+    private List<Log> historial;
 
     public Reclamo() {
-    }
-
-    public Reclamo(EstadoReclamo estadoReclamo) {
-        this.estadoReclamo = estadoReclamo;
     }
 
     public Reclamo(String descripcion, List<Foto> fotos, Usuario usuario) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.usuario = usuario;
+    }
+
+    public Reclamo(String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+        this.descripcion = descripcion;
+        this.fotos = fotos;
+        this.estadoReclamo = estadoReclamo;
+        this.historial = historial;
+    }
+
+    public Reclamo(EstadoReclamo estadoReclamo) {
+        this.estadoReclamo = estadoReclamo;
     }
 
     public Reclamo(long id) {
@@ -88,5 +97,4 @@ public class Reclamo {
     public void setHistorial(List<Log> historial) {
         this.historial = historial;
     }
-
 }

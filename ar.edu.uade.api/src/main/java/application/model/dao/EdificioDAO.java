@@ -20,9 +20,12 @@ public class EdificioDAO implements IEdificioDAO {
     @Transactional
     public void create(Edificio edificio) {
         Session session = entityManager.unwrap(Session.class);
+        /*
         for (Unidad unidad : edificio.getUnidades()) {
             unidad.setEdificio(edificio);
         }
+
+         */
         session.persist(edificio);
     }
 

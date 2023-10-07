@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.entity.Foto;
+import application.model.entity.dto.FotoDTO;
 import application.service.IFotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,5 +39,16 @@ public class FotoController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public static FotoDTO convertToDTO(Foto f) {
+        return new FotoDTO(
+                f.getData()
+        );
+    }
+
+    public static Foto convertToEntity(FotoDTO f) {
+        Foto foto = new Foto(f.getData());
+        return foto;
     }
 }

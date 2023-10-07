@@ -10,19 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocalizadoDTO extends ReclamoDTO{
+    private UnidadDTO unidad;
 
-    private Unidad unidad;
-
-    public LocalizadoDTO(long id, String descripcion, List<FotoDTO> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<LogDTO> historial, Unidad unidad) {
-        super(id, descripcion, fotos, usuario, estadoReclamo, historial);
+    public LocalizadoDTO(String descripcion, List<FotoDTO> fotos, Usuario usuario, UnidadDTO unidad) {
+        super(descripcion, fotos, usuario);
         this.unidad = unidad;
     }
 
-    public Unidad getUnidad() {
+    public LocalizadoDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+        super(descripcion, fotos, estadoReclamo, historial);
+    }
+
+    public LocalizadoDTO(EstadoReclamo estadoReclamo) {
+        super(estadoReclamo);
+    }
+
+    public UnidadDTO getUnidad() {
         return unidad;
     }
 
-    public void setUnidad(Unidad unidad) {
+    public void setUnidad(UnidadDTO unidad) {
         this.unidad = unidad;
     }
 }

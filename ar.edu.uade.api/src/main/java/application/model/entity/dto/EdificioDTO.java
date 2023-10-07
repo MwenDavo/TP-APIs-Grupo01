@@ -7,24 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EdificioDTO {
-    private long id;
     private String direccion;
-    private List<UnidadDTO> unidades = new ArrayList<>();
-    private List<GeneralDTO> reclamos = new ArrayList<>();
+    private List<UnidadDTO> unidades;
+    private List<GeneralDTO> reclamos;
 
-    public EdificioDTO() {
-    }
-
-    public EdificioDTO(String direccion) {
+    public EdificioDTO(String direccion, List<UnidadDTO> unidades) {
         this.direccion = direccion;
+        this.unidades = unidades;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public EdificioDTO(String direccion, List<UnidadDTO> unidades, List<GeneralDTO> reclamos) {
+        this.direccion = direccion;
+        this.unidades = unidades;
+        this.reclamos = reclamos;
     }
 
     public String getDireccion() {

@@ -7,24 +7,11 @@ import application.model.entity.UsuarioUnidad;
 import java.util.List;
 
 public class UnidadDTO {
-    private long id;
-    private Edificio edificio;
     private int piso;
     private int numero;
-    private List<UsuarioUnidad> usuarios;
-    private List<Localizado> reclamos;
+    private List<LocalizadoDTO> reclamos;
 
-    public UnidadDTO(long id, Edificio edificio, int piso, int numero, List<UsuarioUnidad> usuarios, List<Localizado> reclamos) {
-        this.id = id;
-        this.edificio = edificio;
-        this.piso = piso;
-        this.numero = numero;
-        this.usuarios = usuarios;
-        this.reclamos = reclamos;
-    }
-
-    public UnidadDTO(long id){
-        this.id = id;
+    public UnidadDTO() {
     }
 
     public UnidadDTO(int piso, int numero) {
@@ -32,20 +19,10 @@ public class UnidadDTO {
         this.numero = numero;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Edificio getEdificio() {
-        return edificio;
-    }
-
-    public void setEdificio(Edificio edificio) {
-        this.edificio = edificio;
+    public UnidadDTO(int piso, int numero, List<LocalizadoDTO> reclamos) {
+        this.piso = piso;
+        this.numero = numero;
+        this.reclamos = reclamos;
     }
 
     public int getPiso() {
@@ -64,19 +41,11 @@ public class UnidadDTO {
         this.numero = numero;
     }
 
-    public List<UsuarioUnidad> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<UsuarioUnidad> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public List<Localizado> getReclamos() {
+    public List<LocalizadoDTO> getReclamos() {
         return reclamos;
     }
 
-    public void setReclamos(List<Localizado> reclamos) {
+    public void setReclamos(List<LocalizadoDTO> reclamos) {
         this.reclamos = reclamos;
     }
 }

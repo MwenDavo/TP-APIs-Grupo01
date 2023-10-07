@@ -12,40 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReclamoDTO {
-    private long id;
     private String descripcion;
-    private List<FotoDTO> fotos = new ArrayList<>();
+    private List<FotoDTO> fotos;
     private Usuario usuario;
-    private EstadoReclamo estadoReclamo = EstadoReclamo.NUEVO;
-    private List<LogDTO> historial = new ArrayList<>();
+    private EstadoReclamo estadoReclamo;
+    private List<LogDTO> historial;
 
-    public ReclamoDTO(long id, String descripcion, List<FotoDTO> fotos, Usuario usuario, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
-        this.id = id;
+    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, Usuario usuario) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.usuario = usuario;
+    }
+
+    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+        this.descripcion = descripcion;
+        this.fotos = fotos;
         this.estadoReclamo = estadoReclamo;
         this.historial = historial;
     }
 
-    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo) {
-        this.descripcion = descripcion;
-        this.fotos = fotos;
+    public ReclamoDTO(EstadoReclamo estadoReclamo) {
         this.estadoReclamo = estadoReclamo;
-    }
-
-    public ReclamoDTO(String descripcion, EstadoReclamo estadoReclamo) {
-        this.descripcion = descripcion;
-        this.estadoReclamo = estadoReclamo;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getDescripcion() {

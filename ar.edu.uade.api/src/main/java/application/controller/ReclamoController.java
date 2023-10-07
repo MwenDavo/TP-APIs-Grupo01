@@ -77,10 +77,20 @@ public class ReclamoController {
         );
     }
 
-    public static ReclamoDTO convertToDTO(Reclamo reclamo) {
-        ReclamoDTO reclamoDTO = new ReclamoDTO(
-                reclamo.getDescripcion(),
-                reclamo.getEstadoReclamo()
+    public static GeneralDTO convertToDTO(General general) {
+        ArrayList<FotoDTO> fotos = new ArrayList<FotoDTO>();
+        for (Foto foto : general.getFotos()) {
+            fotos.add(FotoController.convertToDTO(foto));
+        }
+        ArrayList<LogDTO> logs = new ArrayList<LogDTO>();
+        for (Log log : general.getHistorial()) {
+            logs.add(convertToDTO(log));
+        }
+        GeneralDTO generalDTO = new GeneralDTO(
+                general.getDescripcion(),
+                fotos,
+                general.getEstadoReclamo(),
+                logs
         );
         for (Foto foto : reclamo.getFotos()) {
             reclamoDTO.getFotos().add(convertToDTO(foto));
@@ -91,32 +101,30 @@ public class ReclamoController {
         return reclamoDTO;
     }
 
+    public static LocalizadoDTO convertToDTO(Localizado localizado) {
+        ArrayList<FotoDTO> fotos = new ArrayList<FotoDTO>();
+        for (Foto foto : localizado.getFotos()) {
+            fotos.add(FotoController.convertToDTO(foto));
+        }
+        ArrayList<LogDTO> logs = new ArrayList<LogDTO>();
+        for (Log log : localizado.getHistorial()) {
+            logs.add(convertToDTO(log));
+        }
+        LocalizadoDTO localizadoDTO = new LocalizadoDTO(
+                localizado.getDescripcion(),
+                fotos,
+                localizado.getEstadoReclamo(),
+                logs
+        );
+
+        return localizadoDTO;
+    }
+
     public static LogDTO convertToDTO(Log log) {
         return new LogDTO(
                 log.getFechaHora(),
                 log.getEstadoReclamo(),
                 log.getDescripcion()
         );
-    }
-
-    public static FotoDTO convertToDTO(Foto foto) {
-        return new FotoDTO(
-                foto.getData()
-        );
-    }
-
-    public static List<Foto> convertToEntities(List<FotoDTO> fDTO){
-        List<Foto> Fotos = new ArrayList<>();
-        for (FotoDTO f: fDTO) {
-            Foto fotoC = convertToEntity(f);
-            Fotos.add(fotoC);
-
-        }
-        return Fotos;
-    }
-
-    private static Foto convertToEntity(FotoDTO fotoAConvertirDTO) {
-        Foto f = new Foto(fotoAConvertirDTO.getData());
-        return f;
     }
 }

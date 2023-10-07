@@ -2,6 +2,8 @@ package application.model.entity.dto;
 
 import application.model.util.TipoUsuario;
 
+import java.util.List;
+
 public class UsuarioDTO {
     private String username;
     private String password;
@@ -9,16 +11,22 @@ public class UsuarioDTO {
     private String nombre;
     private int telefono;
     private TipoUsuario tipoUsuario;
+    private List<UnidadDTO> unidadesDTO;
 
-    public UsuarioDTO() {
-    }
-
-    public UsuarioDTO(String username, String password, int dni, String nombre, int telefono) {
+    public UsuarioDTO(String username, String password, int dni, String nombre, int telefono, TipoUsuario tipoUsuario) {
         this.username = username;
         this.password = password;
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public UsuarioDTO(String nombre, int telefono, TipoUsuario tipoUsuario, List<UnidadDTO> unidadesDTO) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.tipoUsuario = tipoUsuario;
+        this.unidadesDTO = unidadesDTO;
     }
 
     public String getUsername() {

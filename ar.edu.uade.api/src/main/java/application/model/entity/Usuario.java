@@ -3,12 +3,16 @@ package application.model.entity;
 import application.model.util.EstadoUsuario;
 import application.model.util.TipoUsuario;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
+@SQLDelete(sql = "UPDATE Usuario SET disponible = false WHERE id = ?") //TODO corregir service y DAO
+@Where(clause = "disponible = true")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +21,9 @@ public class Usuario {
     private String username;
     @Column(nullable = false)
     private String password;
-    @Column(name = "estado_usuario")
-    private EstadoUsuario estadoUsuario = EstadoUsuario.DISPONIBLE;
+    private boolean disponible = true;
     @Column(name = "tipo_usuario")
-    private TipoUsuario tipoUsuario = TipoUsuario.COMMON; //TODO incluir autenticacion de permisos en la vista!
+    private TipoUsuario tipoUsuario; //TODO incluir autenticacion de permisos en la vista!
     @Column(nullable = false, unique = true)
     private int dni;
     @Column(nullable = false)
@@ -28,20 +31,14 @@ public class Usuario {
     @Column(nullable = false)
     private int telefono;
     @OneToMany(mappedBy = "usuario")
-    private List<UsuarioUnidad> unidades = new ArrayList<>();
+    private List<UsuarioUnidad> unidades;
     @OneToMany(mappedBy = "usuario")
-    private List<Reclamo> reclamos = new ArrayList<>();
+    private List<Reclamo> reclamos;
 
     public Usuario() {
     }
 
-    public Usuario(String username, String password, int dni, String nombre, int telefono) {
-        this.username = username;
-        this.password = password;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.telefono = telefono;
-    }
+
 
     public long getId() {
         return id;

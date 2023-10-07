@@ -1,5 +1,6 @@
 package application.model.entity;
 
+import application.model.entity.dto.LocalizadoDTO;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,21 +27,15 @@ public class Unidad {
     public Unidad() {
     }
 
-    public Unidad(Edificio edificio, int piso, int numero, List<UsuarioUnidad> usuarios, List<Localizado> reclamos) {
-        this.edificio = edificio;
-        this.piso = piso;
-        this.numero = numero;
-        this.usuarios = usuarios;
-        this.reclamos = reclamos;
-    }
-
-    public Unidad(long id) {
-        this.id = id;
-    }
-
     public Unidad(int piso, int numero) {
         this.piso = piso;
         this.numero = numero;
+    }
+
+    public Unidad(int piso, int numero, List<Localizado> reclamos) {
+        this.piso = piso;
+        this.numero = numero;
+        this.reclamos = reclamos;
     }
 
     public long getId() {
