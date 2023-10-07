@@ -29,22 +29,40 @@ public class ReclamoController {
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/reclamo/parameters")
-    public ResponseEntity<?> read(@RequestParam("id") long id) {
-        Reclamo reclamo = reclamoService.read(id);
+    @GetMapping(value = "/general/parameters")
+    public ResponseEntity<?> readGeneral(@RequestParam("id") long id) {
+        General reclamo = reclamoService.readGeneral(id);
         if (reclamo == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(convertToDTO(reclamo), HttpStatus.OK);
     }
 
-    @PutMapping("/reclamo/parameters")
-    public ResponseEntity<?> update(@RequestParam("id") long id, @RequestBody LogDTO logDTO) {
-        Log log = convertToEntity(logDTO);
-        if (reclamoService.read(id) == null) {
+    @GetMapping("/localizado/parameters")
+    public ResponseEntity<?> readLocalizado(@RequestParam("id") long id) {
+        Localizado reclamo = reclamoService.readLocalizado(id);
+        if (reclamo == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        reclamoService.update(id, log);
+        return new ResponseEntity<>(convertToDTO(reclamo), HttpStatus.OK);
+    }
+    @PutMapping("/general/parameters")
+    public ResponseEntity<?> updateGeneral(@RequestParam("id") long id, @RequestBody LogDTO logDTO) {
+        Log log = convertToEntity(logDTO);
+        if (reclamoService.readGeneral(id) == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        reclamoService.updateGeneral(id, log);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PutMapping("/localizado/parameters")
+    public ResponseEntity<?> updateLocalizado(@RequestParam("id") long id, @RequestBody LogDTO logDTO) {
+        Log log = convertToEntity(logDTO);
+        if (reclamoService.readLocalizado(id) == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        reclamoService.updateLocalizado(id, log);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
@@ -56,7 +74,7 @@ public class ReclamoController {
         return new General(
                 generalDTO.getDescripcion(),
                 fotos,
-                generalDTO.getUsuario(),
+                UsuarioController.convertToEntity(generalDTO.getUsuario()),
                 EdificioController.convertToEntity(generalDTO.getEdificio())
         );
     }
@@ -69,7 +87,7 @@ public class ReclamoController {
         return new Localizado(
                 localizadoDTO.getDescripcion(),
                 fotos,
-                localizadoDTO.getUsuario(),
+                UsuarioController.convertToEntity(localizadoDTO.getUsuario()),
                 EdificioController.convertToEntity(localizadoDTO.getUnidad())
         );
     }

@@ -10,6 +10,8 @@ import java.util.List;
 public interface IReclamoService {
     void create(General reclamo);
     void create(Localizado reclamo);
-    Reclamo read(long id);
-    void update(long id, Log log);
+    Localizado readLocalizado(long id);
+    void updateGeneral(long id, Log log);
+    void updateLocalizado(long id, Log log);
+    General readGeneral(long id);
 }

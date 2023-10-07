@@ -33,6 +33,11 @@ public class Edificio {
         this.unidades = unidades;
         this.reclamos = reclamos;
     }
+
+    public Edificio(String direccion) {
+        this.direccion = direccion;
+    }
+
     public long getId() {
         return id;
     }

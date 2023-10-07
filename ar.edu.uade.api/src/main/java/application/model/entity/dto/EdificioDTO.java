@@ -22,6 +22,10 @@ public class EdificioDTO {
         this.reclamos = reclamos;
     }
 
+    public EdificioDTO(String direccion) {
+        this.direccion = direccion;
+    }
+
     public String getDireccion() {
         return direccion;
     }

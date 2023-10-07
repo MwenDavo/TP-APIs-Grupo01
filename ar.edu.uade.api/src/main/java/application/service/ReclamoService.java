@@ -4,6 +4,7 @@ import application.model.dao.IReclamoDAO;
 import application.model.entity.*;
 import application.model.util.EstadoReclamo;
 import application.model.util.TipoRelacion;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +30,35 @@ public class ReclamoService implements IReclamoService {
     }
 
     @Override
-    public Reclamo read(long id) {
-        return reclamoDAO.read(id);
+    public Localizado readLocalizado(long id) {
+        return reclamoDAO.readLocalizado(id);
     }
 
     @Override
-    public void update(long id, Log log) {
-        Reclamo reclamo = reclamoDAO.read(id);
+    public General readGeneral(long id) {
+        return reclamoDAO.readGeneral(id);
+    }
+
+    @Override
+    public void updateLocalizado(long id, Log log) {
+        Localizado reclamo = reclamoDAO.readLocalizado(id);
         if (allowUpdate(reclamo)) {
             reclamo.setEstadoReclamo(log.getEstadoReclamo());
             reclamo.getHistorial().add(log);
             log.setReclamo(reclamo);
-            reclamoDAO.update(reclamo);
+            reclamoDAO.updateLocalizado(reclamo);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateGeneral(long id, Log log) {
+        General reclamo = reclamoDAO.readGeneral(id);
+        if (allowUpdate(reclamo)) {
+            reclamo.setEstadoReclamo(log.getEstadoReclamo());
+            reclamo.getHistorial().add(log);
+            log.setReclamo(reclamo);
+            reclamoDAO.updateGeneral(reclamo);
         }
     }
 

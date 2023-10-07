@@ -28,14 +28,29 @@ public class ReclamoDAO implements IReclamoDAO {
         session.persist(reclamo);
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public Reclamo read(long id) {
+    public General readGeneral(long id) {
         Session session = entityManager.unwrap(Session.class);
-        return session.get(Reclamo.class, id);
+        return session.get(General.class, id);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Localizado readLocalizado(long id) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.get(Localizado.class, id);
+    }
+
+    @Override
+    public void updateLocalizado(Localizado reclamo) {
+        Session session = entityManager.unwrap(Session.class);
+        session.merge(reclamo);
+    }
+
+
     @Transactional
-    public void update(Reclamo reclamo) {
+    public void updateGeneral(General reclamo) {
         Session session = entityManager.unwrap(Session.class);
         session.merge(reclamo);
     }

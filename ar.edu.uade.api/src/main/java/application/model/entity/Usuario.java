@@ -41,11 +41,15 @@ public class Usuario {
     public Usuario(String username, String password, TipoUsuario tipoUsuario, int dni, String nombre, int telefono) {
         this.username = username;
         this.password = password;
-        this.disponible = disponible;
         this.tipoUsuario = tipoUsuario;
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
+    }
+
+    public Usuario(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public long getId() {
@@ -70,14 +74,6 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public EstadoUsuario getEstadoUsuario() {
-        return estadoUsuario;
-    }
-
-    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
-        this.estadoUsuario = estadoUsuario;
     }
 
     public TipoUsuario getTipoUsuario() {

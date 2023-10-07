@@ -14,11 +14,11 @@ import java.util.List;
 public class ReclamoDTO {
     private String descripcion;
     private List<FotoDTO> fotos;
-    private Usuario usuario;
+    private UsuarioDTO usuario;
     private EstadoReclamo estadoReclamo;
     private List<LogDTO> historial;
 
-    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, Usuario usuario) {
+    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, UsuarioDTO usuario) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.usuario = usuario;
@@ -51,11 +51,11 @@ public class ReclamoDTO {
         this.fotos = fotos;
     }
 
-    public Usuario getUsuario() {
+    public UsuarioDTO getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(UsuarioDTO usuario) {
         this.usuario = usuario;
     }
 

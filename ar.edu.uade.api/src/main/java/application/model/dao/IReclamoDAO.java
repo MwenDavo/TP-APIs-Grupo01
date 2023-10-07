@@ -8,6 +8,9 @@ import java.util.List;
 public interface IReclamoDAO {
     void create(General reclamo);
     void create(Localizado reclamo);
-    Reclamo read(long id);
-    void update(Reclamo reclamo);
+    General readGeneral(long id);
+    Localizado readLocalizado(long id);
+    void updateLocalizado(Localizado reclamo);
+
+    void updateGeneral(General reclamo);
 }

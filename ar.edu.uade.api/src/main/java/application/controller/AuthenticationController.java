@@ -27,7 +27,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     private ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO) {
-        Usuario usuario = convertToEntity(usuarioDTO);
+        Usuario usuario = UsuarioController.convertToEntity(usuarioDTO);
         usuarioService.create(usuario);
         return new ResponseEntity<>("Registro exitoso.", HttpStatus.CREATED);
     }
@@ -50,10 +50,7 @@ public class AuthenticationController {
     private Usuario convertToEntity(UsuarioDTO usuarioDTO) {
         return new Usuario(
                 usuarioDTO.getUsername(),
-                usuarioDTO.getPassword(),
-                usuarioDTO.getDni(),
-                usuarioDTO.getNombre(),
-                usuarioDTO.getTelefono()
+                usuarioDTO.getPassword()
         );
     }
 }

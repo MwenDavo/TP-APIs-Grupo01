@@ -40,13 +40,13 @@ public class EdificioController {
     public List<EdificioDTO> readAll(@RequestParam("username") String username) {
         List<Edificio> edificios = edificioService.readAll(username);
         List<EdificioDTO> response = new ArrayList<>();
-        /*
+
         for (Edificio edificio : edificios) {
             EdificioDTO edificioDTO = convertToDTO(edificio);
             response.add(edificioDTO);
         }
 
-         */
+
         return response;
     }
 
