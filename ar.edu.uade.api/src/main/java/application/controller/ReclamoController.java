@@ -96,13 +96,8 @@ public class ReclamoController {
                 general.getEstadoReclamo(),
                 logs
         );
-        for (Foto foto : reclamo.getFotos()) {
-            reclamoDTO.getFotos().add(convertToDTO(foto));
-        }
-        for (Log log : reclamo.getHistorial()) {
-            reclamoDTO.getHistorial().add(convertToDTO(log));
-        }
-        return reclamoDTO;
+
+        return generalDTO;
     }
 
     public static LocalizadoDTO convertToDTO(Localizado localizado) {
