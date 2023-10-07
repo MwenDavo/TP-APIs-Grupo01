@@ -31,9 +31,9 @@ public class Usuario {
     @Column(nullable = false)
     private int telefono;
     @OneToMany(mappedBy = "usuario")
-    private List<UsuarioUnidad> unidades;
+    private List<UsuarioUnidad> unidades = new ArrayList<>();
     @OneToMany(mappedBy = "usuario")
-    private List<Reclamo> reclamos;
+    private List<Reclamo> reclamos = new ArrayList<>();
 
     public Usuario() {
     }

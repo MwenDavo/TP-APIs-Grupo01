@@ -4,6 +4,7 @@ import application.model.entity.dto.LocalizadoDTO;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,9 +21,9 @@ public class Unidad {
     @Column(nullable = false)
     private int numero;
     @OneToMany(mappedBy = "unidad")
-    private List<UsuarioUnidad> usuarios;
+    private List<UsuarioUnidad> usuarios = new ArrayList<>();
     @OneToMany(mappedBy = "unidad")
-    private List<Localizado> reclamos;
+    private List<Localizado> reclamos = new ArrayList<>();
 
     public Unidad() {
     }

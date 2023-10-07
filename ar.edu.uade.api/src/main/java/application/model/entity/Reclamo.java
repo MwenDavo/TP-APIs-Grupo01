@@ -18,13 +18,13 @@ public class Reclamo {
     @Column(nullable = false, length = 144)
     private String descripcion;
     @OneToMany(mappedBy = "reclamo")
-    private List<Foto> fotos;
+    private List<Foto> fotos = new ArrayList<>();
     @ManyToOne
     private Usuario usuario;
     @Column(name = "estado_reclamo")
     private EstadoReclamo estadoReclamo;
     @OneToMany(mappedBy = "reclamo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Log> historial;
+    private List<Log> historial = new ArrayList<>();
 
     public Reclamo() {
     }

@@ -16,7 +16,7 @@ public class Edificio {
     @Column(nullable = false, unique = true)
     private String direccion;
     @OneToMany(mappedBy = "edificio", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Unidad> unidades;
+    private List<Unidad> unidades = new ArrayList<>();
     @OneToMany(mappedBy = "edificio", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<General> reclamos = new ArrayList<>();
 
