@@ -1,11 +1,7 @@
 package application.controller;
 
 import application.model.entity.*;
-import application.model.entity.dto.FotoDTO;
-import application.model.entity.dto.GeneralDTO;
-import application.model.entity.dto.LocalizadoDTO;
-import application.model.entity.dto.LogDTO;
-import application.model.entity.dto.ReclamoDTO;
+import application.model.entity.dto.*;
 import application.service.IReclamoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,20 +49,28 @@ public class ReclamoController {
     }
 
     public static General convertToEntity(GeneralDTO generalDTO) {
+        ArrayList<Foto> fotos = new ArrayList<Foto>();
+        for(FotoDTO f:generalDTO.getFotos()){
+            fotos.add(FotoController.convertToEntity(f));
+        }
         return new General(
                 generalDTO.getDescripcion(),
-                convertToEntities(generalDTO.getFotos()),
+                fotos,
                 generalDTO.getUsuario(),
-                generalDTO.getEdificio()
+                EdificioController.convertToEntity(generalDTO.getEdificio())
         );
     }
 
     public static Localizado convertToEntity(LocalizadoDTO localizadoDTO) {
+        ArrayList<Foto> fotos = new ArrayList<Foto>();
+        for(FotoDTO f:localizadoDTO.getFotos()){
+            fotos.add(FotoController.convertToEntity(f));
+        }
         return new Localizado(
                 localizadoDTO.getDescripcion(),
-                convertToEntities(localizadoDTO.getFotos()),
+                fotos,
                 localizadoDTO.getUsuario(),
-                localizadoDTO.getUnidad()
+                EdificioController.convertToEntity(localizadoDTO.getUnidad())
         );
     }
 

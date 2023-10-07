@@ -23,9 +23,12 @@ public class Edificio {
     public Edificio() {
     }
 
+    public Edificio(String direccion, List<Unidad> unidades) {
+        this.direccion = direccion;
+        this.unidades = unidades;
+    }
 
-    public Edificio(long id, String direccion, List<Unidad> unidades, List<General> reclamos) {
-        this.id = id;
+    public Edificio(String direccion, List<Unidad> unidades, List<General> reclamos) {
         this.direccion = direccion;
         this.unidades = unidades;
         this.reclamos = reclamos;
