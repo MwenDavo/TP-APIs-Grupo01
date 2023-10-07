@@ -35,6 +35,10 @@ public class ReclamoDTO {
         this.estadoReclamo = estadoReclamo;
     }
 
+    public ReclamoDTO() {
+
+    }
+
     public String getDescripcion() {
         return descripcion;
     }

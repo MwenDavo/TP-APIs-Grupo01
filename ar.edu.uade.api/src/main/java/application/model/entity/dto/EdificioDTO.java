@@ -11,6 +11,10 @@ public class EdificioDTO {
     private List<UnidadDTO> unidades;
     private List<GeneralDTO> reclamos;
 
+    public EdificioDTO(){
+
+    }
+
     public EdificioDTO(String direccion, List<UnidadDTO> unidades) {
         this.direccion = direccion;
         this.unidades = unidades;

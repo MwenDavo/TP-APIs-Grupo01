@@ -3,6 +3,10 @@ package application.model.entity.dto;
 public class FotoDTO {
     private byte[] Data;
 
+    public FotoDTO(){
+
+    }
+
     public FotoDTO(byte[] data){
         this.Data = data;
     }

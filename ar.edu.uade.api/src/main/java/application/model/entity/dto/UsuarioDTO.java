@@ -14,6 +14,10 @@ public class UsuarioDTO {
     private TipoUsuario tipoUsuario;
     private List<UnidadDTO> unidadesDTO;
 
+    public UsuarioDTO(){
+
+    }
+
     public UsuarioDTO(String username, String password, int dni, String nombre, int telefono, TipoUsuario tipoUsuario) {
         this.username = username;
         this.password = password;

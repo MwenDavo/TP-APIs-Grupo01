@@ -9,6 +9,10 @@ public class LogDTO {
     private EstadoReclamo estadoReclamo;
     private String descripcion;
 
+    public LogDTO(){
+
+    }
+
     public LogDTO(Date fechaHora, EstadoReclamo estadoReclamo, String descripcion) {
         FechaHora = fechaHora;
         this.estadoReclamo = estadoReclamo;

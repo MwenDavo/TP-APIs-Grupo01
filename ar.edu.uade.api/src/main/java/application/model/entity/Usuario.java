@@ -123,4 +123,14 @@ public class Usuario {
     public void setReclamos(List<Reclamo> reclamos) {
         this.reclamos = reclamos;
     }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean b) {
+        disponible = b;
+    }
+
+
 }

@@ -12,6 +12,10 @@ import java.util.List;
 public class LocalizadoDTO extends ReclamoDTO{
     private UnidadDTO unidad;
 
+    public LocalizadoDTO(){
+
+    }
+
     public LocalizadoDTO(String descripcion, List<FotoDTO> fotos, UsuarioDTO usuario, UnidadDTO unidad) {
         super(descripcion, fotos, usuario);
         this.unidad = unidad;

@@ -46,7 +46,7 @@ public class UsuarioService implements IUsuarioService {
      */
     public Usuario readByUsernameAndPassword(Usuario usuario) {
         usuario = usuarioDAO.readByUsernameAndPassword(usuario.getUsername(), usuario.getPassword());
-        if (usuario.getEstadoUsuario() == EstadoUsuario.DISPONIBLE) {
+        if (usuario.isDisponible() == true) {
             return usuario;
         }
         return null;
@@ -74,7 +74,7 @@ public class UsuarioService implements IUsuarioService {
      */
     public void delete(long id) {
         Usuario usuario = usuarioDAO.read(id);
-        usuario.setEstadoUsuario(EstadoUsuario.ELIMINADO);
+        usuario.setDisponible(false);
         usuarioDAO.update(usuario);
     };
 }
