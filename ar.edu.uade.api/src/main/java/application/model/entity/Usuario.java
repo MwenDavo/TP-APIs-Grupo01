@@ -38,7 +38,15 @@ public class Usuario {
     public Usuario() {
     }
 
-
+    public Usuario(String username, String password, TipoUsuario tipoUsuario, int dni, String nombre, int telefono) {
+        this.username = username;
+        this.password = password;
+        this.disponible = disponible;
+        this.tipoUsuario = tipoUsuario;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.telefono = telefono;
+    }
 
     public long getId() {
         return id;

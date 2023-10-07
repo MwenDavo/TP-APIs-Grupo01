@@ -1,5 +1,6 @@
 package application.model.entity.dto;
 
+import application.model.entity.Unidad;
 import application.model.util.TipoUsuario;
 
 import java.util.List;
@@ -23,6 +24,15 @@ public class UsuarioDTO {
     }
 
     public UsuarioDTO(String nombre, int telefono, TipoUsuario tipoUsuario, List<UnidadDTO> unidadesDTO) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.tipoUsuario = tipoUsuario;
+        this.unidadesDTO = unidadesDTO;
+    }
+
+    public UsuarioDTO(String username, int dni, String nombre, int telefono, TipoUsuario tipoUsuario, List<UnidadDTO> unidadesDTO) {
+        this.username = username;
+        this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
         this.tipoUsuario = tipoUsuario;

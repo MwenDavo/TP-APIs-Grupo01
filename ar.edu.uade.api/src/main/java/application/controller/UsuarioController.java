@@ -1,6 +1,9 @@
 package application.controller;
 
+import application.model.entity.Unidad;
 import application.model.entity.Usuario;
+import application.model.entity.UsuarioUnidad;
+import application.model.entity.dto.UnidadDTO;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +67,7 @@ public class UsuarioController {
         return new Usuario(
                 usuarioDTO.getUsername(),
                 usuarioDTO.getPassword(),
+                usuarioDTO.getTipoUsuario(),
                 usuarioDTO.getDni(),
                 usuarioDTO.getNombre(),
                 usuarioDTO.getTelefono()
@@ -71,7 +75,18 @@ public class UsuarioController {
     }
 
     public static UsuarioDTO convertToDTO(Usuario usuario) {
-        return new UsuarioDTO(usuario.getUsername(),usuario.getPassword(),usuario.getDni(),usuario.getNombre(),usuario.getTelefono());
+        List<UnidadDTO> unidades = new ArrayList<>();
+        for (UsuarioUnidad usuarioUnidad : usuario.getUnidades()) {
+            unidades.add(EdificioController.convertToDTO(usuarioUnidad.getUnidad()));
+        }
+        return new UsuarioDTO(
+                usuario.getUsername(),
+                usuario.getDni(),
+                usuario.getNombre(),
+                usuario.getTelefono(),
+                usuario.getTipoUsuario(),
+                unidades
+        );
     }
 
     @GetMapping(value = "/usuario/parameters")
