@@ -17,10 +17,10 @@ public class EdificioController {
     @Autowired
     private IEdificioService edificioService;
 
-    @PostMapping("/edificio")
-    public ResponseEntity<EdificioDTO> create(@RequestBody EdificioDTO edificioDTO) {
+    @PostMapping("/edificio/parameters")
+    public ResponseEntity<EdificioDTO> create(@RequestBody EdificioDTO edificioDTO,@RequestParam("username") String username) {
         Edificio edificio = convertToEntity(edificioDTO);
-        edificioService.create(edificio);
+        edificioService.create(edificio,username);
         //edificioDTO = convertToDTO(edificio);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
@@ -69,15 +69,13 @@ public class EdificioController {
     public static Edificio convertToEntity(EdificioDTO e){
         Edificio edificio = new Edificio(e.getDireccion());
         for(UnidadDTO u:e.getUnidades()){
-            Unidad unidad = convertToEntity(u);
+            Unidad unidad = UnidadController.convertToEntity(u);
             edificio.getUnidades().add(unidad);
         }
         return edificio;
     }
 
-    public static Unidad convertToEntity(UnidadDTO u){
-        return new Unidad(u.getPiso(),u.getNumero());
-    }
+
 
     public static UnidadDTO convertToDTO(Unidad u){
         UnidadDTO unidad = new UnidadDTO(u.getPiso(),u.getNumero());

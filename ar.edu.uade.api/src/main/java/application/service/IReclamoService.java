@@ -11,7 +11,7 @@ public interface IReclamoService {
     void create(General reclamo);
     void create(Localizado reclamo);
     Localizado readLocalizado(long id);
-    void updateGeneral(long id, Log log);
-    void updateLocalizado(long id, Log log);
+    void updateGeneral(long id, Log log, String username);
+    void updateLocalizado(long id, Log log,String username);
     General readGeneral(long id);
 }

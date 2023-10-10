@@ -1,7 +1,9 @@
 package application.service;
 
 import application.model.dao.IReclamoDAO;
+import application.model.dao.IUsuarioDAO;
 import application.model.entity.*;
+import application.model.util.ComprobacionRol;
 import application.model.util.EstadoReclamo;
 import application.model.util.TipoRelacion;
 import jakarta.transaction.Transactional;
@@ -14,6 +16,8 @@ import java.util.List;
 public class ReclamoService implements IReclamoService {
     @Autowired
     private IReclamoDAO reclamoDAO;
+    @Autowired
+    private IUsuarioDAO usuarioDAO;
 
     @Override
     public void create(General general) {
@@ -40,26 +44,34 @@ public class ReclamoService implements IReclamoService {
     }
 
     @Override
-    public void updateLocalizado(long id, Log log) {
+    public void updateLocalizado(long id, Log log, String username) {
         Localizado reclamo = reclamoDAO.readLocalizado(id);
-        if (allowUpdate(reclamo)) {
-            reclamo.setEstadoReclamo(log.getEstadoReclamo());
-            reclamo.getHistorial().add(log);
-            log.setReclamo(reclamo);
-            reclamoDAO.updateLocalizado(reclamo);
+        Usuario usuario = usuarioDAO.readByUsername(username);
+        if (ComprobacionRol.comprobarAdmin(usuario)){
+            if (allowUpdate(reclamo)) {
+                reclamo.setEstadoReclamo(log.getEstadoReclamo());
+                reclamo.getHistorial().add(log);
+                log.setReclamo(reclamo);
+                reclamoDAO.updateLocalizado(reclamo);
+            }
         }
+
     }
 
     @Override
     @Transactional
-    public void updateGeneral(long id, Log log) {
+    public void updateGeneral(long id, Log log, String username) {
         General reclamo = reclamoDAO.readGeneral(id);
-        if (allowUpdate(reclamo)) {
-            reclamo.setEstadoReclamo(log.getEstadoReclamo());
-            reclamo.getHistorial().add(log);
-            log.setReclamo(reclamo);
-            reclamoDAO.updateGeneral(reclamo);
+        Usuario usuario = usuarioDAO.readByUsername(username);
+        if (ComprobacionRol.comprobarAdmin(usuario)){
+            if (allowUpdate(reclamo)) {
+                reclamo.setEstadoReclamo(log.getEstadoReclamo());
+                reclamo.getHistorial().add(log);
+                log.setReclamo(reclamo);
+                reclamoDAO.updateGeneral(reclamo);
+            }
         }
+
     }
 
     private boolean allowCreate(General general){

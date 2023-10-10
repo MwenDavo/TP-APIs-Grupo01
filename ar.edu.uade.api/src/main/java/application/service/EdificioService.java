@@ -6,7 +6,7 @@ import application.model.entity.Edificio;
 import application.model.entity.Unidad;
 import application.model.entity.Usuario;
 import application.model.entity.UsuarioUnidad;
-import application.model.util.TipoUsuario;
+import application.model.util.ComprobacionRol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +22,11 @@ public class EdificioService implements IEdificioService {
     private IUsuarioDAO usuarioDAO;
 
     @Override
-    public void create(Edificio edificio) {
-        edificioDAO.create(edificio);
+    public void create(Edificio edificio, String username) {
+        if (ComprobacionRol.comprobarAdmin(usuarioDAO.readByUsername(username))){
+            edificioDAO.create(edificio);
+        }
+
     }
 
     @Override
@@ -39,14 +42,15 @@ public class EdificioService implements IEdificioService {
     @Override
     public List<Edificio> readAll(String usuario) {
         Usuario u = usuarioDAO.readByUsername(usuario);
-        if (u.getTipoUsuario() == TipoUsuario.COMMON) {
+        if (!ComprobacionRol.comprobarAdmin(u)){
             List<Edificio> edificios = new ArrayList<>();
             for (UsuarioUnidad usuarioUnidad : u.getUnidades()) {
                 edificios.add(usuarioUnidad.getUnidad().getEdificio());
             }
             return edificios;
+        }else{
+            return edificioDAO.readAll();
         }
-        return edificioDAO.readAll();
     }
 
     @Override

@@ -80,22 +80,22 @@ public class ReclamoController {
         return new ResponseEntity<>(convertToDTO(reclamo), HttpStatus.OK);
     }
     @PutMapping("/updateGeneral/parameters")
-    public ResponseEntity<?> updateGeneral(@RequestParam("id") long id, @RequestBody LogDTO logDTO) {
+    public ResponseEntity<?> updateGeneral(@RequestParam("id") long id, @RequestBody LogDTO logDTO, @RequestParam("username") String username) {
         Log log = convertToEntity(logDTO);
         if (reclamoService.readGeneral(id) == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        reclamoService.updateGeneral(id, log);
+        reclamoService.updateGeneral(id, log,username);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @PutMapping("/updateLocalizado/parameters")
-    public ResponseEntity<?> updateLocalizado(@RequestParam("id") long id, @RequestBody LogDTO logDTO) {
+    public ResponseEntity<?> updateLocalizado(@RequestParam("id") long id, @RequestBody LogDTO logDTO,@RequestParam("username") String username) {
         Log log = convertToEntity(logDTO);
         if (reclamoService.readLocalizado(id) == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        reclamoService.updateLocalizado(id, log);
+        reclamoService.updateLocalizado(id, log,username);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 

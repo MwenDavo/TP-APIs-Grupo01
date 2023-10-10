@@ -27,6 +27,14 @@ public class EdificioDAO implements IEdificioDAO {
         }
         session.persist(edificio);
     }
+    @Override
+    @Transactional
+    public void createUnidad(Unidad unidad, Edificio edificio){
+        Session session = entityManager.unwrap(Session.class);
+        unidad.setEdificio(edificio);
+        edificio.getUnidades().add(unidad);
+        session.merge(edificio);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -64,6 +72,17 @@ public class EdificioDAO implements IEdificioDAO {
     public void borrarRelacion(UsuarioUnidad usuarioUnidad){
         Session session = entityManager.unwrap(Session.class);
         session.remove(usuarioUnidad);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUnidad(Unidad unidad) {
+        Session session = entityManager.unwrap(Session.class);
+        Edificio edificio = unidad.getEdificio();
+        edificio.getUnidades().remove(unidad);
+        unidad.setEdificio(null);
+        session.merge(edificio);
+        session.remove(unidad);
     }
 
 }

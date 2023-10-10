@@ -9,6 +9,7 @@ import application.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,31 +35,31 @@ public class UsuarioController {
         return response;
     }
 
-    @PutMapping("/usuario/parameters")
+    @PutMapping("/UpdateUsuario/parameters")
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> update(@RequestParam("id") long id, @RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<?> update(@RequestParam("id") long id, @RequestBody UsuarioDTO usuarioDTO,@RequestParam("username") String username) {
         Usuario usuario = convertToEntity(usuarioDTO);
         if (usuarioService.read(id) == null) {
             String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-        usuarioService.update(id, usuario);
+        usuarioService.update(id, usuario,username);
         usuarioDTO = convertToDTO(usuario);
         return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/usuario/parameters")
+    @DeleteMapping("/DeleteUsuario/parameters")
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> delete(@RequestParam("id") long id) {
+    public ResponseEntity<?> delete(@RequestParam("id") long id,@RequestParam("username") String username) {
         if (usuarioService.read(id) == null) {
             String mensaje = "Usuario no encontrado.";
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-        usuarioService.delete(id);
+        usuarioService.delete(id, username);
         String mensaje = "Usuario eliminado.";
         return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
     }
@@ -89,7 +90,7 @@ public class UsuarioController {
         );
     }
 
-    @GetMapping(value = "/usuario/parameters")
+    @GetMapping(value = "/GetUsuario/parameters")
     /**
      * para que se ejecute únicamente por el admin
      */
@@ -100,5 +101,24 @@ public class UsuarioController {
         }
         String mensaje = "Usuario no encontrado.";
         return new ResponseEntity<>(mensaje,HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/asignar/parameters")
+    public ResponseEntity<?> asignarUnidad(
+            @RequestParam("id_usuario") long idUsuario,
+            @RequestParam("id_unidad") long idUnidad,
+            @RequestParam("relacion") String relacion
+    ) {
+        usuarioService.asignarUnidad(idUsuario, idUnidad, relacion);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PutMapping("/desasignar/parameters")
+    public ResponseEntity<?> desasignarUnidad(
+            @RequestParam("id_usuario") long idUsuario,
+            @RequestParam("id_unidad") long idUnidad
+    ) {
+        usuarioService.desasignarUnidad(idUsuario, idUnidad);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }

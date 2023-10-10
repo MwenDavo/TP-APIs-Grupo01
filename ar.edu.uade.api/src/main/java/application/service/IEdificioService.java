@@ -7,7 +7,9 @@ import application.model.entity.Usuario;
 import java.util.List;
 
 public interface IEdificioService {
-    void create(Edificio edificio);
+
+    void create(Edificio edificio, String username);
+
     Edificio read(Edificio edificio);
     Edificio readByDireccion(String direccion);
     List<Edificio> readAll(String usuario);

@@ -7,10 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 
 import javax.crypto.SecretKey;
@@ -25,10 +22,10 @@ public class AuthenticationController {
     private SecretKey secretKey;
     private final int EXPIRATION_TIME_IN_HOURS = 24;
 
-    @PostMapping("/register")
-    private ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO) {
+
+    private ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO, @RequestParam("username") String username) {
         Usuario usuario = UsuarioController.convertToEntity(usuarioDTO);
-        usuarioService.create(usuario);
+        usuarioService.create(usuario, username);
         return new ResponseEntity<>("Registro exitoso.", HttpStatus.CREATED);
     }
 

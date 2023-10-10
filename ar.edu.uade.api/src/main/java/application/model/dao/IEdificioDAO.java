@@ -10,9 +10,11 @@ import java.util.List;
 
 public interface IEdificioDAO {
     void create(Edificio edificio);
+    void createUnidad(Unidad unidad, Edificio edificio);
     Edificio read(long id);
     Edificio readByDireccion(String direccion);
     List<Edificio> readAll();
     Unidad readUnidad(long id);
     void borrarRelacion(UsuarioUnidad usuarioUnidad);
+    void deleteUnidad(Unidad unidad);
 }

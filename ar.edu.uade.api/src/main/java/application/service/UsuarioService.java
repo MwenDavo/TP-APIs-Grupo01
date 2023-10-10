@@ -1,27 +1,34 @@
 package application.service;
 
+import application.model.dao.IEdificioDAO;
 import application.model.dao.IUsuarioDAO;
-import application.model.entity.Log;
-import application.model.entity.Reclamo;
-import application.model.entity.Usuario;
-import application.model.util.EstadoUsuario;
+import application.model.entity.*;
+import application.model.util.ComprobacionRol;
+import application.model.util.TipoRelacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UsuarioService implements IUsuarioService {
     @Autowired
     private IUsuarioDAO usuarioDAO;
+    @Autowired
+    private IEdificioDAO edificioDAO;
 
 
     @Override
     /**
      * @param UsuarioDTO completo convertido a Usuario
      */
-    public void create(Usuario usuario) {
-        usuarioDAO.create(usuario);
+    public void create(Usuario usuario, String username) {
+        Usuario usuario1 = usuarioDAO.readByUsername(username);
+        if (ComprobacionRol.comprobarAdmin(usuario1)){
+            usuarioDAO.create(usuario);
+        }
     }
 
     @Override
@@ -61,20 +68,60 @@ public class UsuarioService implements IUsuarioService {
      * @param UsuarioDTO completo convertido a Usuario
      */
     @Override
-    public void update(long id, Usuario u) {
-        Usuario usuario = usuarioDAO.read(id);
-        usuario.setTelefono(u.getTelefono());
-        usuario.setPassword(u.getPassword());
-        usuarioDAO.update(usuario);
-        };
+    public void update(long id, Usuario u, String username) {
+        if(ComprobacionRol.comprobarAdmin(usuarioDAO.readByUsername(username))){
+            Usuario usuario = usuarioDAO.read(id);
+            usuario.setTelefono(u.getTelefono());
+            usuario.setPassword(u.getPassword());
+            usuarioDAO.update(usuario);
+        }
+    }
 
     @Override
     /**
      * @param UsuarioDTO con id convertido a Usuario
      */
-    public void delete(long id) {
-        Usuario usuario = usuarioDAO.read(id);
-        usuario.setDisponible(false);
-        usuarioDAO.update(usuario);
-    };
+    public void delete(long id,String username) {
+        if (ComprobacionRol.comprobarAdmin(usuarioDAO.readByUsername(username))){
+            Usuario usuario = usuarioDAO.read(id);
+            usuario.setDisponible(false);
+            usuarioDAO.update(usuario);
+        }
+    }
+
+    @Override //TODO modificar interfaz
+    public void asignarUnidad(long idUsuario, long idUnidad, String relacion) {
+        Usuario usuario = usuarioDAO.read(idUsuario);
+        Unidad unidad = edificioDAO.readUnidad(idUnidad);
+        if (usuario != null && unidad != null) {
+            UsuarioUnidad usuarioUnidad = new UsuarioUnidad(usuario, unidad);
+            if (Objects.equals(relacion, "PROPIETARIO")) {
+                usuarioUnidad.setTipoRelacion(TipoRelacion.PROPIETARIO);
+            }else {
+                usuarioUnidad.setTipoRelacion(TipoRelacion.INQUILINO);
+            }
+            usuario.getUnidades().add(usuarioUnidad);
+            unidad.getUsuarios().add(usuarioUnidad);
+            usuarioDAO.update(usuario);
+        }
+    }
+
+    @Override //TODO modificar interfaz
+    @Transactional
+    public void desasignarUnidad(long idUsuario, long idUnidad) {
+        Usuario usuario = usuarioDAO.read(idUsuario);
+        Unidad unidad = edificioDAO.readUnidad(idUnidad);
+        if (usuario != null && unidad != null) {
+
+            for (UsuarioUnidad usuarioUnidad : usuario.getUnidades()) {
+                if (usuarioUnidad.getUnidad().getId() == unidad.getId()) {
+                    usuario.getUnidades().remove(usuarioUnidad);
+                    unidad.getUsuarios().remove(usuarioUnidad);
+                    usuarioDAO.update(usuario);
+                    edificioDAO.borrarRelacion(usuarioUnidad);
+                    break;
+                }
+            }
+        }
+    }
 }
