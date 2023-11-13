@@ -16,7 +16,7 @@ public class ReclamoDTO {
     private List<FotoDTO> fotos = new ArrayList<>();;
     private String username;
     private EstadoReclamo estadoReclamo;
-    private List<LogDTO> historial = new ArrayList<>();;
+    private List<LogDTO> historial = new ArrayList<>();
 
     public ReclamoDTO(String descripcion, List<FotoDTO> fotos, String username) {
         this.descripcion = descripcion;

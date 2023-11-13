@@ -4,6 +4,7 @@ import application.model.entity.Edificio;
 import application.model.entity.Unidad;
 import application.model.entity.Usuario;
 import application.model.entity.dto.EdificioDTO;
+import application.model.entity.dto.RespuestaDTO;
 import application.model.entity.dto.UnidadDTO;
 import application.service.IEdificioService;
 import application.service.IUnidadService;
@@ -40,12 +41,12 @@ public class UnidadController {
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
-    @PostMapping("/mostrarUnidades/parameters")
-    public ResponseEntity<?> mostrar(@RequestParam("direccion") String direccion, @RequestParam("username") String username) {
+    @PostMapping("/mostrarUnidades")
+    public ResponseEntity<?> mostrar(@RequestBody RespuestaDTO respuestaDTO) {
         System.out.println("hola");
-        Edificio edificio = edificioService.readByDireccion(direccion);
+        Edificio edificio = edificioService.readByDireccion(respuestaDTO.getDireccion());
         List<Unidad> unidades = edificio.getUnidades();
-        List<Unidad> unidadesRel = usuarioService.verificarRelacion(username, unidades);
+        List<Unidad> unidadesRel = usuarioService.verificarRelacion(respuestaDTO.getUsername(), unidades);
         return new ResponseEntity<>(unidadesRel, HttpStatus.OK);
     }
 

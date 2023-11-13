@@ -30,6 +30,9 @@ public class ReclamoController {
 
     @PostMapping("/general")
     public ResponseEntity<?> create(@RequestBody GeneralDTO generalDTO) {
+        System.out.println(generalDTO.getdireccionEdificio());
+        System.out.println(generalDTO.getUsername());
+        System.out.println(generalDTO.getDescripcion());
         ArrayList<Foto> fotos = new ArrayList<Foto>();
         for(FotoDTO f:generalDTO.getFotos()){
             fotos.add(FotoController.convertToEntity(f));
