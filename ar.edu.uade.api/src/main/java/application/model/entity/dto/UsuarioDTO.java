@@ -44,6 +44,11 @@ public class UsuarioDTO {
         this.unidadesDTO = unidadesDTO;
     }
 
+    public UsuarioDTO(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
     public String getUsername() {
         return username;
     }

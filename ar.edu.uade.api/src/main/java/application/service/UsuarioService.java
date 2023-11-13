@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -124,5 +125,24 @@ public class UsuarioService implements IUsuarioService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<Unidad> verificarRelacion(String username, List<Unidad> unidades){
+        Usuario usuario = usuarioDAO.readByUsername(username);
+        List<Unidad> unidadesComp = new ArrayList<>();
+        if(!ComprobacionRol.comprobarAdmin(usuario)){
+            for (Unidad unidad : unidades){
+            for (UsuarioUnidad usuarioUnidad:
+                    unidad.getUsuarios()) {
+                if(usuarioUnidad.getUsuario().getId() == usuario.getId()){
+                    unidadesComp.add(unidad);
+                }
+            }
+        }
+        }else{
+            unidadesComp = unidades;
+        }
+        return unidadesComp;
     }
 }

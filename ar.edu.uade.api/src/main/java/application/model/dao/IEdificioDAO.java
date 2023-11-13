@@ -17,4 +17,5 @@ public interface IEdificioDAO {
     Unidad readUnidad(long id);
     void borrarRelacion(UsuarioUnidad usuarioUnidad);
     void deleteUnidad(Unidad unidad);
+
 }

@@ -131,6 +131,4 @@ public class Usuario {
     public void setDisponible(boolean b) {
         disponible = b;
     }
-
-
 }

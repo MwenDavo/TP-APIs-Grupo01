@@ -1,5 +1,6 @@
 package application.service;
 
+import application.model.entity.Unidad;
 import application.model.entity.Usuario;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,4 +21,6 @@ public interface IUsuarioService {
     //TODO modificar interfaz
     @Transactional
     void desasignarUnidad(long idUsuario, long idUnidad);
+
+    List<Unidad> verificarRelacion(String username, List<Unidad> unidades);
 }
