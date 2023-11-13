@@ -10,7 +10,7 @@ import java.util.List;
 public class UnidadDTO {
     private int piso;
     private int numero;
-    private List<LocalizadoDTO> reclamos = new ArrayList<>();;
+    private List<LocalizadoDTO> reclamos = new ArrayList<>();
 
     public UnidadDTO() {
     }
