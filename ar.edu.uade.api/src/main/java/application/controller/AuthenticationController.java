@@ -22,19 +22,21 @@ public class AuthenticationController {
     private SecretKey secretKey;
     private final int EXPIRATION_TIME_IN_HOURS = 24;
 
-
+    @PostMapping("/register")
     private ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO, @RequestParam("username") String username) {
         Usuario usuario = UsuarioController.convertToEntity(usuarioDTO);
-        usuarioService.create(usuario, username);
+        usuarioService.create(usuario, username);//EL USERNAME TIENE QUE SER UN ADMIN
         return new ResponseEntity<>("Registro exitoso.", HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioDTO usuarioDTO) {
         Usuario usuario = convertToEntity(usuarioDTO);
-        if (usuarioService.readByUsernameAndPassword(usuario) != null) {
+        Usuario usuarioFinal = usuarioService.readByUsernameAndPassword(usuario);
+        if (usuarioFinal != null) {
             String token = Jwts.builder()
-                    .setSubject(usuario.getUsername())
+                    .setSubject(usuarioFinal.getUsername())
+                    .claim("rol", usuarioFinal.getTipoUsuario())
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_HOURS * 60 * 60 * 1000))
                     .signWith(secretKey, SignatureAlgorithm.HS256)

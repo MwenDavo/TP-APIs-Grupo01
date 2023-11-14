@@ -1,11 +1,7 @@
 package application.controller;
 
-import application.model.entity.Edificio;
-import application.model.entity.Unidad;
-import application.model.entity.Usuario;
-import application.model.entity.dto.EdificioDTO;
-import application.model.entity.dto.RespuestaDTO;
-import application.model.entity.dto.UnidadDTO;
+import application.model.entity.*;
+import application.model.entity.dto.*;
 import application.service.IEdificioService;
 import application.service.IUnidadService;
 import application.service.IUsuarioService;
@@ -15,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,14 +39,37 @@ public class UnidadController {
     }
 
     @GetMapping("/mostrarUnidades/parameters")
-    public List<Unidad> mostrar(@RequestParam("direccion")String direccion, @RequestParam("username") String username) {
+    public List<UnidadDTO> mostrar(@RequestParam("direccion")String direccion, @RequestParam("username") String username) {
         System.out.println("hola");
         Edificio edificio = edificioService.readByDireccion(direccion);
 
         List<Unidad> unidades = edificio.getUnidades();
         List<Unidad> unidadesRel = usuarioService.verificarRelacion(username, unidades);
+        List<UnidadDTO> unidadesDTO = convertToDTO(unidadesRel);
         System.out.println(unidadesRel.get(0).getNumero());
-        return unidadesRel;
+        return unidadesDTO;
+    }
+    
+    public static List<UnidadDTO> convertToDTO(List<Unidad> unidades){
+        List<UnidadDTO> unidadesRes = new ArrayList<>();
+        for (Unidad unidad:
+             unidades) {
+            List<LocalizadoDTO> localizadoDTO = new ArrayList<>();
+            for (Localizado reclamo:
+                 unidad.getReclamos()) {
+                List<FotoDTO> fotosDTO = new ArrayList<>();
+                for (Foto foto:
+                        reclamo.getFotos()) {
+                    FotoDTO f = new FotoDTO(foto.getData());
+                    fotosDTO.add(f);
+                }
+                LocalizadoDTO l = new LocalizadoDTO(reclamo.getDescripcion(), fotosDTO, reclamo.getUsuario().getUsername(), reclamo.getUnidad().getId());
+                localizadoDTO.add(l);
+            }
+            UnidadDTO unidadDTO = new UnidadDTO(unidad.getPiso(), unidad.getNumero(), localizadoDTO);
+            unidadesRes.add(unidadDTO);
+        }
+        return unidadesRes;
     }
 
     public static Unidad convertToEntity(UnidadDTO u){
