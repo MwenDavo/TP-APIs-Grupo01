@@ -41,13 +41,15 @@ public class UnidadController {
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
-    @PostMapping("/mostrarUnidades")
-    public ResponseEntity<?> mostrar(@RequestBody RespuestaDTO respuestaDTO) {
+    @GetMapping("/mostrarUnidades/parameters")
+    public List<Unidad> mostrar(@RequestParam("direccion")String direccion, @RequestParam("username") String username) {
         System.out.println("hola");
-        Edificio edificio = edificioService.readByDireccion(respuestaDTO.getDireccion());
+        Edificio edificio = edificioService.readByDireccion(direccion);
+
         List<Unidad> unidades = edificio.getUnidades();
-        List<Unidad> unidadesRel = usuarioService.verificarRelacion(respuestaDTO.getUsername(), unidades);
-        return new ResponseEntity<>(unidadesRel, HttpStatus.OK);
+        List<Unidad> unidadesRel = usuarioService.verificarRelacion(username, unidades);
+        System.out.println(unidadesRel.get(0).getNumero());
+        return unidadesRel;
     }
 
     public static Unidad convertToEntity(UnidadDTO u){
