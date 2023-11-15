@@ -49,7 +49,17 @@ public class UnidadController {
         System.out.println(unidadesRel.get(0).getNumero());
         return unidadesDTO;
     }
-    
+
+    @GetMapping("/mostrarTodasUnidades/parameters")
+    public List<UnidadDTO> mostrarTodas(@RequestParam("direccion")String direccion) {
+        System.out.println("hola");
+        Edificio edificio = edificioService.readByDireccion(direccion);
+
+        List<Unidad> unidades = edificio.getUnidades();
+        List<UnidadDTO> unidadesDTO = convertToDTO(unidades);
+        return unidadesDTO;
+    }
+
     public static List<UnidadDTO> convertToDTO(List<Unidad> unidades){
         List<UnidadDTO> unidadesRes = new ArrayList<>();
         for (Unidad unidad:
