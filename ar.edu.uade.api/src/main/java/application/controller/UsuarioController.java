@@ -103,7 +103,7 @@ public class UsuarioController {
         return new ResponseEntity<>(mensaje,HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/asignar/parameters")
+    @PutMapping("/asignar/parameters") //TODO INCLUIR RELACION PROPIETARIO/INQUILINO
     public ResponseEntity<?> asignarUnidad(
             @RequestParam("id_usuario") long idUsuario,
             @RequestParam("id_unidad") long idUnidad,
