@@ -26,6 +26,7 @@ public class UnidadController {
     @PostMapping("/CrearUnidad/parameters")
     public ResponseEntity<?> create(@RequestBody UnidadDTO UnidadDTO, @RequestParam("direccion") String direccion, @RequestParam("username") String username) {
         Edificio edificio = edificioService.readByDireccion(direccion);
+        System.out.println(edificio.getDireccion());
         Unidad unidad = convertToEntity(UnidadDTO);
         unidadService.create(unidad,edificio,username);
         return new ResponseEntity<>(null, HttpStatus.CREATED);

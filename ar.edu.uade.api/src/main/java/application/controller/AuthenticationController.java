@@ -22,7 +22,7 @@ public class AuthenticationController {
     private SecretKey secretKey;
     private final int EXPIRATION_TIME_IN_HOURS = 24;
 
-    @PostMapping("/register")
+    @PostMapping("/register/parameters")
     private ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO, @RequestParam("username") String username) {
         Usuario usuario = UsuarioController.convertToEntity(usuarioDTO);
         usuarioService.create(usuario, username);//EL USERNAME TIENE QUE SER UN ADMIN

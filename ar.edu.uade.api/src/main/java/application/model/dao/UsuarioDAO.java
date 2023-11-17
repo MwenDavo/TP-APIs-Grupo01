@@ -21,12 +21,12 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Transactional
     public void create(Usuario usuario) {
         Session session = entityManager.unwrap(Session.class);
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         usuario.setPassword(
                 passwordEncoder.encode(
                         usuario.getPassword()
                 )
-        );
+        );*/
         session.persist(usuario);
     }
 
