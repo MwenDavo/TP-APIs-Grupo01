@@ -1,21 +1,23 @@
 package application.model.entity.dto;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FotoDTO {
 
     private long id;
 
-    private byte[] data;
+    private MultipartFile data;
 
     public FotoDTO(){}
-    public FotoDTO(byte[] data) {
+    public FotoDTO(MultipartFile data) {
         this.data = data;
     }
-    public byte[] getData() {
+    public MultipartFile getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
+    public void setData(MultipartFile data) {
         this.data = data;
     }
 

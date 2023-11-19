@@ -3,8 +3,11 @@ package application.service;
 import application.model.entity.*;
 import application.model.entity.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +56,7 @@ public class ConverterService {
         return new Unidad(u.getPiso(),u.getNumero());
     }
 
-    public General convertToEntity(GeneralDTO generalDTO) {
+    public General convertToEntity(GeneralDTO generalDTO) throws IOException {
 
         General g = new General(
                 generalDTO.getDescripcion(),
@@ -70,7 +73,7 @@ public class ConverterService {
         return g;
     }
 
-    public Localizado convertToEntity(LocalizadoDTO localizadoDTO) {
+    public Localizado convertToEntity(LocalizadoDTO localizadoDTO) throws IOException {
         Localizado l = new Localizado(
                 localizadoDTO.getDescripcion(),
                 convertToEntityf(localizadoDTO.getFotos()),
@@ -85,10 +88,10 @@ public class ConverterService {
         return l;
     }
 
-    public List<Foto> convertToEntityf(List<FotoDTO> fotos){
+    public List<Foto> convertToEntityf(List<FotoDTO> fotos) throws IOException {
         List<Foto> fotos1 = new ArrayList<>();
         for (FotoDTO f: fotos) {
-            Foto foto = new Foto(f.getData());
+            Foto foto = new Foto(f.getData().getBytes());
             fotos1.add(foto);
         }
         return fotos1;
@@ -227,9 +230,12 @@ public class ConverterService {
 
     public List<FotoDTO> convertToDTOf(List<Foto> fotos){
         List<FotoDTO> fotosdto = new ArrayList<>();
+        int count = 0;
         for (Foto f:fotos) {
-            FotoDTO fotoDTO = new FotoDTO(f.getData());
+            MultipartFile multiPartFile = new MockMultipartFile("foto"+ count,f.getData());
+            FotoDTO fotoDTO = new FotoDTO(multiPartFile);
             fotosdto.add(fotoDTO);
+            count++;
         }
         return fotosdto;
     }

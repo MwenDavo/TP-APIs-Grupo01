@@ -1,8 +1,7 @@
 package application.model.entity;
 
 import jakarta.persistence.*;
-
-import java.lang.reflect.Type;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "fotos")

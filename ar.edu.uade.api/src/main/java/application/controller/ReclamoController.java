@@ -30,7 +30,7 @@ public class ReclamoController {
         List<FotoDTO> fotosLocal =  new ArrayList<>();
         for (MultipartFile f:
                 fotos) {
-            FotoDTO foto = new FotoDTO(f.getBytes());
+            FotoDTO foto = new FotoDTO(f);
             fotosLocal.add(foto);
         }
         generalDTO.setFotos(fotosLocal);
@@ -48,8 +48,7 @@ public class ReclamoController {
         List<FotoDTO> fotosLocal =  new ArrayList<>();
         for (MultipartFile f:
                 fotos) {
-            FotoDTO foto = new FotoDTO(f.getBytes());
-            System.out.println(foto.getData().length);
+            FotoDTO foto = new FotoDTO(f);
             fotosLocal.add(foto);
         }
         System.out.println(fotosLocal);
