@@ -2,6 +2,8 @@ package application.model.entity;
 
 import jakarta.persistence.*;
 
+import java.lang.reflect.Type;
+
 @Entity
 @Table(name = "fotos")
 public class Foto {
@@ -9,7 +11,7 @@ public class Foto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Lob
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "BLOB")
     private byte[] data;
     @ManyToOne
     private Reclamo reclamo;

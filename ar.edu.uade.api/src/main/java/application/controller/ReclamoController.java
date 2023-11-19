@@ -49,8 +49,10 @@ public class ReclamoController {
         for (MultipartFile f:
                 fotos) {
             FotoDTO foto = new FotoDTO(f.getBytes());
+            System.out.println(foto.getData().length);
             fotosLocal.add(foto);
         }
+        System.out.println(fotosLocal);
         localizadoDTO.setFotos(fotosLocal);
 
         Localizado localizado = converterService.convertToEntity(localizadoDTO);

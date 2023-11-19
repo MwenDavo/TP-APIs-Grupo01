@@ -25,6 +25,10 @@ public class ReclamoDAO implements IReclamoDAO {
     @Transactional
     public void create(Localizado reclamo) {
         Session session = entityManager.unwrap(Session.class);
+        for (Foto f:
+             reclamo.getFotos()) {
+            f.setReclamo(reclamo);
+        }
         session.persist(reclamo);
     }
 
