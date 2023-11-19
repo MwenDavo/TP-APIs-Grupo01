@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class UsuarioController {
     /**
      * para que se ejecute únicamente por el admin
      */
-    public List<UsuarioDTO> readAll() {
+    public List<UsuarioDTO> readAll() throws IOException {
 
         List<Usuario> usuarios = usuarioService.readAll();
 
@@ -52,7 +53,7 @@ public class UsuarioController {
      */
     public ResponseEntity<?> update(@RequestParam("id") long id,
                                     @RequestBody UsuarioDTO usuarioDTO,
-                                    @RequestParam("username") String username) {
+                                    @RequestParam("username") String username) throws IOException {
 
         Usuario usuario = converterService.convertToEntity(usuarioDTO);
 
@@ -95,7 +96,7 @@ public class UsuarioController {
     /**
      * para que se ejecute únicamente por el admin
      */
-    public ResponseEntity<?> buscarPorUsername(@RequestParam("username") String username) {
+    public ResponseEntity<?> buscarPorUsername(@RequestParam("username") String username) throws IOException {
 
         Usuario respuesta = usuarioService.readByUsername(username);
 

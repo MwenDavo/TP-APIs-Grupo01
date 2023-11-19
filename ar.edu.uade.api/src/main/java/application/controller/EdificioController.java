@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class EdificioController {
     }
 
     @GetMapping(value = "/all/parameters")
-    public List<EdificioDTO> readAll(@RequestParam("username") String username) {
+    public List<EdificioDTO> readAll(@RequestParam("username") String username) throws IOException {
 
         List<Edificio> edificios = edificioService.readAll(username);
 

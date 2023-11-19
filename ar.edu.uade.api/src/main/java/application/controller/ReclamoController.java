@@ -62,7 +62,7 @@ public class ReclamoController {
     }
 
     @GetMapping(value = "/readGeneral/parameters")
-    public ResponseEntity<?> readGeneral(@RequestParam("id") long id) {
+    public ResponseEntity<?> readGeneral(@RequestParam("id") long id) throws IOException {
 
         General general = reclamoService.readGeneral(id);
 
@@ -75,7 +75,7 @@ public class ReclamoController {
     }
 
     @GetMapping("/readLocalizado/parameters")
-    public ResponseEntity<?> readLocalizado(@RequestParam("id") long id) {
+    public ResponseEntity<?> readLocalizado(@RequestParam("id") long id) throws IOException {
 
         Localizado localizado = reclamoService.readLocalizado(id);
 

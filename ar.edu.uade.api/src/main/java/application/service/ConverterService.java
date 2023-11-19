@@ -105,7 +105,7 @@ public class ConverterService {
         );
     }
 
-    public UsuarioDTO convertToDTO(Usuario usuario) {
+    public UsuarioDTO convertToDTO(Usuario usuario) throws IOException {
 
         List<UnidadDTO> unidades = new ArrayList<>();
 
@@ -125,7 +125,7 @@ public class ConverterService {
         );
     }
 
-    public EdificioDTO convertToDTO(Edificio edificio) {
+    public EdificioDTO convertToDTO(Edificio edificio) throws IOException {
 
         EdificioDTO edificioDTO = new EdificioDTO(
 
@@ -145,7 +145,7 @@ public class ConverterService {
         return edificioDTO;
     }
 
-    public UnidadDTO convertToDTO(Unidad u) {
+    public UnidadDTO convertToDTO(Unidad u) throws IOException {
 
         UnidadDTO unidad = new UnidadDTO(u.getPiso(),u.getNumero());
 
@@ -190,7 +190,7 @@ public class ConverterService {
         return unidadesRes;
     }
 
-    public GeneralDTO convertToDTO(General general) {
+    public GeneralDTO convertToDTO(General general) throws IOException {
 
         List<LogDTO> logDTOs = new ArrayList<>();
 
@@ -209,7 +209,7 @@ public class ConverterService {
         );
     }
 
-    public LocalizadoDTO convertToDTO(Localizado localizado) {
+    public LocalizadoDTO convertToDTO(Localizado localizado) throws IOException {
 
         List<LogDTO> logDTOs = new ArrayList<>();
 
@@ -228,11 +228,12 @@ public class ConverterService {
         );
     }
 
-    public List<FotoDTO> convertToDTOf(List<Foto> fotos){
+    public List<FotoDTO> convertToDTOf(List<Foto> fotos) throws IOException {
         List<FotoDTO> fotosdto = new ArrayList<>();
         int count = 0;
         for (Foto f:fotos) {
             MultipartFile multiPartFile = new MockMultipartFile("foto"+ count,f.getData());
+            System.out.println(multiPartFile.getBytes());
             FotoDTO fotoDTO = new FotoDTO(multiPartFile);
             fotosdto.add(fotoDTO);
             count++;
