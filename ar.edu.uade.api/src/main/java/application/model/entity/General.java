@@ -4,7 +4,6 @@ import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,12 +16,12 @@ public class General extends Reclamo {
     public General() {
     }
 
-    public General(String descripcion, MultipartFile[] fotos, Usuario usuario, Edificio edificio) {
+    public General(String descripcion, List<foto> fotos, Usuario usuario, Edificio edificio) {
         super(descripcion, fotos, usuario);
         this.edificio = edificio;
     }
 
-    public General(String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+    public General(String descripcion, List<foto> fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
         super(descripcion, fotos, estadoReclamo, historial);
     }
 

@@ -4,19 +4,12 @@ import application.model.entity.*;
 import application.model.entity.dto.*;
 import application.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.ParameterResolutionDelegate;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.http.HttpHeaders;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +25,14 @@ public class ReclamoController {
 
     @PostMapping("/createGeneral")
     public ResponseEntity<?> create(@RequestPart("reclamo") GeneralDTO generalDTO,
-                                    @RequestPart("fotos") MultipartFile[] fotos) {
+                                    @RequestPart("fotos") MultipartFile[] fotos) throws IOException {
 
-        generalDTO.setFotos(fotos);
+        List<foto> fotosLocal =  new ArrayList<>();
+        for (MultipartFile f:
+             fotos) {
+            fotosLocal.add(f.getBytes());
+        }
+        generalDTO.setFotos(fotosLocal);
 
         General general = converterService.convertToEntity(generalDTO);
 
@@ -45,11 +43,21 @@ public class ReclamoController {
 
     @PostMapping("/createLocalizado")
     public ResponseEntity<?> create(@RequestPart("reclamo") LocalizadoDTO localizadoDTO,
-                                    @RequestPart("fotos") MultipartFile[] fotos) {
+                                    @RequestPart("fotos") MultipartFile[] fotos) throws IOException {
+        List<foto> fotosLocal =  new ArrayList<>();
+        for (MultipartFile f:
+                fotos) {
+            foto foto = new foto(f.getBytes());
+            foto.setReclamo(localizadoDTO);
+            fotosLocal.add(foto);
+        }
+        localizadoDTO.setFotos(fotosLocal);
 
-        localizadoDTO.setFotos(fotos);
+        System.out.println("LocalizadoDTO ID: " + localizadoDTO.getIdUnidad());
 
         Localizado localizado = converterService.convertToEntity(localizadoDTO);
+
+        System.out.println("Unidad Convertida: " + localizado.getUnidad().getId());
 
         reclamoService.create(localizado);
 

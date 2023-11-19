@@ -1,7 +1,5 @@
 package application.service;
 
-import application.controller.EdificioController;
-import application.controller.UnidadController;
 import application.model.entity.*;
 import application.model.entity.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +69,7 @@ public class ConverterService {
                 localizadoDTO.getDescripcion(),
                 localizadoDTO.getFotos(),
                 usuarioService.readByUsername(localizadoDTO.getUsername()),
-                edificioService.readUnidad(localizadoDTO.getUnidad())
+                edificioService.readUnidad(localizadoDTO.getIdUnidad())
         );
     }
 
@@ -148,7 +146,6 @@ public class ConverterService {
                     unidad.getReclamos()) {
 
                 LocalizadoDTO l = new LocalizadoDTO(reclamo.getDescripcion(),
-                        reclamo.getFotos(),
                         reclamo.getUsuario().getUsername(),
                         reclamo.getUnidad().getId()
                 );

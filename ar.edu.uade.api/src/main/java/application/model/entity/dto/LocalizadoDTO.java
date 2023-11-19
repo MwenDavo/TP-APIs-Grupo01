@@ -1,7 +1,7 @@
 package application.model.entity.dto;
 
+import application.model.entity.foto;
 import application.model.util.EstadoReclamo;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,12 +12,12 @@ public class LocalizadoDTO extends ReclamoDTO{
 
     }
 
-    public LocalizadoDTO(String descripcion, MultipartFile[] fotos, String usuario, long idUnidad) {
+    public LocalizadoDTO(String descripcion, String usuario, long idUnidad) {
         super(descripcion, usuario);
         this.idUnidad = idUnidad;
     }
 
-    public LocalizadoDTO(long id, String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+    public LocalizadoDTO(long id, String descripcion, List<foto> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
         super(id, descripcion, fotos, estadoReclamo, historial);
     }
 
@@ -25,13 +25,12 @@ public class LocalizadoDTO extends ReclamoDTO{
         super(estadoReclamo);
     }
 
-    public long getUnidad() {
+
+    public long getIdUnidad() {
         return idUnidad;
     }
 
-    public void setUnidad(long unidad) {
-        this.idUnidad = unidad;
+    public void setIdUnidad(long idUnidad) {
+        this.idUnidad = idUnidad;
     }
-
-
 }

@@ -22,7 +22,7 @@ public class Unidad {
     private int numero;
     @OneToMany(mappedBy = "unidad")
     private List<UsuarioUnidad> usuarios = new ArrayList<>();
-    @OneToMany(mappedBy = "unidad")
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
     private List<Localizado> reclamos = new ArrayList<>();
 
     public Unidad() {

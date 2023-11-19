@@ -1,7 +1,7 @@
 package application.model.entity.dto;
 
+import application.model.entity.foto;
 import application.model.util.EstadoReclamo;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class ReclamoDTO {
     private long id;
     private String descripcion;
-    private MultipartFile[] fotos;;
+    private List<foto> fotos;
     private String username;
     private EstadoReclamo estadoReclamo;
     private List<LogDTO> historial = new ArrayList<>();
@@ -19,7 +19,7 @@ public class ReclamoDTO {
         this.username = username;
     }
 
-    public ReclamoDTO(long id, String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+    public ReclamoDTO(long id, String descripcion, List<foto> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
         this.id = id;
         this.descripcion = descripcion;
         this.fotos = fotos;
@@ -43,11 +43,11 @@ public class ReclamoDTO {
         this.descripcion = descripcion;
     }
 
-    public MultipartFile[] getFotos() {
+    public List<foto> getFotos() {
         return fotos;
     }
 
-    public void setFotos(MultipartFile[] fotos) {
+    public void setFotos(List<foto> fotos) {
         this.fotos = fotos;
     }
 
