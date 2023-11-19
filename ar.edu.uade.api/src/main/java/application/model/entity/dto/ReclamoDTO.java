@@ -1,30 +1,24 @@
 package application.model.entity.dto;
 
-import application.model.entity.Foto;
-import application.model.entity.Log;
-import application.model.entity.Usuario;
 import application.model.util.EstadoReclamo;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReclamoDTO {
     private String descripcion;
-    private List<FotoDTO> fotos = new ArrayList<>();;
+    private MultipartFile[] fotos;;
     private String username;
     private EstadoReclamo estadoReclamo;
     private List<LogDTO> historial = new ArrayList<>();
 
-    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, String username) {
+    public ReclamoDTO(String descripcion, String username) {
         this.descripcion = descripcion;
-        this.fotos = fotos;
         this.username = username;
     }
 
-    public ReclamoDTO(String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+    public ReclamoDTO(String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.estadoReclamo = estadoReclamo;
@@ -47,11 +41,11 @@ public class ReclamoDTO {
         this.descripcion = descripcion;
     }
 
-    public List<FotoDTO> getFotos() {
+    public MultipartFile[] getFotos() {
         return fotos;
     }
 
-    public void setFotos(List<FotoDTO> fotos) {
+    public void setFotos(MultipartFile[] fotos) {
         this.fotos = fotos;
     }
 

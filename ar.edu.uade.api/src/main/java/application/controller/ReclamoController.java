@@ -2,156 +2,118 @@ package application.controller;
 
 import application.model.entity.*;
 import application.model.entity.dto.*;
-import application.service.IEdificioService;
-import application.service.IReclamoService;
-import application.service.IUsuarioService;
-import application.service.UsuarioService;
+import application.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.ParameterResolutionDelegate;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.net.http.HttpHeaders;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/reclamos")
 public class ReclamoController {
+
     @Autowired
     private IReclamoService reclamoService;
 
     @Autowired
-    private IUsuarioService usuarioService;
+    private ConverterService converterService;
 
-    @Autowired
-    private IEdificioService edificioService;
+    @PostMapping("/createGeneral")
+    public ResponseEntity<?> create(@RequestPart("reclamo") GeneralDTO generalDTO,
+                                    @RequestPart("fotos") MultipartFile[] fotos) {
 
-    @PostMapping("/general")
-    public ResponseEntity<?> create(@RequestBody GeneralDTO generalDTO) {
-        System.out.println(generalDTO.getdireccionEdificio());
-        System.out.println(generalDTO.getUsername());
-        System.out.println(generalDTO.getDescripcion());
-        ArrayList<Foto> fotos = new ArrayList<Foto>();
-        for(FotoDTO f:generalDTO.getFotos()){
-            fotos.add(FotoController.convertToEntity(f));
-        }
-        System.out.println(generalDTO.getdireccionEdificio());
-        General g = new General(
-                generalDTO.getDescripcion(),
-                fotos,
-                usuarioService.readByUsername(generalDTO.getUsername()),
-                edificioService.readByDireccion(generalDTO.getdireccionEdificio())
-        );
-        reclamoService.create(g);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        generalDTO.setFotos(fotos);
+
+        General general = converterService.convertToEntity(generalDTO);
+
+        reclamoService.create(general);
+
+        return new ResponseEntity<>("Se persistió el reclamo general.", HttpStatus.CREATED);
     }
 
-    @PostMapping("/localizado")
-    public ResponseEntity<?> create(@RequestBody LocalizadoDTO localizadoDTO) {
-        ArrayList<Foto> fotos = new ArrayList<Foto>();
+    @PostMapping("/createLocalizado")
+    public ResponseEntity<?> create(@RequestPart("reclamo") LocalizadoDTO localizadoDTO,
+                                    @RequestPart("fotos") MultipartFile[] fotos) {
 
-        for(FotoDTO f:localizadoDTO.getFotos()){
-            fotos.add(FotoController.convertToEntity(f));
-        }
-        Localizado l = new Localizado(
-                localizadoDTO.getDescripcion(),
-                fotos,
-                usuarioService.readByUsername(localizadoDTO.getUsername()),
-                edificioService.readUnidad(localizadoDTO.getUnidad())
-        );
-        reclamoService.create(l);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        localizadoDTO.setFotos(fotos);
+
+        Localizado localizado = converterService.convertToEntity(localizadoDTO);
+
+        reclamoService.create(localizado);
+
+        return new ResponseEntity<>("Se persistió el reclamo localizado", HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/readGeneral/parameters")
     public ResponseEntity<?> readGeneral(@RequestParam("id") long id) {
-        General reclamo = reclamoService.readGeneral(id);
-        if (reclamo == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+        General general = reclamoService.readGeneral(id);
+
+        if (general == null) {
+
+            return new ResponseEntity<>("No se encontró el reclamo general.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(convertToDTO(reclamo), HttpStatus.OK);
+
+        return new ResponseEntity<>(converterService.convertToDTO(general), HttpStatus.OK);
     }
 
     @GetMapping("/readLocalizado/parameters")
     public ResponseEntity<?> readLocalizado(@RequestParam("id") long id) {
-        Localizado reclamo = reclamoService.readLocalizado(id);
-        if (reclamo == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+        Localizado localizado = reclamoService.readLocalizado(id);
+
+        if (localizado == null) {
+
+            return new ResponseEntity<>("No se encontró el reclamo localizado.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(convertToDTO(reclamo), HttpStatus.OK);
+
+        return new ResponseEntity<>(converterService.convertToDTO(localizado), HttpStatus.OK);
     }
     @PutMapping("/updateGeneral/parameters")
-    public ResponseEntity<?> updateGeneral(@RequestParam("id") long id, @RequestBody LogDTO logDTO, @RequestParam("username") String username) {
-        Log log = convertToEntity(logDTO);
+    public ResponseEntity<?> updateGeneral(@RequestParam("id") long id,
+                                           @RequestBody LogDTO logDTO,
+                                           @RequestParam("username") String username) {
+
+        Log log = converterService.convertToEntity(logDTO);
+
         if (reclamoService.readGeneral(id) == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+            return new ResponseEntity<>("No se encontró el reclamo general.", HttpStatus.NOT_FOUND);
         }
-        reclamoService.updateGeneral(id, log,username);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+
+        reclamoService.updateGeneral(id, log, username);
+
+        return new ResponseEntity<>("Se actualizó el reclamo general.", HttpStatus.OK);
     }
 
     @PutMapping("/updateLocalizado/parameters")
-    public ResponseEntity<?> updateLocalizado(@RequestParam("id") long id, @RequestBody LogDTO logDTO,@RequestParam("username") String username) {
-        Log log = convertToEntity(logDTO);
+    public ResponseEntity<?> updateLocalizado(@RequestParam("id") long id,
+                                              @RequestBody LogDTO logDTO,
+                                              @RequestParam("username") String username) {
+
+        Log log = converterService.convertToEntity(logDTO);
+
         if (reclamoService.readLocalizado(id) == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+            return new ResponseEntity<>("No se encontró el reclamo localizado.", HttpStatus.NOT_FOUND);
         }
-        reclamoService.updateLocalizado(id, log,username);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+
+        reclamoService.updateLocalizado(id, log, username);
+
+        return new ResponseEntity<>("Se actualizó el reclamo localizado.", HttpStatus.OK);
     }
 
-    public static Log convertToEntity(LogDTO logDTO) {
-        return new Log(
-                logDTO.getEstadoReclamo(),
-                logDTO.getDescripcion()
-        );
-    }
 
-    public static GeneralDTO convertToDTO(General general) {
-        ArrayList<FotoDTO> fotos = new ArrayList<FotoDTO>();
-        for (Foto foto : general.getFotos()) {
-            fotos.add(FotoController.convertToDTO(foto));
-        }
-        ArrayList<LogDTO> logs = new ArrayList<LogDTO>();
-        for (Log log : general.getHistorial()) {
-            logs.add(convertToDTO(log));
-        }
-        GeneralDTO generalDTO = new GeneralDTO(
-                general.getDescripcion(),
-                fotos,
-                general.getEstadoReclamo(),
-                logs
-        );
-
-        return generalDTO;
-    }
-
-    public static LocalizadoDTO convertToDTO(Localizado localizado) {
-        ArrayList<FotoDTO> fotos = new ArrayList<FotoDTO>();
-        for (Foto foto : localizado.getFotos()) {
-            fotos.add(FotoController.convertToDTO(foto));
-        }
-        ArrayList<LogDTO> logs = new ArrayList<LogDTO>();
-        for (Log log : localizado.getHistorial()) {
-            logs.add(convertToDTO(log));
-        }
-        LocalizadoDTO localizadoDTO = new LocalizadoDTO(
-                localizado.getDescripcion(),
-                fotos,
-                localizado.getEstadoReclamo(),
-                logs
-        );
-
-        return localizadoDTO;
-    }
-
-    public static LogDTO convertToDTO(Log log) {
-        return new LogDTO(
-                log.getFechaHora(),
-                log.getEstadoReclamo(),
-                log.getDescripcion()
-        );
-    }
 }

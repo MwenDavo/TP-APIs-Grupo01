@@ -1,9 +1,8 @@
 package application.model.entity;
 
-import application.model.entity.dto.FotoDTO;
-import application.model.entity.dto.LogDTO;
 import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +16,7 @@ public class Reclamo {
     private long id;
     @Column(nullable = false, length = 144)
     private String descripcion;
-    @OneToMany(mappedBy = "reclamo")
-    private List<Foto> fotos = new ArrayList<>();
+    private MultipartFile[] fotos;
     @ManyToOne
     private Usuario usuario;
     @Column(name = "estado_reclamo")
@@ -29,13 +27,13 @@ public class Reclamo {
     public Reclamo() {
     }
 
-    public Reclamo(String descripcion, List<Foto> fotos, Usuario usuario) {
+    public Reclamo(String descripcion, MultipartFile[] fotos, Usuario usuario) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.usuario = usuario;
     }
 
-    public Reclamo(String descripcion, List<Foto> fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+    public Reclamo(String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.estadoReclamo = estadoReclamo;
@@ -66,11 +64,11 @@ public class Reclamo {
         this.descripcion = descripcion;
     }
 
-    public List<Foto> getFotos() {
+    public MultipartFile[] getFotos() {
         return fotos;
     }
 
-    public void setFotos(List<Foto> fotos) {
+    public void setFotos(MultipartFile[] fotos) {
         this.fotos = fotos;
     }
 

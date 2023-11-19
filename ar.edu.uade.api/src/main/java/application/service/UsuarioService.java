@@ -133,13 +133,12 @@ public class UsuarioService implements IUsuarioService {
         List<Unidad> unidadesComp = new ArrayList<>();
         if(!ComprobacionRol.comprobarAdmin(usuario)){
             for (Unidad unidad : unidades){
-            for (UsuarioUnidad usuarioUnidad:
-                    unidad.getUsuarios()) {
-                if(usuarioUnidad.getUsuario().getId() == usuario.getId()){
-                    unidadesComp.add(unidad);
+                for (UsuarioUnidad usuarioUnidad: unidad.getUsuarios()) {
+                    if(usuarioUnidad.getUsuario().getId() == usuario.getId()){
+                        unidadesComp.add(unidad);
+                    }
                 }
             }
-        }
         }else{
             unidadesComp = unidades;
         }
