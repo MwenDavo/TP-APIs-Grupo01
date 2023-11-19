@@ -21,12 +21,12 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Transactional
     public void create(Usuario usuario) {
         Session session = entityManager.unwrap(Session.class);
-        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         usuario.setPassword(
                 passwordEncoder.encode(
                         usuario.getPassword()
                 )
-        );*/
+        );
         session.persist(usuario);
     }
 
@@ -78,12 +78,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     private boolean checkPassword(String password, String passwordDB) {
-        /*
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(password, passwordDB);*/
-        System.out.println("password:" + password);
-        System.out.println("passwordDB:" + passwordDB);
-        System.out.println("Equals: " + password.equals(passwordDB));
-        return password.equals(passwordDB);
+        return passwordEncoder.matches(password, passwordDB);
     }
 }
