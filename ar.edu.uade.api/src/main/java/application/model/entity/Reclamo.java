@@ -16,7 +16,7 @@ public class Reclamo {
     @Column(nullable = false, length = 144)
     private String descripcion;
     @OneToMany(mappedBy = "reclamo", cascade = CascadeType.ALL)
-    private List<foto> fotos;
+    private List<Foto> Fotos;
     @ManyToOne
     private Usuario usuario;
     @Column(name = "estado_reclamo")
@@ -27,15 +27,15 @@ public class Reclamo {
     public Reclamo() {
     }
 
-    public Reclamo(String descripcion, List<foto> fotos, Usuario usuario) {
+    public Reclamo(String descripcion, List<Foto> Fotos, Usuario usuario) {
         this.descripcion = descripcion;
-        this.fotos = fotos;
+        this.Fotos = Fotos;
         this.usuario = usuario;
     }
 
-    public Reclamo(String descripcion, List<foto> fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+    public Reclamo(String descripcion, List<Foto> Fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
         this.descripcion = descripcion;
-        this.fotos = fotos;
+        this.Fotos = Fotos;
         this.estadoReclamo = estadoReclamo;
         this.historial = historial;
     }
@@ -64,12 +64,12 @@ public class Reclamo {
         this.descripcion = descripcion;
     }
 
-    public List<foto> getFotos() {
-        return fotos;
+    public List<Foto> getFotos() {
+        return Fotos;
     }
 
-    public void setFotos(List<foto> fotos) {
-        this.fotos = fotos;
+    public void setFotos(List<Foto> Fotos) {
+        this.Fotos = Fotos;
     }
 
     public Usuario getUsuario() {

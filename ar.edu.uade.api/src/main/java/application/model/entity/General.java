@@ -16,13 +16,13 @@ public class General extends Reclamo {
     public General() {
     }
 
-    public General(String descripcion, List<foto> fotos, Usuario usuario, Edificio edificio) {
-        super(descripcion, fotos, usuario);
+    public General(String descripcion, List<Foto> Fotos, Usuario usuario, Edificio edificio) {
+        super(descripcion, Fotos, usuario);
         this.edificio = edificio;
     }
 
-    public General(String descripcion, List<foto> fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
-        super(descripcion, fotos, estadoReclamo, historial);
+    public General(String descripcion, List<Foto> Fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+        super(descripcion, Fotos, estadoReclamo, historial);
     }
 
     public General(EstadoReclamo estadoReclamo) {

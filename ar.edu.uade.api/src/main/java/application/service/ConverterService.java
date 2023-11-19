@@ -179,7 +179,7 @@ public class ConverterService {
         return new GeneralDTO(
                 general.getId(),
                 general.getDescripcion(),
-                general.getFotos(),
+                convertToDTO(general.getFotos()),
                 general.getEstadoReclamo(),
                 logDTOs
         );
@@ -198,10 +198,19 @@ public class ConverterService {
         return new LocalizadoDTO(
                 localizado.getId(),
                 localizado.getDescripcion(),
-                localizado.getFotos(),
+                convertToDTO(localizado.getFotos()), 
                 localizado.getEstadoReclamo(),
                 logDTOs
         );
+    }
+
+    public List<FotoDTO> convertToDTO(List<Foto> fotos){
+        List<FotoDTO> fotosdto = new ArrayList<>();
+        for (Foto f:fotos) {
+            FotoDTO fotoDTO = new FotoDTO(f.getData());
+            fotosdto.add(fotoDTO);
+        }
+        return fotosdto;
     }
 
     public LogDTO convertToDTO(Log log) {

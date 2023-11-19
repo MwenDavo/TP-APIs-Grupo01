@@ -1,6 +1,5 @@
 package application.model.entity.dto;
 
-import application.model.entity.foto;
 import application.model.util.EstadoReclamo;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class GeneralDTO extends ReclamoDTO{
         this.direccionEdificio = direccionEdificio;
     }
 
-    public GeneralDTO(long id, String descripcion, List<foto> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+    public GeneralDTO(long id, String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
         super(id, descripcion, fotos, estadoReclamo, historial);
     }
 

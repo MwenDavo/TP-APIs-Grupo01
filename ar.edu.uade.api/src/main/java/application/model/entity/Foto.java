@@ -1,11 +1,10 @@
-package application.model.entity.dto;
+package application.model.entity;
 
-import application.model.entity.Reclamo;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "fotos")
-public class fotoDTO {
+public class Foto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -14,8 +13,8 @@ public class fotoDTO {
     private byte[] data;
     @ManyToOne
     private Reclamo reclamo;
-    public fotoDTO(){}
-    public fotoDTO(byte[] data) {
+    public Foto(){}
+    public Foto(byte[] data) {
         this.data = data;
     }
     public byte[] getData() {

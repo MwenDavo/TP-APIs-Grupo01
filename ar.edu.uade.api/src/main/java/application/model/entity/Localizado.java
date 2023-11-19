@@ -15,13 +15,13 @@ public class Localizado extends Reclamo {
     public Localizado() {
     }
 
-    public Localizado(String descripcion, List<foto> fotos, Usuario usuario, Unidad unidad) {
-        super(descripcion, fotos, usuario);
+    public Localizado(String descripcion, List<Foto> Fotos, Usuario usuario, Unidad unidad) {
+        super(descripcion, Fotos, usuario);
         this.unidad = unidad;
     }
 
-    public Localizado(String descripcion, List<foto> fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
-        super(descripcion, fotos, estadoReclamo, historial);
+    public Localizado(String descripcion, List<Foto> Fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+        super(descripcion, Fotos, estadoReclamo, historial);
     }
 
     public Localizado(EstadoReclamo estadoReclamo) {
