@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReclamoDTO {
+    private long id;
     private String descripcion;
     private MultipartFile[] fotos;;
     private String username;
@@ -18,7 +19,8 @@ public class ReclamoDTO {
         this.username = username;
     }
 
-    public ReclamoDTO(String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+    public ReclamoDTO(long id, String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+        this.id = id;
         this.descripcion = descripcion;
         this.fotos = fotos;
         this.estadoReclamo = estadoReclamo;
@@ -71,5 +73,13 @@ public class ReclamoDTO {
 
     public void setHistorial(List<LogDTO> historial) {
         this.historial = historial;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

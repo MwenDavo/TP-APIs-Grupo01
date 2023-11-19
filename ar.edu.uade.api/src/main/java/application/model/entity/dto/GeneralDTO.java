@@ -17,8 +17,8 @@ public class GeneralDTO extends ReclamoDTO{
         this.direccionEdificio = direccionEdificio;
     }
 
-    public GeneralDTO(String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
-        super(descripcion, fotos, estadoReclamo, historial);
+    public GeneralDTO(long id, String descripcion, MultipartFile[] fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+        super(id, descripcion, fotos, estadoReclamo, historial);
     }
 
     public GeneralDTO(EstadoReclamo estadoReclamo) {

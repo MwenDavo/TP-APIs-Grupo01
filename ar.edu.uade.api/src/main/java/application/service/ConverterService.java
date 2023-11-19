@@ -93,6 +93,7 @@ public class ConverterService {
         }
 
         return new UsuarioDTO(
+                usuario.getId(),
                 usuario.getUsername(),
                 usuario.getDni(),
                 usuario.getNombre(),
@@ -155,7 +156,9 @@ public class ConverterService {
                 localizadoDTO.add(l);
             }
 
-            UnidadDTO unidadDTO = new UnidadDTO(unidad.getPiso(),
+            UnidadDTO unidadDTO = new UnidadDTO(
+                    unidad.getId(),
+                    unidad.getPiso(),
                     unidad.getNumero(),
                     localizadoDTO
             );
@@ -177,6 +180,7 @@ public class ConverterService {
         }
 
         return new GeneralDTO(
+                general.getId(),
                 general.getDescripcion(),
                 general.getFotos(),
                 general.getEstadoReclamo(),
@@ -195,6 +199,7 @@ public class ConverterService {
         }
 
         return new LocalizadoDTO(
+                localizado.getId(),
                 localizado.getDescripcion(),
                 localizado.getFotos(),
                 localizado.getEstadoReclamo(),
@@ -205,6 +210,7 @@ public class ConverterService {
     public LogDTO convertToDTO(Log log) {
 
         return new LogDTO(
+                log.getId(),
                 log.getFechaHora(),
                 log.getEstadoReclamo(),
                 log.getDescripcion()

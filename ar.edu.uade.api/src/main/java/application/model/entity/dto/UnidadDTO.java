@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnidadDTO {
+    private long id;
     private int piso;
     private int numero;
     private List<LocalizadoDTO> reclamos = new ArrayList<>();
@@ -20,7 +21,8 @@ public class UnidadDTO {
         this.numero = numero;
     }
 
-    public UnidadDTO(int piso, int numero, List<LocalizadoDTO> reclamos) {
+    public UnidadDTO(long id, int piso, int numero, List<LocalizadoDTO> reclamos) {
+        this.id = id;
         this.piso = piso;
         this.numero = numero;
         this.reclamos = reclamos;
@@ -48,5 +50,13 @@ public class UnidadDTO {
 
     public void setReclamos(List<LocalizadoDTO> reclamos) {
         this.reclamos = reclamos;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

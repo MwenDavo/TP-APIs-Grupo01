@@ -1,12 +1,12 @@
 package application.model.entity.dto;
 
-import application.model.entity.Log;
 import application.model.util.EstadoReclamo;
 
 import java.util.Date;
 
 public class LogDTO {
-    private Date FechaHora;
+    private long id;
+    private Date fechaHora;
     private EstadoReclamo estadoReclamo;
     private String descripcion;
 
@@ -19,18 +19,19 @@ public class LogDTO {
         this.descripcion = descripcion;
     }
 
-    public LogDTO(Date fechaHora, EstadoReclamo estadoReclamo, String descripcion) {
-        FechaHora = fechaHora;
+    public LogDTO(long id, Date fechaHora, EstadoReclamo estadoReclamo, String descripcion) {
+        this.id = id;
+        this.fechaHora = fechaHora;
         this.estadoReclamo = estadoReclamo;
         this.descripcion = descripcion;
     }
 
     public Date getFechaHora() {
-        return FechaHora;
+        return fechaHora;
     }
 
     public void setFechaHora(Date fechaHora) {
-        FechaHora = fechaHora;
+        this.fechaHora = fechaHora;
     }
 
     public EstadoReclamo getEstadoReclamo() {
@@ -47,5 +48,13 @@ public class LogDTO {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

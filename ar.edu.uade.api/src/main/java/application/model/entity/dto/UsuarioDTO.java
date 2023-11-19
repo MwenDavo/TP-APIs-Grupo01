@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDTO {
+    private long id;
     private String username;
     private String password;
     private int dni;
@@ -28,14 +29,16 @@ public class UsuarioDTO {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public UsuarioDTO(String nombre, int telefono, TipoUsuario tipoUsuario, List<UnidadDTO> unidadesDTO) {
+    public UsuarioDTO(long id, String nombre, int telefono, TipoUsuario tipoUsuario, List<UnidadDTO> unidadesDTO) {
+        this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
         this.tipoUsuario = tipoUsuario;
         this.unidadesDTO = unidadesDTO;
     }
 
-    public UsuarioDTO(String username, int dni, String nombre, int telefono, TipoUsuario tipoUsuario, List<UnidadDTO> unidadesDTO) {
+    public UsuarioDTO(long id, String username, int dni, String nombre, int telefono, TipoUsuario tipoUsuario, List<UnidadDTO> unidadesDTO) {
+        this.id = id;
         this.username = username;
         this.dni = dni;
         this.nombre = nombre;
