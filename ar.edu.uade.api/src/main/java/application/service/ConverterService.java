@@ -55,22 +55,43 @@ public class ConverterService {
 
     public General convertToEntity(GeneralDTO generalDTO) {
 
-        return new General(
+        General g = new General(
                 generalDTO.getDescripcion(),
-                generalDTO.getFotos(),
+                convertToEntityf(generalDTO.getFotos()),
                 usuarioService.readByUsername(generalDTO.getUsername()),
                 edificioService.readByDireccion(generalDTO.getdireccionEdificio())
         );
+
+        List<Foto> listaFotos = g.getFotos();
+        for (Foto f: listaFotos) {
+            f.setReclamo(g);
+        }
+
+        return g;
     }
 
     public Localizado convertToEntity(LocalizadoDTO localizadoDTO) {
-
-        return new Localizado(
+        Localizado l = new Localizado(
                 localizadoDTO.getDescripcion(),
-                localizadoDTO.getFotos(),
+                convertToEntityf(localizadoDTO.getFotos()),
                 usuarioService.readByUsername(localizadoDTO.getUsername()),
                 edificioService.readUnidad(localizadoDTO.getIdUnidad())
         );
+         List<Foto> listaFotos = l.getFotos();
+        for (Foto f: listaFotos) {
+            f.setReclamo(l);
+        }
+
+        return l;
+    }
+
+    public List<Foto> convertToEntityf(List<FotoDTO> fotos){
+        List<Foto> fotos1 = new ArrayList<>();
+        for (FotoDTO f: fotos) {
+            Foto foto = new Foto(f.getData());
+            fotos1.add(foto);
+        }
+        return fotos1;
     }
 
     public Log convertToEntity(LogDTO logDTO) {
@@ -179,7 +200,7 @@ public class ConverterService {
         return new GeneralDTO(
                 general.getId(),
                 general.getDescripcion(),
-                convertToDTO(general.getFotos()),
+                convertToDTOf(general.getFotos()),
                 general.getEstadoReclamo(),
                 logDTOs
         );
@@ -198,13 +219,13 @@ public class ConverterService {
         return new LocalizadoDTO(
                 localizado.getId(),
                 localizado.getDescripcion(),
-                convertToDTO(localizado.getFotos()), 
+                convertToDTOf(localizado.getFotos()),
                 localizado.getEstadoReclamo(),
                 logDTOs
         );
     }
 
-    public List<FotoDTO> convertToDTO(List<Foto> fotos){
+    public List<FotoDTO> convertToDTOf(List<Foto> fotos){
         List<FotoDTO> fotosdto = new ArrayList<>();
         for (Foto f:fotos) {
             FotoDTO fotoDTO = new FotoDTO(f.getData());
