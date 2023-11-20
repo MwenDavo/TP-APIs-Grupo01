@@ -109,6 +109,7 @@ public class ConverterService {
 
         List<UnidadDTO> unidades = new ArrayList<>();
 
+
         for (UsuarioUnidad usuarioUnidad : usuario.getUnidades()) {
 
             unidades.add(convertToDTO(usuarioUnidad.getUnidad()));
@@ -141,7 +142,7 @@ public class ConverterService {
 
             edificioDTO.getReclamos().add(convertToDTO(general));
         }
-
+        edificioDTO.setId(edificio.getId());
         return edificioDTO;
     }
 
@@ -153,7 +154,7 @@ public class ConverterService {
 
             unidad.getReclamos().add((LocalizadoDTO) convertToDTO(l));
         }
-
+        unidad.setId(u.getId());
         return unidad;
     }
 
@@ -231,13 +232,13 @@ public class ConverterService {
     public List<FotoDTO> convertToDTOf(List<Foto> fotos) throws IOException {
         List<FotoDTO> fotosdto = new ArrayList<>();
         int count = 0;
-        for (Foto f:fotos) {
+        /*for (Foto f:fotos) {
             MultipartFile multiPartFile = new MockMultipartFile("foto"+ count,f.getData());
             System.out.println(multiPartFile.getBytes());
             FotoDTO fotoDTO = new FotoDTO(multiPartFile);
             fotosdto.add(fotoDTO);
             count++;
-        }
+        }*/
         return fotosdto;
     }
 

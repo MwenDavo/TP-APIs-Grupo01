@@ -44,6 +44,7 @@ public class UsuarioController {
             response.add(usuarioDTO);
         }
 
+
         return response;
     }
 

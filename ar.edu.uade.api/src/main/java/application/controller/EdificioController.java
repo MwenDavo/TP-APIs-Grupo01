@@ -38,7 +38,7 @@ public class EdificioController {
     public List<EdificioDTO> readAll(@RequestParam("username") String username) throws IOException {
 
         List<Edificio> edificios = edificioService.readAll(username);
-
+        System.out.println("ID Edificio" + edificios.get(0).getId());
         List<EdificioDTO> response = new ArrayList<>();
 
         for (Edificio edificio : edificios) {
@@ -47,7 +47,7 @@ public class EdificioController {
 
             response.add(edificioDTO);
         }
-
+        System.out.println(response.get(0).getId());
         return response;
     }
 }
