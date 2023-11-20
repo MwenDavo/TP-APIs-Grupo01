@@ -36,7 +36,7 @@ public class SecurityConfiguration {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(
                 "/authentication/login",
-                "/authentication/register"
+                "/authentication/register/parameters"
         );
     }
 

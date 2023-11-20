@@ -14,7 +14,7 @@ public class UsuarioDTO {
     private String nombre;
     private int telefono;
     private TipoUsuario tipoUsuario;
-    private List<UnidadDTO> unidadesDTO = new ArrayList<>();;
+    private List<UnidadDTO> unidadesDTO = new ArrayList<>();
 
     public UsuarioDTO(){
 
@@ -106,13 +106,5 @@ public class UsuarioDTO {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }

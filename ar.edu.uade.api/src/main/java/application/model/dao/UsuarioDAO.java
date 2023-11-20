@@ -78,10 +78,8 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     private boolean checkPassword(String password, String passwordDB) {
-        /*
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(password, passwordDB);*/
-        return true;
+        return passwordEncoder.matches(password, passwordDB);
 
     }
 }
