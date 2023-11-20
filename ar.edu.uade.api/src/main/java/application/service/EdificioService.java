@@ -43,19 +43,7 @@ public class EdificioService implements IEdificioService {
     public List<Edificio> readAll(String usuario) {
         Usuario u = usuarioDAO.readByUsername(usuario);
         if (!ComprobacionRol.comprobarAdmin(u)){
-            /*List<Edificio> edificios = new ArrayList<>();
-            for (UsuarioUnidad usuarioUnidad : u.getUnidades()) {//TODO check si el edificio ya esta agregado
-                boolean existencia = false;
-                for(Edificio edificio:edificios){
-                    if (usuarioUnidad.getUnidad().getEdificio().equals(edificio)){
-
-                    }
-                }
-
-                edificios.add(usuarioUnidad.getUnidad().getEdificio());
-            }*/
-            return null;
-            //return edificios;
+            return edificioDAO.readAllComun(u);
         }else{
             return edificioDAO.readAll();
         }

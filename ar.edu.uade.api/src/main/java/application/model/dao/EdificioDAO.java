@@ -2,6 +2,7 @@ package application.model.dao;
 
 import application.model.entity.Edificio;
 import application.model.entity.Unidad;
+import application.model.entity.Usuario;
 import application.model.entity.UsuarioUnidad;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -59,6 +60,14 @@ public class EdificioDAO implements IEdificioDAO {
     public List<Edificio> readAll() {
         Session session = entityManager.unwrap(Session.class);
         Query<Edificio> query = session.createQuery("FROM Edificio", Edificio.class);
+        return query.getResultList();
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Edificio> readAllComun(Usuario usuario){
+        Session session = entityManager.unwrap(Session.class);
+        Query<Edificio> query = session.createQuery("SELECT DISTINCT e FROM UsuarioUnidad uu JOIN uu.unidad u JOIN u.edificio e WHERE uu.usuario = :usuario", Edificio.class);
+        query.setParameter("usuario",usuario);
         return query.getResultList();
     }
 

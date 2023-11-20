@@ -2,6 +2,7 @@ package application.model.dao;
 
 import application.model.entity.Edificio;
 import application.model.entity.Unidad;
+import application.model.entity.Usuario;
 import application.model.entity.UsuarioUnidad;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,10 @@ public interface IEdificioDAO {
     Edificio read(long id);
     Edificio readByDireccion(String direccion);
     List<Edificio> readAll();
+
+    @Transactional(readOnly = true)
+    List<Edificio> readAllComun(Usuario usuario);
+
     Unidad readUnidad(long id);
     void borrarRelacion(UsuarioUnidad usuarioUnidad);
     void deleteUnidad(Unidad unidad);
