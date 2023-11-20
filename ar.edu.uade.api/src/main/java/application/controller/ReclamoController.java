@@ -39,7 +39,7 @@ public class ReclamoController {
 
         reclamoService.create(general);
 
-        return new ResponseEntity<>("Se persistió el reclamo general.", HttpStatus.CREATED);
+        return new ResponseEntity<>(general.getId(), HttpStatus.CREATED);
     }
 
     @PostMapping("/createLocalizado")
@@ -58,7 +58,7 @@ public class ReclamoController {
 
         reclamoService.create(localizado);
 
-        return new ResponseEntity<>("Se persistió el reclamo localizado", HttpStatus.CREATED);
+        return new ResponseEntity<>(localizado.getId(), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/readGeneral/parameters")
