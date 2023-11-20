@@ -26,15 +26,10 @@ public class UsuarioService implements IUsuarioService {
      * @param UsuarioDTO completo convertido a Usuario
      */
     public void create(Usuario usuario, String username) {
-        System.out.println("PRE - ELSE IF");
         Usuario usuario1 = usuarioDAO.readByUsername(username);
-        /*if (ComprobacionRol.comprobarAdmin(usuario1)){
+        if (ComprobacionRol.comprobarAdmin(usuario1)){
             usuarioDAO.create(usuario);
-        } else if (username.equals("tomas")){
-            System.out.println("ELSE IF");
-            usuarioDAO.create(usuario);
-        }*/
-        usuarioDAO.create(usuario);
+        }
     }
 
     @Override
