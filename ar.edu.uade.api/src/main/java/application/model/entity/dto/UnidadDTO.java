@@ -13,6 +13,8 @@ public class UnidadDTO {
     private int numero;
     private List<LocalizadoDTO> reclamos = new ArrayList<>();
 
+    private List<UsuarioDTO> usuarios = new ArrayList<>();
+
     public UnidadDTO() {
     }
 
@@ -58,5 +60,13 @@ public class UnidadDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public List<UsuarioDTO> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<UsuarioDTO> usuarios) {
+        this.usuarios = usuarios;
     }
 }
