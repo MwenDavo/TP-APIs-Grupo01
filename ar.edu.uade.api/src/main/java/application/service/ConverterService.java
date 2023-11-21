@@ -58,7 +58,7 @@ public class ConverterService implements IConverterService{
 
         General g = new General(
                 generalDTO.getDescripcion(),
-                null, //todo convert to entity con fotos
+                 //todo convert to entity con fotos
                 usuarioService.readByUsername(generalDTO.getUsername()),
                 edificioService.readByDireccion(generalDTO.getdireccionEdificio())
         );
@@ -75,7 +75,7 @@ public class ConverterService implements IConverterService{
     public Localizado convertToEntity(LocalizadoDTO localizadoDTO) throws IOException {
         Localizado l = new Localizado(
                 localizadoDTO.getDescripcion(),
-                null, //todo convert to entity con fotos 2
+                 //todo convert to entity con fotos 2
                 usuarioService.readByUsername(localizadoDTO.getUsername()),
                 edificioService.readUnidad(localizadoDTO.getIdUnidad())
         );

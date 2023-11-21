@@ -28,6 +28,11 @@ public class Localizado extends Reclamo {
         super(estadoReclamo);
     }
 
+    public Localizado(String descripcion, Usuario usuario, Unidad unidad) {
+        super(descripcion,usuario);
+        this.unidad = unidad;
+    }
+
     public Unidad getUnidad() {
         return unidad;
     }

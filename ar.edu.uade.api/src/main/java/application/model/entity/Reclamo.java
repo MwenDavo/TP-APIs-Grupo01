@@ -2,6 +2,7 @@ package application.model.entity;
 
 import application.model.util.EstadoReclamo;
 import jakarta.persistence.*;
+import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,11 @@ public class Reclamo {
     private List<Log> historial = new ArrayList<>();
 
     public Reclamo() {
+    }
+
+    public Reclamo(String descripcion, Usuario usuario){
+        this.descripcion = descripcion;
+        this.usuario = usuario;
     }
 
     public Reclamo(String descripcion, List<Foto> Fotos, Usuario usuario) {

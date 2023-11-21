@@ -32,6 +32,11 @@ public class General extends Reclamo {
     public General(String descripcion, MultipartFile[] fotos, String username, String s) {
     }
 
+    public General(String descripcion, Usuario usuario, Edificio edificio) {
+        super(descripcion,usuario);
+        this.edificio = edificio;
+    }
+
     public Edificio getEdificio() {
         return edificio;
     }
