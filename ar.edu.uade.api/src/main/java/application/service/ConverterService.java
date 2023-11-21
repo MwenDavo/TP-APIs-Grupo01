@@ -63,10 +63,11 @@ public class ConverterService implements IConverterService{
                 edificioService.readByDireccion(generalDTO.getdireccionEdificio())
         );
 
+        /*
         List<Foto> listaFotos = g.getFotos();
         for (Foto f: listaFotos) {
             f.setReclamo(g);
-        }
+        }*/
 
         return g;
     }
@@ -78,10 +79,12 @@ public class ConverterService implements IConverterService{
                 usuarioService.readByUsername(localizadoDTO.getUsername()),
                 edificioService.readUnidad(localizadoDTO.getIdUnidad())
         );
+        /*
          List<Foto> listaFotos = l.getFotos();
         for (Foto f: listaFotos) {
             f.setReclamo(l);
-        }
+       }
+         */
 
         return l;
     }
