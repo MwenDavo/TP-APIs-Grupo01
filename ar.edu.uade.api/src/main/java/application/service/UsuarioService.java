@@ -6,6 +6,7 @@ import application.model.entity.*;
 import application.model.util.ComprobacionRol;
 import application.model.util.TipoRelacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,9 +72,19 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public void update(long id, Usuario u, String username) {
         if(ComprobacionRol.comprobarAdmin(usuarioDAO.readByUsername(username))){
-            Usuario usuario = usuarioDAO.read(id);
-            usuario.setTelefono(u.getTelefono());
-            usuarioDAO.update(usuario);
+            if (u.getPassword() == null){
+                u.setPassword(usuarioDAO.read(id).getPassword());
+                u.setId(usuarioDAO.read(id).getId());
+            }else{
+                u.setId(usuarioDAO.read(id).getId());
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                u.setPassword(
+                        passwordEncoder.encode(
+                                u.getPassword()
+                        )
+                );
+            }
+            usuarioDAO.update(u);
         }
     }
 
@@ -82,10 +93,15 @@ public class UsuarioService implements IUsuarioService {
      * @param UsuarioDTO con id convertido a Usuario
      */
     public void delete(long id,String username) {
-        if (ComprobacionRol.comprobarAdmin(usuarioDAO.readByUsername(username))){
-            Usuario usuario = usuarioDAO.read(id);
-            usuario.setDisponible(false);
-            usuarioDAO.update(usuario);
+        Usuario u = usuarioDAO.readByUsername(username);
+        if (ComprobacionRol.comprobarAdmin(u)){
+            if (!(u.getUnidades().size() >0)){
+                Usuario usuario = usuarioDAO.read(id);
+                usuario.setDisponible(false);
+                usuarioDAO.update(usuario);
+            }else{
+                throw new RuntimeException();
+            }
         }
     }
 

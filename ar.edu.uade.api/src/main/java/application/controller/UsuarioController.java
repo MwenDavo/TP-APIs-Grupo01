@@ -86,11 +86,12 @@ public class UsuarioController {
 
             return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
-
-        usuarioService.delete(id, username);
-
+        try{
+            usuarioService.delete(id, username);
+        }catch (RuntimeException E){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         String mensaje = "Usuario eliminado.";
-
         return new ResponseEntity<>(mensaje, HttpStatus.NO_CONTENT);
     }
 
