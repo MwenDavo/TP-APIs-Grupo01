@@ -13,6 +13,8 @@ public interface IReclamoService {
     void updateGeneral(long id, Log log, String username);
     void updateLocalizado(long id, Log log,String username);
     General readGeneral(long id);
-    void cargarFotoGeneral(long id, Foto foto);
-    void cargarFotoLocalizado(long id, Foto foto);
+    /*void cargarFotoGeneral(long id, Foto foto);
+    void cargarFotoLocalizado(long id, Foto foto);*/
+
+    void cargarFoto(long id, Foto imagen);
 }

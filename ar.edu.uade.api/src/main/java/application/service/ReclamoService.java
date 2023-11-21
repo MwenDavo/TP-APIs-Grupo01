@@ -79,7 +79,7 @@ public class ReclamoService implements IReclamoService {
 
     }
 
-    @Override
+    /*@Override
     @Transactional
     public void cargarFotoGeneral(long id, Foto imagen) {
         General reclamo = reclamoDAO.readGeneral(id);
@@ -105,6 +105,29 @@ public class ReclamoService implements IReclamoService {
         }
 
 
+    }*/
+
+
+    @Override
+    @Transactional
+    public void cargarFoto(long id, Foto imagen){
+        if ((reclamoDAO.readLocalizado(id)) != null){
+            Localizado reclamo = reclamoDAO.readLocalizado(id);
+            List<Foto> foto = new ArrayList<>();
+            foto.add(imagen);
+            if (allowUpdate(reclamo)) {
+                reclamo.setFotos(foto);
+                reclamoDAO.updateLocalizado(reclamo);
+            }
+        }else{
+            General reclamo = reclamoDAO.readGeneral(id);
+            List<Foto> foto = new ArrayList<>();
+            foto.add(imagen);
+            if (allowUpdate(reclamo)) {
+                reclamo.setFotos(foto);
+                reclamoDAO.updateGeneral(reclamo);
+            }
+        }
     }
 
     private boolean allowCreate(General general){
