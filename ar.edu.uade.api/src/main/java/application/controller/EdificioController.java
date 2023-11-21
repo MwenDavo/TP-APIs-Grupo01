@@ -3,6 +3,7 @@ package application.controller;
 import application.model.entity.*;
 import application.model.entity.dto.*;
 import application.service.ConverterService;
+import application.service.IConverterService;
 import application.service.IEdificioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

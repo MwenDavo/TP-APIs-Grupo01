@@ -3,6 +3,7 @@ package application.controller;
 import application.model.entity.Usuario;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.ConverterService;
+import application.service.IConverterService;
 import application.service.IUsuarioService;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;

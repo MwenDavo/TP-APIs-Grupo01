@@ -108,10 +108,10 @@ public class ConverterService implements IConverterService{
         List<UnidadDTO> unidades = new ArrayList<>();
 
 
-        for (UsuarioUnidad usuarioUnidad : usuario.getUnidades()) {
+        /*for (UsuarioUnidad usuarioUnidad : usuario.getUnidades()) {
 
             unidades.add(convertToDTO(usuarioUnidad.getUnidad()));
-        }
+        }*/
 
         return new UsuarioDTO(
                 usuario.getId(),
@@ -120,7 +120,7 @@ public class ConverterService implements IConverterService{
                 usuario.getNombre(),
                 usuario.getTelefono(),
                 usuario.getTipoUsuario(),
-                unidades
+                null //todo unidades eliminadas
         );
     }
     @Override
@@ -147,10 +147,15 @@ public class ConverterService implements IConverterService{
     public UnidadDTO convertToDTO(Unidad u) throws IOException {
 
         UnidadDTO unidad = new UnidadDTO(u.getPiso(),u.getNumero());
+        List<UsuarioDTO> usuariosadded = new ArrayList<>();
+        for (UsuarioUnidad user: u.getUsuarios()){
+            usuariosadded.add(convertToDTO(user.getUsuario()));
+        }
+        unidad.setUsuarios(usuariosadded);
 
         for(Localizado l: u.getReclamos()){
 
-            unidad.getReclamos().add((LocalizadoDTO) convertToDTO(l));
+            unidad.getReclamos().add(convertToDTO(l));
         }
         unidad.setId(u.getId());
         return unidad;
