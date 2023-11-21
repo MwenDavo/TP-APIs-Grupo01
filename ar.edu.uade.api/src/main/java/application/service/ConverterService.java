@@ -254,13 +254,12 @@ public class ConverterService implements IConverterService{
     public List<FotoDTO> convertToDTOf(List<Foto> fotos) throws IOException {
         List<FotoDTO> fotosdto = new ArrayList<>();
         int count = 0;
-        /*for (Foto f:fotos) {
-            MultipartFile multiPartFile = new MockMultipartFile("foto"+ count,f.getData());
-            System.out.println(multiPartFile.getBytes());
+        for (Foto f:fotos) {
+            MultipartFile multiPartFile = new MockMultipartFile("foto" + count, f.getData());
             FotoDTO fotoDTO = new FotoDTO(multiPartFile);
             fotosdto.add(fotoDTO);
             count++;
-        }*/
+        }
         return fotosdto;
     }
     @Override

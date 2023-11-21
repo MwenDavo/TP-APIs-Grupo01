@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -59,6 +60,35 @@ public class UsuarioService implements IUsuarioService {
             return usuario;
         }
         return null;
+    }
+
+
+
+    @Override
+    public String generarContraseñaProvisoria(Usuario usuario) {
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        SecureRandom secureRandom = new SecureRandom();
+
+        String caracteresDisponibles = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSQUVWXYZ0123456789,;.:-_+*{[}]/";
+
+        StringBuilder nuevaContraseña = new StringBuilder();
+
+        for (int i = 0; i <= 12; i++) {
+
+            int randomIndex = secureRandom.nextInt(caracteresDisponibles.length());
+
+            nuevaContraseña.append(caracteresDisponibles.charAt(randomIndex));
+        }
+
+        String finalPassword = nuevaContraseña.toString();
+
+        usuario.setPassword(passwordEncoder.encode(finalPassword));
+
+        usuarioDAO.update(usuario);
+
+        return finalPassword;
     }
 
     @Override

@@ -4,6 +4,7 @@ import application.model.entity.Usuario;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.ConverterService;
 import application.service.IConverterService;
+import application.service.ICorreoService;
 import application.service.IUsuarioService;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class AuthenticationController {
 
     @Autowired
     private SecretKey secretKey;
+
+    @Autowired
+    private ICorreoService correoService;
 
     private final int EXPIRATION_TIME_IN_HOURS = 24;
 
@@ -62,6 +66,33 @@ public class AuthenticationController {
         }
 
         return new ResponseEntity<>("Credenciales inválidas.", HttpStatus.UNAUTHORIZED);
+    }
+
+    @PostMapping(value = "/olvidoContraseña/parameters")
+    public ResponseEntity<?> olvidoContraseña(@RequestParam String username,
+                                              @RequestParam int dni,
+                                              @RequestParam String email) {
+
+        Usuario usuario = usuarioService.readByUsername(username);
+
+        if (usuario == null) {
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        else if (usuario.getDni() != dni) {
+
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        else {
+
+            String generatedPassword = usuarioService.generarContraseñaProvisoria(usuario);
+
+            correoService.enviarCorreoContraseñaProvisoria(email, generatedPassword);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     private Usuario convertToEntity(UsuarioDTO usuarioDTO) {

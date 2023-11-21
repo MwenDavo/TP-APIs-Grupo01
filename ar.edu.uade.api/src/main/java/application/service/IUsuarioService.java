@@ -11,6 +11,9 @@ public interface IUsuarioService {
     Usuario read(long id);
     Usuario readByUsername(String usuario);
     Usuario readByUsernameAndPassword(Usuario usuario);
+
+    String generarContraseñaProvisoria(Usuario usuario);
+
     List<Usuario> readAll();
     void update(long id, Usuario usuario, String username);
     void delete(long id, String username);
