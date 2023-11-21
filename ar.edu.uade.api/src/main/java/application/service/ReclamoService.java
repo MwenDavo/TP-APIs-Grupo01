@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -78,6 +79,34 @@ public class ReclamoService implements IReclamoService {
 
     }
 
+    @Override
+    @Transactional
+    public void cargarFotoGeneral(long id, Foto imagen) {
+        General reclamo = reclamoDAO.readGeneral(id);
+        List<Foto> foto = new ArrayList<>();
+        foto.add(imagen);
+        if (allowUpdate(reclamo)) {
+            reclamo.setFotos(foto);
+            reclamoDAO.updateGeneral(reclamo);
+        }
+
+
+    }
+
+    @Override
+    @Transactional
+    public void cargarFotoLocalizado(long id, Foto imagen) {
+        Localizado reclamo = reclamoDAO.readLocalizado(id);
+        List<Foto> foto = new ArrayList<>();
+        foto.add(imagen);
+        if (allowUpdate(reclamo)) {
+            reclamo.setFotos(foto);
+            reclamoDAO.updateLocalizado(reclamo);
+        }
+
+
+    }
+
     private boolean allowCreate(General general){
         Edificio edificio = general.getEdificio();
         for (Unidad unidad : edificio.getUnidades()) {
@@ -121,4 +150,5 @@ public class ReclamoService implements IReclamoService {
         }
         return validez;
     }
+
 }

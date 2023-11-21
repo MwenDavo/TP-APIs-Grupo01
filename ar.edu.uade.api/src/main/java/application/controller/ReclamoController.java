@@ -62,6 +62,37 @@ public class ReclamoController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/subirLocalizado")
+    public ResponseEntity<String> uploadLocalizado(@RequestParam("foto") MultipartFile archivo, @RequestParam("id")Long id){
+        try {
+            Foto foto = new Foto();
+            foto.setData(archivo.getBytes());
+            reclamoService.cargarFotoLocalizado(id,foto);
+            return ResponseEntity.ok("Imagen subida exitosamente");
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la imagen");
+        }
+    }
+
+    @PostMapping("/subirGeneral")
+    public ResponseEntity<String> uploadGeneral(@RequestParam("foto") MultipartFile archivo, @RequestParam("id")Long id){
+        try {
+            Foto foto = new Foto();
+            foto.setData(archivo.getBytes());
+            reclamoService.cargarFotoGeneral(id,foto);
+            return ResponseEntity.ok("Imagen subida exitosamente");
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la imagen");
+        }
+    }
+
+
     @GetMapping(value = "/readGeneral/parameters")
     public ResponseEntity<?> readGeneral(@RequestParam("id") long id) throws IOException {
 
