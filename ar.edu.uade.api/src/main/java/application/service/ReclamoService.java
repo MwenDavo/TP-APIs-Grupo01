@@ -29,7 +29,6 @@ public class ReclamoService implements IReclamoService {
     @Override
     public void create(Localizado localizado) {
         if (allowCreate(localizado)) {
-            System.out.println("Localizado: " + localizado.getFotos().get(0).getData().length);
             reclamoDAO.create(localizado);
         }
     }

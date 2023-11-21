@@ -53,9 +53,6 @@ public class UsuarioDAO implements IUsuarioDAO {
         Query<Usuario> query = session.createQuery("FROM Usuario WHERE username = :username", Usuario.class);
         query.setParameter("username", username);
         Usuario usuario = query.uniqueResult();
-        System.out.println("Usuario: " + username);
-        System.out.println("Pass: " + password);
-        System.out.println(usuario.getUsername());
         if (usuario != null && checkPassword(password, usuario.getPassword())) {
             return usuario;
         }

@@ -54,7 +54,6 @@ public class UsuarioService implements IUsuarioService {
      */
     public Usuario readByUsernameAndPassword(Usuario usuario) {
         usuario = usuarioDAO.readByUsernameAndPassword(usuario.getUsername(), usuario.getPassword());
-        System.out.println("Usuario: " + usuario.isDisponible());
         if (usuario.isDisponible() == true) {
             return usuario;
         }

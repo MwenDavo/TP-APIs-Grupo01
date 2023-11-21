@@ -32,8 +32,6 @@ public class EdificioDAO implements IEdificioDAO {
     @Transactional
     public void createUnidad(Unidad unidad, Edificio edificio){
         Session session = entityManager.unwrap(Session.class);
-        System.out.println("DENTRO DE EDIFICIO DAO: " + edificio.getDireccion());
-        System.out.println("PISO UNIDAD: " + unidad.getPiso());
         unidad.setEdificio(edificio);
         edificio.getUnidades().add(unidad);
         session.merge(edificio);

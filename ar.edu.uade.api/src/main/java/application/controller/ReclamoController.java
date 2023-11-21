@@ -30,6 +30,7 @@ public class ReclamoController {
         General general = converterService.convertToEntity(generalDTO);
 
         reclamoService.create(general);
+        System.out.println("ID:" + general.getId());
 
         return new ResponseEntity<>(general.getId(), HttpStatus.CREATED);
     }
@@ -41,7 +42,7 @@ public class ReclamoController {
         Localizado localizado = converterService.convertToEntity(localizadoDTO);
 
         reclamoService.create(localizado);
-
+        System.out.println(localizado.getDescripcion());
         return new ResponseEntity<>(localizado.getId(), HttpStatus.CREATED);
     }
 

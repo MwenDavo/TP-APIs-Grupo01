@@ -42,13 +42,13 @@ public class ReclamoDTO {
         this.descripcion = descripcion;
     }
 
-    public List<FotoDTO> getFotos() {
+    /*public List<FotoDTO> getFotos() {
         return fotos;
-    }
+    }*/
 
-    public void setFotos(List<FotoDTO> fotos) {
+    /*public void setFotos(List<FotoDTO> fotos) {
         this.fotos = fotos;
-    }
+    }*/
 
     public String getUsername() {
         return username;

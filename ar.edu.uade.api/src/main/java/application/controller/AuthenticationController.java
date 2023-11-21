@@ -33,7 +33,6 @@ public class AuthenticationController {
     @PostMapping("/register/parameters")
     private ResponseEntity<String> register(@RequestBody UsuarioDTO usuarioDTO,
                                             @RequestParam("username") String username) {
-        System.out.println("holaaaaa");
 
         Usuario usuario = converterService.convertToEntity(usuarioDTO);
 
