@@ -8,7 +8,7 @@ import java.util.List;
 public class ReclamoDTO {
     private long id;
     private String descripcion;
-    private List<FotoDTO> fotos;
+    //private List<FotoDTO> fotos;
     private String username;
     private EstadoReclamo estadoReclamo;
     private List<LogDTO> historial = new ArrayList<>();
@@ -18,10 +18,10 @@ public class ReclamoDTO {
         this.username = username;
     }
 
-    public ReclamoDTO(long id, String descripcion, List<FotoDTO> fotos, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
+    public ReclamoDTO(long id, String descripcion/*, List<FotoDTO> fotos*/, EstadoReclamo estadoReclamo, List<LogDTO> historial) {
         this.id = id;
         this.descripcion = descripcion;
-        this.fotos = fotos;
+        //this.fotos = fotos;
         this.estadoReclamo = estadoReclamo;
         this.historial = historial;
     }

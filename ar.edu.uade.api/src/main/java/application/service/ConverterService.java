@@ -210,7 +210,7 @@ public class ConverterService implements IConverterService{
         return new GeneralDTO(
                 general.getId(),
                 general.getDescripcion(),
-                null, //todo FOTOS
+                //todo FOTOS
                 general.getEstadoReclamo(),
                 logDTOs
         );
@@ -229,7 +229,7 @@ public class ConverterService implements IConverterService{
         return new LocalizadoDTO(
                 localizado.getId(),
                 localizado.getDescripcion(),
-                null, //todo FOTOS 2
+                 //todo FOTOS 2
                 localizado.getEstadoReclamo(),
                 logDTOs
         );
