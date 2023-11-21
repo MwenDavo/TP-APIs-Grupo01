@@ -30,14 +30,14 @@ public class ConverterService implements IConverterService{
         return new ReclamoDTO(r.getId(),r.getDescripcion(),r.getEstadoReclamo(),logs);
     }
 
-    @Override
+    /*@Override
     public Reclamo convertToEntity(ReclamoDTO r) {
         List<Log> logs = new ArrayList<Log>();
         r.getHistorial().forEach(log -> {
             logs.add(convertToEntity(log));
         });
         return new Reclamo(r.getDescripcion(),r.getEstadoReclamo(),logs);
-    }
+    }*/
 
     @Override
     public Usuario convertToEntity(UsuarioDTO usuarioDTO) {

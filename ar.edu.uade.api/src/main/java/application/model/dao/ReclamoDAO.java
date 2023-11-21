@@ -40,8 +40,8 @@ public class ReclamoDAO implements IReclamoDAO {
     @Transactional
     public List<Reclamo> readByDescripcion(String desc){
         Session session = entityManager.unwrap(Session.class);
-        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE Reclamo.descripcion LIKE '%:desc%'", Reclamo.class);
-        query.setParameter("desc", desc);
+        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE descripcion LIKE :desc", Reclamo.class);
+        query.setParameter("desc", "%"+desc+"%");
         return query.getResultList();
     }
     @Override

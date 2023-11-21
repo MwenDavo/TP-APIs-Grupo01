@@ -69,9 +69,9 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/olvidoContraseña/parameters")
-    public ResponseEntity<?> olvidoContraseña(@RequestParam String username,
-                                              @RequestParam int dni,
-                                              @RequestParam String email) {
+    public ResponseEntity<?> olvidoContraseña(@RequestParam("nombreUsuario") String username,
+                                              @RequestParam("dni") int dni,
+                                              @RequestParam("email") String email) {
 
         Usuario usuario = usuarioService.readByUsername(username);
 

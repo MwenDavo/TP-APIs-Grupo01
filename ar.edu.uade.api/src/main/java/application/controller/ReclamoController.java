@@ -5,6 +5,7 @@ import application.model.entity.dto.*;
 import application.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -150,6 +151,38 @@ public class ReclamoController {
         reclamoService.updateLocalizado(id, log, username);
 
         return new ResponseEntity<>("Se actualizó el reclamo localizado.", HttpStatus.OK);
+    }
+
+    @PostMapping("/subir")
+    public ResponseEntity<String> upload(@RequestParam("archivo") MultipartFile archivo) {
+        try {
+            Imagen imagen = new Imagen();
+            imagen.setDatosImagen(archivo.getBytes());
+            imagenService.save(imagen);
+            return ResponseEntity.ok("Imagen subida exitosamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la imagen.");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<byte[]> download(@PathVariable Long id) {
+        Foto foto;
+        if ((reclamoService.readGeneral(id))!=null){
+            foto = new Foto();
+            General reclamo = reclamoService.readGeneral(id);
+            foto.setData(reclamo.getFotos().get(0).getData());
+        }else {
+            foto = new Foto();
+            Localizado reclamo = reclamoService.readLocalizado(id);
+            foto.setData(reclamo.getFotos().get(0).getData());
+        }
+        if (foto != null) {
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(foto.getData());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
