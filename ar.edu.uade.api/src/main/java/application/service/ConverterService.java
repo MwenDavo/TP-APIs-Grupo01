@@ -21,10 +21,26 @@ public class ConverterService implements IConverterService{
     @Autowired
     private IEdificioService edificioService;
 
+    @Override
+    public ReclamoDTO convertToDTO(Reclamo r) {
+        List<LogDTO> logs = new ArrayList<LogDTO>();
+        r.getHistorial().forEach(log -> {
+            logs.add(convertToDTO(log));
+        });
+        return new ReclamoDTO(r.getId(),r.getDescripcion(),r.getEstadoReclamo(),logs);
+    }
+
+    @Override
+    public Reclamo convertToEntity(ReclamoDTO r) {
+        List<Log> logs = new ArrayList<Log>();
+        r.getHistorial().forEach(log -> {
+            logs.add(convertToEntity(log));
+        });
+        return new Reclamo(r.getDescripcion(),r.getEstadoReclamo(),logs);
+    }
 
     @Override
     public Usuario convertToEntity(UsuarioDTO usuarioDTO) {
-
         return new Usuario(
                 usuarioDTO.getUsername(),
                 usuarioDTO.getPassword(),

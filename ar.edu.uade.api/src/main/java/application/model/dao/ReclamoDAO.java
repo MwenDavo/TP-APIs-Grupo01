@@ -37,6 +37,14 @@ public class ReclamoDAO implements IReclamoDAO {
     }
 
     @Override
+    @Transactional
+    public List<Reclamo> readByDescripcion(String desc){
+        Session session = entityManager.unwrap(Session.class);
+        Query<Reclamo> query = session.createQuery("FROM Reclamo WHERE Reclamo.descripcion LIKE '%:desc%'", Reclamo.class);
+        query.setParameter("desc", desc);
+        return query.getResultList();
+    }
+    @Override
     @Transactional(readOnly = true)
     public General readGeneral(long id) {
         Session session = entityManager.unwrap(Session.class);

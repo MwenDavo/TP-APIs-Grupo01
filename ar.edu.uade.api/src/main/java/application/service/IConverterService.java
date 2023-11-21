@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IConverterService {
+
+    ReclamoDTO convertToDTO(Reclamo r);
+    Reclamo convertToEntity(ReclamoDTO r);
     Usuario convertToEntity(UsuarioDTO usuarioDTO);
 
     Edificio convertToEntity(EdificioDTO e);

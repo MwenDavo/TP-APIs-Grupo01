@@ -35,13 +35,13 @@ public class Reclamo {
 
     public Reclamo(String descripcion, List<Foto> Fotos, Usuario usuario) {
         this.descripcion = descripcion;
-        this.Fotos = Fotos;
+        //this.Fotos = Fotos;
         this.usuario = usuario;
     }
 
-    public Reclamo(String descripcion, List<Foto> Fotos, EstadoReclamo estadoReclamo, List<Log> historial) {
+    public Reclamo(String descripcion /*, List<Foto> Fotos*/, EstadoReclamo estadoReclamo, List<Log> historial) {
         this.descripcion = descripcion;
-        this.Fotos = Fotos;
+        //this.Fotos = Fotos;
         this.estadoReclamo = estadoReclamo;
         this.historial = historial;
     }

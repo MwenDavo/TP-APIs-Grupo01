@@ -46,6 +46,22 @@ public class ReclamoController {
         return new ResponseEntity<>(localizado.getId(), HttpStatus.CREATED);
     }
 
+    @GetMapping(value = "/readByDescripcion/parameters")
+    public ResponseEntity<?> readByDescripcion(@RequestParam("desc") String desc) throws IOException {
+        List<Reclamo> reclamos = reclamoService.readByDescripcion(desc);
+        if (reclamos == null) {
+
+            return new ResponseEntity<>("No se encontraron reclamos con descripcion que contengan esas frases.", HttpStatus.NOT_FOUND);
+        }
+
+        List<ReclamoDTO> response = new ArrayList<ReclamoDTO>();
+        reclamos.forEach(reclamo -> {
+            response.add(converterService.convertToDTO(reclamo));
+        });
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/readGeneral/parameters")
     public ResponseEntity<?> readGeneral(@RequestParam("id") long id) throws IOException {
 

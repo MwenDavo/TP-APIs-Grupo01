@@ -33,6 +33,10 @@ public class ReclamoService implements IReclamoService {
         }
     }
 
+    public List<Reclamo> readByDescripcion(String desc){
+        return reclamoDAO.readByDescripcion(desc);
+    }
+
     @Override
     public Localizado readLocalizado(long id) {
         return reclamoDAO.readLocalizado(id);
