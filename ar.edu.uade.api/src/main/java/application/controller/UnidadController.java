@@ -25,7 +25,7 @@ public class UnidadController {
     private IUsuarioService usuarioService;
 
     @Autowired
-    private ConverterService converterService;
+    private IConverterService converterService;
 
     @PostMapping("/CrearUnidad/parameters")
     public ResponseEntity<?> create(@RequestBody UnidadDTO UnidadDTO,

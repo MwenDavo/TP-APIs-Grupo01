@@ -3,16 +3,14 @@ package application.service;
 import application.model.entity.*;
 import application.model.entity.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ConverterService {
+public class ConverterService implements IConverterService{
 
     @Autowired
     private IReclamoService reclamoService;
@@ -24,7 +22,7 @@ public class ConverterService {
     private IEdificioService edificioService;
 
 
-
+    @Override
     public Usuario convertToEntity(UsuarioDTO usuarioDTO) {
 
         return new Usuario(
@@ -36,7 +34,7 @@ public class ConverterService {
                 usuarioDTO.getTelefono()
         );
     }
-
+    @Override
     public Edificio convertToEntity(EdificioDTO e) {
 
         Edificio edificio = new Edificio(e.getDireccion());
@@ -50,17 +48,17 @@ public class ConverterService {
 
         return edificio;
     }
-
+    @Override
     public Unidad convertToEntity(UnidadDTO u){
 
         return new Unidad(u.getPiso(),u.getNumero());
     }
-
+    @Override
     public General convertToEntity(GeneralDTO generalDTO) throws IOException {
 
         General g = new General(
                 generalDTO.getDescripcion(),
-                convertToEntityf(generalDTO.getFotos()),
+                null, //todo convert to entity con fotos
                 usuarioService.readByUsername(generalDTO.getUsername()),
                 edificioService.readByDireccion(generalDTO.getdireccionEdificio())
         );
@@ -72,11 +70,11 @@ public class ConverterService {
 
         return g;
     }
-
+    @Override
     public Localizado convertToEntity(LocalizadoDTO localizadoDTO) throws IOException {
         Localizado l = new Localizado(
                 localizadoDTO.getDescripcion(),
-                convertToEntityf(localizadoDTO.getFotos()),
+                null, //todo convert to entity con fotos 2
                 usuarioService.readByUsername(localizadoDTO.getUsername()),
                 edificioService.readUnidad(localizadoDTO.getIdUnidad())
         );
@@ -87,7 +85,7 @@ public class ConverterService {
 
         return l;
     }
-
+    @Override
     public List<Foto> convertToEntityf(List<FotoDTO> fotos) throws IOException {
         List<Foto> fotos1 = new ArrayList<>();
         for (FotoDTO f: fotos) {
@@ -96,7 +94,7 @@ public class ConverterService {
         }
         return fotos1;
     }
-
+    @Override
     public Log convertToEntity(LogDTO logDTO) {
 
         return new Log(
@@ -104,7 +102,7 @@ public class ConverterService {
                 logDTO.getDescripcion()
         );
     }
-
+    @Override
     public UsuarioDTO convertToDTO(Usuario usuario) throws IOException {
 
         List<UnidadDTO> unidades = new ArrayList<>();
@@ -125,7 +123,7 @@ public class ConverterService {
                 unidades
         );
     }
-
+    @Override
     public EdificioDTO convertToDTO(Edificio edificio) throws IOException {
 
         EdificioDTO edificioDTO = new EdificioDTO(
@@ -145,7 +143,7 @@ public class ConverterService {
         edificioDTO.setId(edificio.getId());
         return edificioDTO;
     }
-
+    @Override
     public UnidadDTO convertToDTO(Unidad u) throws IOException {
 
         UnidadDTO unidad = new UnidadDTO(u.getPiso(),u.getNumero());
@@ -157,7 +155,7 @@ public class ConverterService {
         unidad.setId(u.getId());
         return unidad;
     }
-
+    @Override
     public List<UnidadDTO> convertToDTO(List<Unidad> unidades) {
 
         List<UnidadDTO> unidadesRes = new ArrayList<>();
@@ -190,7 +188,7 @@ public class ConverterService {
 
         return unidadesRes;
     }
-
+    @Override
     public GeneralDTO convertToDTO(General general) throws IOException {
 
         List<LogDTO> logDTOs = new ArrayList<>();
@@ -204,12 +202,12 @@ public class ConverterService {
         return new GeneralDTO(
                 general.getId(),
                 general.getDescripcion(),
-                convertToDTOf(general.getFotos()),
+                null, //todo FOTOS
                 general.getEstadoReclamo(),
                 logDTOs
         );
     }
-
+    @Override
     public LocalizadoDTO convertToDTO(Localizado localizado) throws IOException {
 
         List<LogDTO> logDTOs = new ArrayList<>();
@@ -223,12 +221,12 @@ public class ConverterService {
         return new LocalizadoDTO(
                 localizado.getId(),
                 localizado.getDescripcion(),
-                convertToDTOf(localizado.getFotos()),
+                null, //todo FOTOS 2
                 localizado.getEstadoReclamo(),
                 logDTOs
         );
     }
-
+    @Override
     public List<FotoDTO> convertToDTOf(List<Foto> fotos) throws IOException {
         List<FotoDTO> fotosdto = new ArrayList<>();
         int count = 0;
@@ -241,7 +239,7 @@ public class ConverterService {
         }*/
         return fotosdto;
     }
-
+    @Override
     public LogDTO convertToDTO(Log log) {
 
         return new LogDTO(

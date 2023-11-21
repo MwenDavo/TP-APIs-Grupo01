@@ -22,7 +22,7 @@ public class AuthenticationController {
     private IUsuarioService usuarioService;
 
     @Autowired
-    private ConverterService converterService;
+    private IConverterService converterService;
 
     @Autowired
     private SecretKey secretKey;

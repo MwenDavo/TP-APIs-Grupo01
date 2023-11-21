@@ -21,19 +21,11 @@ public class ReclamoController {
     private IReclamoService reclamoService;
 
     @Autowired
-    private ConverterService converterService;
+    private IConverterService converterService;
 
     @PostMapping("/createGeneral")
-    public ResponseEntity<?> create(@RequestPart("reclamo") GeneralDTO generalDTO,
-                                    @RequestPart("fotos") MultipartFile[] fotos) throws IOException {
-
-        List<FotoDTO> fotosLocal =  new ArrayList<>();
-        for (MultipartFile f:
-                fotos) {
-            FotoDTO foto = new FotoDTO(f);
-            fotosLocal.add(foto);
-        }
-        generalDTO.setFotos(fotosLocal);
+    public ResponseEntity<?> create(@RequestBody GeneralDTO generalDTO/*,
+                                    @RequestPart("fotos") MultipartFile[] fotos*/) throws IOException {
 
         General general = converterService.convertToEntity(generalDTO);
 
@@ -43,16 +35,8 @@ public class ReclamoController {
     }
 
     @PostMapping("/createLocalizado")
-    public ResponseEntity<?> create(@RequestPart("reclamo") LocalizadoDTO localizadoDTO,
-                                    @RequestPart("fotos") MultipartFile[] fotos) throws IOException {
-        List<FotoDTO> fotosLocal =  new ArrayList<>();
-        for (MultipartFile f:
-                fotos) {
-            FotoDTO foto = new FotoDTO(f);
-            fotosLocal.add(foto);
-        }
-        System.out.println(fotosLocal);
-        localizadoDTO.setFotos(fotosLocal);
+    public ResponseEntity<?> create(@RequestBody LocalizadoDTO localizadoDTO/*,
+                                    @RequestPart("fotos") MultipartFile[] fotos*/) throws IOException {
 
         Localizado localizado = converterService.convertToEntity(localizadoDTO);
 

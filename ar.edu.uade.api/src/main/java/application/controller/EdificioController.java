@@ -21,7 +21,7 @@ public class EdificioController {
     private IEdificioService edificioService;
 
     @Autowired
-    private ConverterService converterService;
+    private IConverterService converterService;
 
     @PostMapping("/edificio/parameters")
     public ResponseEntity<?> create(@RequestBody EdificioDTO edificioDTO,

@@ -6,6 +6,7 @@ import application.model.entity.UsuarioUnidad;
 import application.model.entity.dto.UnidadDTO;
 import application.model.entity.dto.UsuarioDTO;
 import application.service.ConverterService;
+import application.service.IConverterService;
 import application.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class UsuarioController {
     private IUsuarioService usuarioService;
 
     @Autowired
-    private ConverterService converterService;
+    private IConverterService converterService;
 
     @GetMapping(value = "/all")
     /**
