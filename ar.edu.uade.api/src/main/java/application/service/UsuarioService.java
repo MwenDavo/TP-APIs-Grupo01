@@ -73,7 +73,6 @@ public class UsuarioService implements IUsuarioService {
         if(ComprobacionRol.comprobarAdmin(usuarioDAO.readByUsername(username))){
             Usuario usuario = usuarioDAO.read(id);
             usuario.setTelefono(u.getTelefono());
-            usuario.setPassword(u.getPassword());
             usuarioDAO.update(usuario);
         }
     }
